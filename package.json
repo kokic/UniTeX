@@ -1,0 +1,22 @@
+{
+  "name": "unitex",
+  "version": "1.0.0",
+  "description": "tex-like source to unicode",
+  "main": "unitex.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokic/UniTex.git"
+  },
+  "type": "module", 
+  "keywords": [
+    "tex",
+    "latex",
+    "unicode"
+  ],
+  "author": "kokic, Eiaton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kokic/UniTex/issues"
+  },
+  "homepage": "https://github.com/kokic/UniTex#readme"
+}
