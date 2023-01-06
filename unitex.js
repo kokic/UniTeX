@@ -95,12 +95,11 @@ const section = element.some()
 
 
 
-const source = String.raw`G_\Q := \text{Gal}(\bar\Q/\Q), \bar B, 
-  \mathbb G_m := Spec(\Z[U, U^-1]), 
-  \mathbb G_m \times_\Z \C, 
-  1 \rarr 2\pi\id i\cdot\Z \rarr \C \rarr \C^\times \rarr 1,  
-  \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, 1+\dfrac a{b+\frac12}
-`
+import fs from 'fs'
 
-console.log(text.parse(source))
+const read = path => fs.readFileSync(path, 'utf8')
+
+console.log(text.parse(read('./test/abs-galois-group.tex')))
+
+
 
