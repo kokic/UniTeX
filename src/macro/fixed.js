@@ -117,6 +117,12 @@ const Fixed = {
   defeq: '≝',
 
 
+  le: '≤', 
+  leq: '≤', 
+  leqslant: '⩽',
+  ge: '≥', 
+  geq: '≥', 
+  geqslant: '⩾', 
 
   to: '→',
   mapsto: '↦',
@@ -169,5 +175,8 @@ const greeks = [
   'phi', 'chi', 'psi', 'omega'
 ]
 greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i])
+
+// fixed symbol as supscripts
+Unicode.supscripts[Fixed.times] = Unicode.supscripts.x
 
 export default Fixed

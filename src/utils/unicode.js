@@ -39,7 +39,7 @@ Unicode.greeks = Unicode.greekUppers + Unicode.greekLowers
 Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
   'a', 
   'ɐ', 
-  'α', 
+  'α', // pending
   undefined, // ae
   'b', 
   'd', 
@@ -60,11 +60,12 @@ Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
   't', 
   'u', 
 ])
+Unicode.supscripts.x = 'ˣ' // u02e3
 Unicode.supscripts.n = 'ⁿ' // u207f
 
 Unicode.subscripts = {}
 Unicode.subscripts.p = 'ₚ' // u209a
 
-console.log(Unicode.supscripts)
+// console.log(Unicode.supscripts)
 
 export default Unicode

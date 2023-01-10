@@ -1,6 +1,5 @@
 
-import Parser from './src/parsec.js'
-
+import Proper from './src/utils/proper.js'
 import Unicode from './src/utils/unicode.js'
 
 import Binary from './src/macro/binary.js'
@@ -8,7 +7,7 @@ import Unary from './src/macro/unary.js'
 import Fixed from './src/macro/fixed.js'
 import Environment from './src/macro/environment.js'
 
-
+import Parser from './src/parsec.js'
 
 const token = predicate => new Parser(
   source => source.length > 0
@@ -92,10 +91,10 @@ const environ = begin.follow(() => section).follow(end)
 const unknownMacro = macroh.map(x => '\\' + x)
 
 const supscript = character('^').follow(value).second()
-  .map(x => Unicode.supscripts[x] || '^' + x)
+  .map(x => Unicode.supscripts[x] || '^' + Proper.brace(x))
 
 const subscript = character('_').follow(value).second()
-  .map(x => Unicode.subscripts[x] || '_' + x)
+  .map(x => Unicode.subscripts[x] || '_' + Proper.brace(x))
 
 const simplex = supscript.or(subscript)
 
