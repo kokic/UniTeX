@@ -2,15 +2,18 @@
 import Parser from './src/parsec.js'
 
 import Unicode from './src/utils/unicode.js'
+
 import Binary from './src/macro/binary.js'
 import Unary from './src/macro/unary.js'
 import Fixed from './src/macro/fixed.js'
 import Environment from './src/macro/environment.js'
 
+
+
 const token = predicate => new Parser(
   source => source.length > 0
-    ? predicate(token.char = source.charAt())
-      ? [token.char, source.substring(1)]
+    ? predicate(source[0])
+      ? [source[0], source.substring(1)]
       : undefined
     : undefined
 )
@@ -24,11 +27,23 @@ const string = str => new Parser(
     : undefined
 )
 
-const digit = token(x => x.boundedIn('1', '9'))
-// const digits = digit.plus()
+const digit = token(x => x.boundedIn('0', '9'))
+
+
+/*
+const digits = digit.plus()
+
+const add = digits.follow(token(x => x == '+')).follow(digits)
+console.log(add.parse('10+33*2'))
+
+
+
+*/
+
 
 const letter = token(Unicode.isLetter)
 const letters = letter.plus()
+
 
 const backslash = character('\\')
 
@@ -40,7 +55,7 @@ const space = character(' ')
 const spacea = space.asterisk()
 // const spaces = space.plus()
 
-const loose = x => spacea.follow(x).skip(spacea).second()
+const loose = x => spacea.follow(x).second()
 const single = digit.or(letter).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
 
@@ -64,7 +79,7 @@ const binaryMacro = macroh.and(x => Binary[x])
 
 const special = x => x == '\\'
   || x == '{' || x == '}'
-// || x == '_' || x == '^'
+  || x == '_' || x == '^'
 
 const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).follow(envira).second()
@@ -74,11 +89,23 @@ const environ = begin.follow(() => section).follow(end)
   .and(xs => xs[0][0] == xs[1])
   .map(xs => Environment[xs[1]](xs[0][1].filter((x, i) => !(i % 2))))
 
+const unknownMacro = macroh.map(x => '\\' + x)
+
+const supscript = character('^').follow(value).second()
+  .map(x => Unicode.supscripts[x] || '^' + x)
+
+const subscript = character('_').follow(value).second()
+  .map(x => Unicode.subscripts[x] || '_' + x)
+
+const simplex = supscript.or(subscript)
+
 const element = token(x => !special(x)).plus()
+  .or(simplex)
   .or(fixedMacro)
   .or(unaryMacro)
   .or(binaryMacro)
   .or(environ)
+  .or(unknownMacro)
 
 const text = element.plus()
 const section = element.some()
@@ -93,13 +120,18 @@ const section = element.some()
 // `
 // ))
 
+// 1 \rarr 2\pi\id i\cdot\Z \rarr \C \rarr \C^\times \rarr 1, 
+// 1+\dfrac a{b+\frac12}
+
 
 
 import fs from 'fs'
 
 const read = path => fs.readFileSync(path, 'utf8')
+const state = text.parse(read('./test/field.tex'))
 
-console.log(text.parse(read('./test/abs-galois-group.tex')))
+state && console.log(state[0])
+// console.log(text.parse(read('./test/abs-galois-group.tex')))
 
 
 

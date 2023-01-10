@@ -17,9 +17,7 @@ export default Unary
 
 const typeface = function (name, data) {
   Unicode[name] = data
-  Unary[name] = s => Array.from(s)
-    .map(x => Unicode[name][x] || x)
-    .join('')
+  Unary[name] = s => Unicode.render(s, name)
 }
 
 const { series, alphabets } = Unicode
@@ -38,5 +36,5 @@ typeface('mathbf', alphabets(...series('𝐀', '𝐳')))
 typeface('textit', alphabets(...series('𝐴', '𝑔'), 'h', ...series('𝑖', '𝑧')))
 typeface('textsf', alphabets(...series('𝖠', '𝗓')))
 typeface('texttt', alphabets(...series('𝙰', '𝚣')))
-typeface('textbf', alphabets(...series('𝐀', '𝐳')))
+typeface('textbf', Unicode.mathbf)
 
