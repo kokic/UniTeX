@@ -38,7 +38,12 @@ const matred = (xs, lg, rg, sep) => lg + xs.map(matrim).join(sep) + rg
 
 const regexpDoubleLine = /\r\n\r\n|\n\n/
 
-const polymerizeTeX = s => s.trim().replace(/\r\n|\n| (?= )/g, '')
+const polymerizeTeX = function (s) {
+  let result = s.trim()
+    .replace(/ *\r\n *| *\n *| (?= )/g, '')
+    .replace(/ *(\,|\.) */g, '$1 ')
+  return result
+}
 
 const theoremstyle = function (type, content) {
   let title = Fixed[type] + '. '

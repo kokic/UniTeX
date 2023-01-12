@@ -129,5 +129,6 @@ import fs from 'fs'
 const read = path => fs.readFileSync(path, 'utf8')
 
 const state = text.parse(read('./test/field.tex'))
+
 state && console.log(state[0])
 
