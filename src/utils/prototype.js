@@ -18,21 +18,32 @@ String.prototype.boundedIn = proxy((x, a, b) => x.code().boundedIn(a.code(), b.c
 
 // Link
 
-const id = x => x
+const defined = x => x != undefined
 const point = (x, f) => ({ x: x, y: f(x) })
 
-const Link = function (exec) {
+const Link = function (exec, chain = true) {
   this.exec = exec
-  this.check = (predicate = id) => {
+  this.chain = chain
+  this.suspend = () => this.chain = false
+  this.transfer = () => defined(this.next)
+    ? (this.next.chain = this.chain) : true
+
+  this.check = (predicate = defined) => {
     let origin = this.exec
     this.exec = (...xs) => point(origin(...xs), predicate)
-      .map(x => x.y ? x.x : undefined)
+      .map(x => x.y ? x.x : (this.suspend(), undefined))
     return this
   }
-  this.glue = next => new Link((...xs) =>
-    point(this.exec(...xs), x => x && next.exec(x))
-      .map(x => x.y && [x.x, x.y]))
-  this.map = morph => new Link((...xs) => morph(this.exec(...xs)))
+
+  this.glue = next => this.next = new Link((...xs) =>
+    point(this.exec(...xs), x => this.transfer() ? next.exec(x) : undefined)
+      .map(x => x.y ? [x.x, x.y] : (this.next.suspend(), undefined)))
+
+  this.map = morph => this.next = new Link((...xs) =>
+    (x => this.transfer() ? morph(x) : undefined)
+      (this.exec(...xs)))
 }
 
+
 export const link = exec => new Link(exec).check()
+

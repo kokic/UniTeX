@@ -45,15 +45,25 @@ Parser.prototype.plus = function () {
   })
 }
 
-Parser.prototype.map = function (morph) {
-  return new Parser(source => {
-    let tuple = this.parse(source)
-    if (!tuple) return undefined
 
-    let [a, residue] = tuple
-    return [morph(a), residue]
-  })
+
+/*
+ *  tuple? -> [a, residue]
+ *         -> [morph a, residue]
+ */
+Parser.prototype.map = function (morph) {
+  return new Parser(source =>
+    link(() => this.parse(source))
+      .map(xs => [morph(xs[0]), xs[1]])
+      .exec()
+  )
 }
+
+// let tuple = this.parse(source)
+// if (!tuple) return undefined
+
+// let [a, residue] = tuple
+// return [morph(a), residue]
 
 Parser.prototype.first = proxy(x => x.map(tuple => tuple[0]))
 Parser.prototype.second = proxy(x => x.map(tuple => tuple[1]))
@@ -61,20 +71,23 @@ Parser.prototype.second = proxy(x => x.map(tuple => tuple[1]))
 
 Function.prototype.parse = proxy((x, s) => x().parse(s))
 
-/**
- *  tuple1? -> [a, phase1] 
- *          -> [[a, phase1], tuple2?]
- *          -> [[a, phase1], [b, phase2]]
+/*
+ *  tuple1? -> [a, phase1]                 (check)
+ *          -> [[a, phase1], tuple2?]      (glue )
+ *          -> [[a, phase1], [b, phase2]]  (check)
  *          -> [[a, b], phase2]
  */
 Parser.prototype.follow = function (next) {
-  return new Parser(
-    source => link(() => this.parse(source))
+  return new Parser(source =>
+    link(() => this.parse(source))
       .glue(link(xs => next.parse(xs[1])))
-      .map(xs => xs && ((a, _, b, s) => [[a, b], s])(...xs.flat()))
+      .map(xs => [[xs[0][0], xs[1][0]], xs[1][1]])
       .exec()
   )
 }
+
+//  -> [a, phase1, b, phase2]      (flat )
+// flat version: ((a, _, b, s) => [[a, b], s])(...xs.flat())
 
 // let link1 = new Link(() => this.parse(source)).check()
 // let link2 = new Link(xs => next.parse(xs[1])).check()
