@@ -86,51 +86,48 @@ const end = backslash.skip(string('end')).follow(envira).second()
 // [[begin, text], end]
 const environ = begin.follow(() => section).follow(end)
   .and(xs => xs[0][0] == xs[1])
-  .map(xs => Environment[xs[1]](xs[0][1].filter((x, i) => !(i % 2))))
-
-const unknownMacro = macroh.map(x => '\\' + x)
+  .map(xs => Environment[xs[1]](xs[0][1]))
+//
 
 const supscript = character('^').follow(value).second()
   .map(x => Unicode.supscripts[x] || '^' + Proper.brace(x))
-
 const subscript = character('_').follow(value).second()
   .map(x => Unicode.subscripts[x] || '_' + Proper.brace(x))
-
 const simplex = supscript.or(subscript)
 
+
+/** 
+ * because there is a simplified version of 
+ * the theorem style (as fixed macro), it is 
+ * necessary to ensure that the environment 
+ * takes precedence over those macros. 
+ *
+ */
 const element = token(x => !special(x)).plus()
   .or(simplex)
+  .or(environ)
   .or(fixedMacro)
   .or(unaryMacro)
   .or(binaryMacro)
-  .or(environ)
-  .or(unknownMacro)
+//
+const section = element.plus()
 
-const text = element.plus()
-const section = element.some()
+/*
+console.log(environ.parse(String.raw`\begin{bmatrix} 
+  0 & 1 \\ 
+  1 & 0 
+\end{bmatrix}`))
+*/
 
-
-// console.log(value.parse('ab'))
-
-// console.log(environ.some().parse(String.raw`\begin{bmatrix}
-//   a & b \\
-//   c & d
-// \end{bmatrix}\begin{bmatrix} 0 & 1 \end{bmatrix}
-// `
-// ))
-
-// 1 \rarr 2\pi\id i\cdot\Z \rarr \C \rarr \C^\times \rarr 1, 
-// 1+\dfrac a{b+\frac12}
+const unknownMacro = macroh.map(x => '\\' + x)
 
 
+const text = element.or(unknownMacro).plus()
 
 import fs from 'fs'
 
 const read = path => fs.readFileSync(path, 'utf8')
+
 const state = text.parse(read('./test/field.tex'))
-
 state && console.log(state[0])
-// console.log(text.parse(read('./test/abs-galois-group.tex')))
-
-
 

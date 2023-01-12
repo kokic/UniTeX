@@ -23,7 +23,7 @@ const Fixed = {
   proposition: Unicode.render('Proposition', 'textbf'),
   lemma: Unicode.render('Lemma', 'textbf'),
   theorem: Unicode.render('Theorem', 'textbf'),
-  corollary: Unicode.render('Corollary', 'textbf'), 
+  corollary: Unicode.render('Corollary', 'textbf'),
   definition: Unicode.render('Definition', 'textbf'),
   remark: Unicode.render('Remark', 'textbf'),
   hypothesis: Unicode.render('Hypothesis', 'textbf'),
@@ -43,8 +43,8 @@ const Fixed = {
 
   prime: '′',
   Box: '□',
-  S: '§', 
-  sect: '§', 
+  S: '§',
+  sect: '§',
 
 
   /* Block 79 : Mathematical Operators */
@@ -117,12 +117,12 @@ const Fixed = {
   defeq: '≝',
 
 
-  le: '≤', 
-  leq: '≤', 
+  le: '≤',
+  leq: '≤',
   leqslant: '⩽',
-  ge: '≥', 
-  geq: '≥', 
-  geqslant: '⩾', 
+  ge: '≥',
+  geq: '≥',
+  geqslant: '⩾',
 
   to: '→',
   mapsto: '↦',

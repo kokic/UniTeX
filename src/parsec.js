@@ -1,7 +1,8 @@
 
 
-import { proxy } from './utils/prototype.js'
+import { proxy, link } from './utils/prototype.js'
 
+// Parse<A>.parse: String -> [A, String]
 const Parser = function (parse) {
   this.parse = parse
 }
@@ -57,22 +58,38 @@ Parser.prototype.map = function (morph) {
 Parser.prototype.first = proxy(x => x.map(tuple => tuple[0]))
 Parser.prototype.second = proxy(x => x.map(tuple => tuple[1]))
 
+
+Function.prototype.parse = proxy((x, s) => x().parse(s))
+
+/**
+ *  tuple1? -> [a, phase1] 
+ *          -> [[a, phase1], tuple2?]
+ *          -> [[a, phase1], [b, phase2]]
+ *          -> [[a, b], phase2]
+ */
 Parser.prototype.follow = function (next) {
   return new Parser(
-    source => {
-      let tuple1 = this.parse(source)
-      if (!tuple1) return undefined
-    
-      let [a, phase1] = tuple1
-    
-      let tuple2 = next.get().parse(phase1)
-      if (!tuple2) return undefined
-    
-      let [b, phase2] = tuple2
-      return [[a, b], phase2]
-    }
+    source => link(() => this.parse(source))
+      .glue(link(xs => next.parse(xs[1])))
+      .map(xs => xs && ((a, _, b, s) => [[a, b], s])(...xs.flat()))
+      .exec()
   )
 }
+
+// let link1 = new Link(() => this.parse(source)).check()
+// let link2 = new Link(xs => next.parse(xs[1])).check()
+// let morph = xs => xs && ((a, _, b, s) => [[a, b], s])(...xs.flat())
+
+// let tuple1 = this.parse(source)
+// if (!tuple1) return undefined
+
+// let [a, phase1] = tuple1
+
+// let tuple2 = next.parse(phase1)
+// if (!tuple2) return undefined
+
+// let [b, phase2] = tuple2
+// return [[a, b], phase2]
 
 
 Parser.prototype.skip = function (next) {
