@@ -1,2 +1,4 @@
 # UniTex
-for learning
+for learning.
+
+Unicode, Universal, Unity
