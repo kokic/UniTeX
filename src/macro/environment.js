@@ -14,8 +14,8 @@ const Environment = {
   Vmatrix: xs => matred(xs, '||', '||', '; '),
 
   // theorem family
-  // proposition: xs => xs,
-  // lemma: xs => xs,
+  proposition: xs => theoremstyle('proposition', xs),
+  lemma: xs => theoremstyle('lemma', xs),
   theorem: xs => theoremstyle('theorem', xs),
   // corollary: xs => xs,
   // definition: xs => xs,
@@ -24,6 +24,7 @@ const Environment = {
   // conjecture: xs => xs,
   // axiom: xs => xs,
   // example: xs => xs,
+  proof: xs => theoremstyle('proof', xs), 
 
   // misc family
   center: xs => xs,

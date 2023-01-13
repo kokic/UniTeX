@@ -30,6 +30,7 @@ const Fixed = {
   conjecture: Unicode.render('Conjecture', 'textbf'),
   axiom: Unicode.render('Axiom', 'textbf'),
   example: Unicode.render('Example', 'textbf'),
+  proof: Unicode.render('proof', 'textit'),
 
   cdot: '⋅',
   cdotp: '⋅',
