@@ -65,13 +65,13 @@ const macroName = letters.or(lbrace).or(rbrace).or(backslash)
   .or(token(x => x == ',' || x == '.' || x == '\\'))
 
 const macroh = backslash.follow(macroName).second()
-const fixedMacro = macroh.and(x => Fixed[x]).map(x => Fixed[x]) // `\\${x}`
+const fixedMacro = macroh.check(x => Fixed[x]).map(x => Fixed[x]) // `\\${x}`
 // [macro, value]
-const unaryMacro = macroh.and(x => Unary[x])
+const unaryMacro = macroh.check(x => Unary[x])
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
 // [[macro, value1], value2]
-const binaryMacro = macroh.and(x => Binary[x])
+const binaryMacro = macroh.check(x => Binary[x])
   .follow(value)
   .follow(value)
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
@@ -85,7 +85,7 @@ const begin = backslash.skip(string('begin')).follow(envira).second()
 const end = backslash.skip(string('end')).follow(envira).second()
 // [[begin, text], end]
 const environ = begin.follow(() => section).follow(end)
-  .and(xs => xs[0][0] == xs[1])
+  .check(xs => xs[0][0] == xs[1])
   .map(xs => Environment[xs[1]](xs[0][1]))
 //
 

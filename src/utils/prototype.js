@@ -27,23 +27,18 @@ const Link = function (exec, chain = true) {
   this.suspend = () => this.chain = false
   this.transfer = () => defined(this.next)
     ? (this.next.chain = this.chain) : true
+  this.transphism = f => x => this.transfer() ? f(x) : undefined
 
-  this.check = (predicate = defined) => {
-    let origin = this.exec
-    this.exec = (...xs) => point(origin(...xs), predicate)
-      .map(x => x.y ? x.x : (this.suspend(), undefined))
-    return this
-  }
+  this.check = (predicate = defined) => this.next = new Link((...xs) =>
+    point(this.exec(...xs), this.transphism(predicate))
+      .map(x => x.y ? x.x : (this.next.suspend(), undefined)))
 
   this.glue = next => this.next = new Link((...xs) =>
-    point(this.exec(...xs), x => this.transfer() ? next.exec(x) : undefined)
-      .map(x => x.y ? [x.x, x.y] : (this.next.suspend(), undefined)))
+    point(this.exec(...xs), this.transphism(next.exec))
+      .map(x => defined(x.y) ? [x.x, x.y] : (this.next.suspend(), undefined)))
 
   this.map = morph => this.next = new Link((...xs) =>
-    (x => this.transfer() ? morph(x) : undefined)
-      (this.exec(...xs)))
+    this.transphism(morph)(this.exec(...xs)))
 }
 
-
 export const link = exec => new Link(exec).check()
-

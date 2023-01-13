@@ -105,38 +105,63 @@ Parser.prototype.follow = function (next) {
 // return [[a, b], phase2]
 
 
+/*
+ *  tuple1? -> [a, phase1]                 (check)
+ *          -> [[a, phase1], tuple2?]      (glue )
+ *          -> [[a, phase1], [b, phase2]]  (check)
+ *          -> [a, phase2]
+ */
 Parser.prototype.skip = function (next) {
-  return new Parser(source => {
-    let tuple1 = this.parse(source)
-    if (!tuple1) return undefined
-
-    let [a, phase1] = tuple1
-    let tuple2 = next.get().parse(phase1)
-    if (!tuple2) return undefined
-
-    let [, phase2] = tuple2
-    return [a, phase2]
-  })
+  return new Parser(source =>
+    link(() => this.parse(source))
+      .glue(link(xs => next.parse(xs[1])))
+      .map(xs => [xs[0][0], xs[1][1]])
+      .exec()
+  )
 }
 
+// let tuple1 = this.parse(source)
+// if (!tuple1) return undefined
 
-Parser.prototype.and = function (predicate) {
-  return new Parser(source => {
-    let tuple1 = this.parse(source)
-    if (!tuple1) return undefined
+// let [a, phase1] = tuple1
+// let tuple2 = next.get().parse(phase1)
+// if (!tuple2) return undefined
 
-    let [a, phase1] = tuple1
-    if (!predicate(a, phase1)) return undefined
-    return tuple1
-  })
+// let [, phase2] = tuple2
+// return [a, phase2]
+
+
+
+
+/*
+ *  tuple? -> [a, residue]
+ *         -> [a, residue] (check predicate)
+ */
+Parser.prototype.check = function (predicate) {
+  return new Parser(source => 
+    link(() => this.parse(source))
+      .check(x => predicate(...x))
+      .exec()
+  )
 }
+// let tuple1 = this.parse(source)
+// if (!tuple1) return undefined
 
+// let [a, phase1] = tuple1
+// if (!predicate(a, phase1)) return undefined
+// return tuple1
+
+
+/*
+ *  tuple1? -> tuple1 (check)
+ *        ! -> tuple2
+ */
 Parser.prototype.or = function (next) {
-  return new Parser(source => {
-    let tuple = this.parse(source)
-    if (tuple) return tuple
-    return next.get().parse(source)
-  })
+  return new Parser(source =>
+    this.parse(source) || next.parse(source)
+  )
 }
 
-
+// let tuple = this.parse(source)
+// if (tuple) return tuple
+// return next.get().parse(source)

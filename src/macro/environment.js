@@ -27,7 +27,7 @@ const Environment = {
   proof: xs => theoremstyle('proof', xs), 
 
   // misc family
-  center: xs => xs,
+  // center: xs => xs,
 }
 
 const matrim = x => x.replace(/\s/g, '').replace(/&/g, ' ')
@@ -39,6 +39,15 @@ const matred = (xs, lg, rg, sep) => lg + xs.map(matrim).join(sep) + rg
 
 const regexpDoubleLine = /\r\n\r\n|\n\n/
 
+
+/**
+ * Adjustments to text formatting (such as spaces, line breaks, and indents) 
+ * are made after macro replacement Therefore, the current processing is not 
+ * friendly to macros such as quad The specific scheme for the format in the 
+ * environment is still under discussion, so this question will be put on 
+ * hold temporarily.
+ * 
+ */
 const polymerizeTeX = function (s) {
   let result = s.trim()
     .replace(/ *\r\n *| *\n *| (?= )/g, '')

@@ -2,21 +2,21 @@
 import Unicode from '../utils/unicode.js'
 
 const Fixed = {
-  N: Unicode.mathbb.N,
-  Z: Unicode.mathbb.Z,
-  Q: Unicode.mathbb.Q,
-  R: Unicode.mathbb.R,
-  C: Unicode.mathbb.C,
-  CC: Unicode.mathbb.C,
-  A: Unicode.mathbb.A,
-  F: Unicode.mathbb.F,
+  N: Unicode.typeface.mathbb.N,
+  Z: Unicode.typeface.mathbb.Z,
+  Q: Unicode.typeface.mathbb.Q,
+  R: Unicode.typeface.mathbb.R,
+  C: Unicode.typeface.mathbb.C,
+  CC: Unicode.typeface.mathbb.C,
+  A: Unicode.typeface.mathbb.A,
+  F: Unicode.typeface.mathbb.F,
 
-  natnums: Unicode.mathbb.N,
-  reals: Unicode.mathbb.R,
-  Reals: Unicode.mathbb.R,
-  cnums: Unicode.mathbb.C,
-  Complex: Unicode.mathbb.C,
-  Bbbk: Unicode.mathbb.k,
+  natnums: Unicode.typeface.mathbb.N,
+  reals: Unicode.typeface.mathbb.R,
+  Reals: Unicode.typeface.mathbb.R,
+  cnums: Unicode.typeface.mathbb.C,
+  Complex: Unicode.typeface.mathbb.C,
+  Bbbk: Unicode.typeface.mathbb.k,
 
   /* Theorem */
 
