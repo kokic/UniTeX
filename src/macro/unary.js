@@ -1,13 +1,17 @@
 
+import Proper from '../utils/proper.js'
 import Unicode from '../utils/unicode.js'
 
 const Unary = {
   id: x => x,
   text: x => x,
 
+  sqrt: x => '√' + Proper.paren(x),
+
   hat: x => x + (Unicode.isLetter(x) ? '\u0302' : '-hat'),
   tilde: x => x + (Unicode.isLetter(x) ? '\u0303' : '-tilde'),
-  bar: x => x + (Unicode.isLetter(x) ? '\u0304' : '-bar'),
+  bar: x => x + (Unicode.isLetter(x) ? '\u0304' : '-bar'), 
+  overline: x => x,
   breve: x => x + (Unicode.isLetter(x) ? '\u0306' : '-breve'),
 
   kern: x => x.endsWith('em') ? ' '.repeat(x.substring(0, x.length - 2)) : ' ',

@@ -92,8 +92,12 @@ Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
   't',
   'u',
 ])
+
 Unicode.supscripts.x = 'ˣ' // u02e3
 Unicode.supscripts.n = 'ⁿ' // u207f
+
+Unicode.supscripts[3] = '³' // u00b3
+
 
 Unicode.subscripts = {}
 Unicode.subscripts.p = 'ₚ' // u209a

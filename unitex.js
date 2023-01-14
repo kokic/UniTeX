@@ -79,6 +79,7 @@ const binaryMacro = macroh.check(x => Binary[x])
 const special = x => x == '\\'
   || x == '{' || x == '}'
   || x == '_' || x == '^'
+  || x == '%'
 
 const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).follow(envira).second()
@@ -93,8 +94,13 @@ const supscript = character('^').follow(value).second()
   .map(x => Unicode.supscripts[x] || '^' + Proper.brace(x))
 const subscript = character('_').follow(value).second()
   .map(x => Unicode.subscripts[x] || '_' + Proper.brace(x))
-const simplex = supscript.or(subscript)
+const suporsub = supscript.or(subscript)
 
+
+const comment = character('%')
+  .skip(token(x => x != '\n').asterisk())
+  .skip(character('\n'))
+  .map(x => '')
 
 /** 
  * because there is a simplified version of 
@@ -104,7 +110,8 @@ const simplex = supscript.or(subscript)
  *
  */
 const element = token(x => !special(x)).plus()
-  .or(simplex)
+  .or(comment)
+  .or(suporsub)
   .or(environ)
   .or(fixedMacro)
   .or(unaryMacro)
@@ -128,7 +135,7 @@ import fs from 'fs'
 
 const read = path => fs.readFileSync(path, 'utf8')
 
-const state = text.parse(read('./test/field.tex'))
+const state = text.parse(read('./test/modular.tex'))
 
 state && console.log(state[0])
 
