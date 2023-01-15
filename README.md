@@ -19,6 +19,8 @@ for learning.
 
 - **The output is syntactically compatible with [AsciiMath](http://asciimath.org)**, which may be used as the default style or an optional setting. 
 
+- **Terminal versions (in other languages)**. It is suitable for some environments with high performance requirements, so the JVM family (Java, Kotlin, etc.) or Rust will be given priority in language selection. 
+
 <!-- ## Demo -->
 
 <!-- ## Documentation -->
