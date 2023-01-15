@@ -28,6 +28,8 @@ const Environment = {
 
   // misc family
   // center: xs => xs,
+
+  // document: xs => xs, 
 }
 
 const matrim = x => x.replace(/\s/g, '').replace(/&/g, ' ')

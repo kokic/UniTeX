@@ -1,9 +1,7 @@
 # UniTeX
 for learning.
 
-Unicode, Universal, Unity
-
-2023/1/14
+2023/1/15
 
 ## In-progress
 
@@ -18,3 +16,15 @@ Unicode, Universal, Unity
 
 - **The output is syntactically compatible with [AsciiMath](http://asciimath.org)**, 
 which may be used as the default style or an optional setting. 
+
+
+---
+
+## Build
+
+- node.js
+- webpack
+```
+webpack ./unitex.js --mode=none
+```
+

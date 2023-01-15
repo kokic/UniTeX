@@ -2,12 +2,11 @@
   "name": "unitex",
   "version": "1.0.0",
   "description": "tex-like source to unicode",
-  "main": "unitex.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kokic/UniTex.git"
   },
-  "type": "module", 
+  "type": "module",
   "keywords": [
     "tex",
     "latex",
@@ -15,8 +14,16 @@
   ],
   "author": "kokic, Eiaton",
   "license": "MIT",
+  "private": true,
   "bugs": {
     "url": "https://github.com/kokic/UniTex/issues"
   },
-  "homepage": "https://github.com/kokic/UniTex#readme"
+  "homepage": "https://github.com/kokic/UniTex#readme",
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
 }

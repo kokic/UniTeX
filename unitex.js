@@ -131,11 +131,16 @@ const unknownMacro = macroh.map(x => '\\' + x)
 
 const text = element.or(unknownMacro).plus()
 
-import fs from 'fs'
 
-const read = path => fs.readFileSync(path, 'utf8')
 
-const state = text.parse(read('./test/modular.tex'))
 
-state && console.log(state[0])
+
+// import fs from 'fs'
+
+// const read = path => fs.readFileSync(path, 'utf8')
+
+// const state = text.parse(read('./test/modular.tex'))
+// state && console.log(state[0])
+
+
 
