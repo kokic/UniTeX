@@ -48,5 +48,5 @@ Perhaps due to the complexity of macro packages itself in history, KaTeX does no
 
 
 <a id='tables-remedies' href='#tables-remedies-back'>[2].</a>
-there may be some remedies, it is conceivable that they are not completely effective.
+There may be some remedies, it is conceivable that they are not completely effective.
 
