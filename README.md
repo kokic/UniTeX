@@ -1,4 +1,6 @@
 
+<span style='counter-reset: footnote;'><span>
+ 
 # UniTeX
 A transpiler that converts TeX into Unicode (as possible). 
 
