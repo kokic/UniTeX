@@ -1,6 +1,6 @@
 
 
-import { proxy, link } from './utils/prototype.js'
+import { proxy, link } from './utils/link.js'
 
 // Parse<A>.parse: String -> [A, String]
 const Parser = function (parse) {

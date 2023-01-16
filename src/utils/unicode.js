@@ -1,5 +1,11 @@
 
-import './prototype.js'
+import { proxy } from './link.js'
+
+// Object.prototype.map = proxy((x, morph) => morph(x))
+
+Number.prototype.boundedIn = proxy((x, a, b) => a <= x && x <= b)
+String.prototype.code = proxy(x => x.codePointAt(0))
+String.prototype.boundedIn = proxy((x, a, b) => x.code().boundedIn(a.code(), b.code()))
 
 const Unicode = {
   typeface: {},
@@ -65,7 +71,6 @@ typeface('texttt', alphabets(...series('𝙰', '𝚣')))
 typeface('textbf', Unicode.typeface.mathbf)
 
 
-
 // supscript & subscript
 
 Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
@@ -105,3 +110,4 @@ Unicode.subscripts.p = 'ₚ' // u209a
 // console.log(Unicode.supscripts)
 
 export default Unicode
+

@@ -131,16 +131,15 @@ const unknownMacro = macroh.map(x => '\\' + x)
 
 const text = element.or(unknownMacro).plus()
 
-
-
-
-
 // import fs from 'fs'
 
 // const read = path => fs.readFileSync(path, 'utf8')
 
 // const state = text.parse(read('./test/modular.tex'))
-// state && console.log(state[0])
+// state && fs.writeFile('./output.txt', state[0], () => {})
 
+export { text }
 
+// console.log(text.parse(String.raw`we can assume \Q \rarr \Z \rarr 1`))
+// console.log(Object.text.parse(String.raw`we can assume \Q \rarr \Z \rarr 1`))
 
