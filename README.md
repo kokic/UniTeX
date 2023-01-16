@@ -1,6 +1,6 @@
 
 # UniTeX
-for learning.
+A transpiler that converts TeX into Unicode (as possible). 
 
 2023/1/16
 
