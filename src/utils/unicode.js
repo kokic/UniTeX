@@ -1,8 +1,6 @@
 
 import { proxy } from './link.js'
 
-// Object.prototype.map = proxy((x, morph) => morph(x))
-
 Number.prototype.boundedIn = proxy((x, a, b) => a <= x && x <= b)
 String.prototype.code = proxy(x => x.codePointAt(0))
 String.prototype.boundedIn = proxy((x, a, b) => x.code().boundedIn(a.code(), b.code()))

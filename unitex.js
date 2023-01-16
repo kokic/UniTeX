@@ -117,29 +117,20 @@ const element = token(x => !special(x)).plus()
   .or(unaryMacro)
   .or(binaryMacro)
 //
-const section = element.plus()
 
-/*
-console.log(environ.parse(String.raw`\begin{bmatrix} 
-  0 & 1 \\ 
-  1 & 0 
-\end{bmatrix}`))
-*/
+const doubleBackslash = string('\\\\')
+const section = element.skip(doubleBackslash).or(element).some()
+
+// console.log(environ.parse(String.raw`\begin{bmatrix} 
+//   0 & 1 \\ 
+//   1 & 0 
+// \end{bmatrix}`))
+
 
 const unknownMacro = macroh.map(x => '\\' + x)
 
-
 const text = element.or(unknownMacro).plus()
 
-// import fs from 'fs'
-
-// const read = path => fs.readFileSync(path, 'utf8')
-
-// const state = text.parse(read('./test/modular.tex'))
-// state && fs.writeFile('./output.txt', state[0], () => {})
-
-export { text }
-
-// console.log(text.parse(String.raw`we can assume \Q \rarr \Z \rarr 1`))
-// console.log(Object.text.parse(String.raw`we can assume \Q \rarr \Z \rarr 1`))
-
+export const UniTeX = {
+  parse: s => (x => x ? x[0] : '')(text.parse(s))
+}

@@ -1,6 +1,7 @@
 
 package-lock.json
 test.js
+console.js
 
 node_modules/
 dist/
