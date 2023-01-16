@@ -4,7 +4,7 @@
 # UniTeX
 A transpiler that converts TeX into Unicode (as possible). 
 
-2023/16/1
+2023/1/17
 
 ## In-progress
 
