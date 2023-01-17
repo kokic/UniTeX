@@ -85,7 +85,8 @@ const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).follow(envira).second()
 const end = backslash.skip(string('end')).follow(envira).second()
 // [[begin, text], end]
-const environ = begin.follow(() => section).follow(end)
+const environ = begin.follow(() => section)
+  .follow(end)
   .check(xs => xs[0][0] == xs[1])
   .map(xs => Environment[xs[1]](xs[0][1]))
 //
@@ -119,7 +120,7 @@ const element = token(x => !special(x)).plus()
 //
 
 const doubleBackslash = string('\\\\')
-const section = element.skip(doubleBackslash).or(element).some()
+const section = doubleBackslash.or(element).plus()
 
 // console.log(environ.parse(String.raw`\begin{bmatrix} 
 //   0 & 1 \\ 

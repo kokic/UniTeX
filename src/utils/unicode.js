@@ -44,7 +44,7 @@ Unicode.greekLowers = Unicode.series('α', 'ρ') + Unicode.series('σ', 'ω')
 Unicode.greeks = Unicode.greekUppers + Unicode.greekLowers
 
 
-// typeface
+// typeface (Mathematical Alphanumeric Symbols)
 const series = Unicode.series
 const alphabets = Unicode.alphabets
 
@@ -57,16 +57,19 @@ typeface('mathbb', alphabets(...'𝔸𝔹ℂ', ...series('𝔻', '𝔾'),
   'ℤ', ...series('𝕒', '𝕫'))
 )
 typeface('mathfrak', alphabets(...series('𝕬', '𝖟')))
-typeface('mathscr', alphabets('𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ', ...series('𝒩', '𝒬'),
+typeface('mathscr', alphabets(...'𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ', ...series('𝒩', '𝒬'),
   'ℛ', ...series('𝒮', '𝒹'), 'ℯ', '𝒻', 'g', ...series('𝒽', '𝓃'),
   'ℴ', ...series('𝓅', '𝓏'))
 )
 typeface('mathbf', alphabets(...series('𝐀', '𝐳')))
+typeface('mathit', alphabets(...series('𝐴', '𝑔'), 'h', ...series('𝑖', '𝑧')))
+typeface('mathsf', alphabets(...series('𝖠', '𝗓')))
 
-typeface('textit', alphabets(...series('𝐴', '𝑔'), 'h', ...series('𝑖', '𝑧')))
-typeface('textsf', alphabets(...series('𝖠', '𝗓')))
-typeface('texttt', alphabets(...series('𝙰', '𝚣')))
 typeface('textbf', Unicode.typeface.mathbf)
+typeface('textit', Unicode.typeface.mathit)
+typeface('textsf', Unicode.typeface.mathsf)
+typeface('texttt', alphabets(...series('𝙰', '𝚣')))
+
 
 
 // supscript & subscript

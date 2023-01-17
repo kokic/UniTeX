@@ -3,15 +3,15 @@ import Fixed from './fixed.js'
 
 const Environment = {
   // matrix family
-  matrix: xs => matred(xs, ' ', ' ', '; '),
-  smallmatrix: xs => matred(xs, ' ', ' ', '; '),
+  matrix: xs => sepMatrix(xs, ' ', ' ', '; '),
+  smallmatrix: xs => sepMatrix(xs, ' ', ' ', '; '),
 
-  bmatrix: xs => matrix(xs, '[', ']'),
-  pmatrix: xs => matrix(xs, '(', ')'),
-  vmatrix: xs => matred(xs, '|', '|', '; '),
+  bmatrix: xs => regMatrix(xs, '[', ']'),
+  pmatrix: xs => regMatrix(xs, '(', ')'),
+  vmatrix: xs => sepMatrix(xs, '|', '|', '; '),
 
-  Bmatrix: xs => matrix(xs, '{', '}'),
-  Vmatrix: xs => matred(xs, '||', '||', '; '),
+  Bmatrix: xs => regMatrix(xs, '{', '}'),
+  Vmatrix: xs => sepMatrix(xs, '||', '||', '; '),
 
   // theorem family
   proposition: xs => theoremstyle('proposition', xs),
@@ -32,14 +32,22 @@ const Environment = {
   // document: xs => xs, 
 }
 
+const doubleBackslash = '\\\\'
+
 const matrim = x => x.replace(/\s/g, '').replace(/&/g, ' ')
-const matrix = function (xs, ls, rs, lg = ls, rg = rs) {
-  let s = ''.concat(...xs.map(x => ls + matrim(x) + rs))
+
+const regMatrix = function (gel, ls, rs, lg = ls, rg = rs) {
+  const xs = gel.split(doubleBackslash)
+  console.log(xs)
+  const s = ''.concat(...xs.map(x => ls + matrim(x) + rs))
   return xs.length > 1 ? lg + s + rg : s
 }
-const matred = (xs, lg, rg, sep) => lg + xs.map(matrim).join(sep) + rg
 
-const regexpDoubleLine = /\r\n\r\n|\n\n/
+const sepMatrix = function (gel, lg, rg, sep) {
+  const xs = gel.split(doubleBackslash)
+  return lg + xs.map(matrim).join(sep) + rg
+}
+
 
 
 /**
@@ -57,8 +65,11 @@ const polymerizeTeX = function (s) {
   return result
 }
 
+const regexpDoubleLine = /\r\n\r\n|\n\n/
+
 const theoremstyle = function (type, content) {
   let title = Fixed[type] + '. '
+  console.log(content)
   return title + content
     .split(regexpDoubleLine)
     .map(polymerizeTeX)
