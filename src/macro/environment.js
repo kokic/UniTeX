@@ -38,7 +38,7 @@ const matrim = x => x.replace(/\s/g, '').replace(/&/g, ' ')
 
 const regMatrix = function (gel, ls, rs, lg = ls, rg = rs) {
   const xs = gel.split(doubleBackslash)
-  console.log(xs)
+  // console.log(xs)
   const s = ''.concat(...xs.map(x => ls + matrim(x) + rs))
   return xs.length > 1 ? lg + s + rg : s
 }

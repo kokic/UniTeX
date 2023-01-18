@@ -102,6 +102,7 @@ Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
 Unicode.supscripts.x = 'ˣ' // u02e3
 Unicode.supscripts.n = 'ⁿ' // u207f
 
+Unicode.supscripts[2] = '²' // 
 Unicode.supscripts[3] = '³' // u00b3
 
 
