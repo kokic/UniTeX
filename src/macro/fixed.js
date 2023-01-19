@@ -105,6 +105,7 @@ const Fixed = {
 
   sim: '∼',
   backsim: '∽',
+  approx: '≈',
   nsim: '≁',
   simeq: '≃',
   nsimeq: '≄',
