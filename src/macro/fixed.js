@@ -105,8 +105,11 @@ const Fixed = {
   accint: '∳', // original
   rcirclerightint: '∳',
 
+  propto: '∝',
+  
   sim: '∼',
   backsim: '∽',
+  approx: '≈',
   nsim: '≁',
   simeq: '≃',
   nsimeq: '≄',
