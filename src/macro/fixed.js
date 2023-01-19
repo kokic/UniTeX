@@ -31,7 +31,15 @@ const Fixed = {
   conjecture: Unicode.render('Conjecture', 'textbf'),
   axiom: Unicode.render('Axiom', 'textbf'),
   example: Unicode.render('Example', 'textbf'),
-  proof: Unicode.render('proof', 'textit'),
+  proof: Unicode.render('proof', 'textit'), 
+
+  /* combined operatorname */
+  argmax: 'arg max', 
+  argmin: 'arg min', 
+  injlim: 'inj lim', 
+  liminf: 'lim inf', 
+  limsup: 'lim sup', 
+  projlim: 'proj lim', 
 
   cdot: '⋅',
   cdotp: '⋅',
@@ -47,6 +55,42 @@ const Fixed = {
   Box: '□',
   S: '§',
   sect: '§',
+
+  /* Big Operators */
+  bigotimes: '⨂', 
+  bigvee: '⋁', 
+  bigoplus: '⨁', 
+  bigwedge: '⋀', 
+  bigodot: '⨀', 
+  bigcup: '⋂', 
+  biguplus: '⨄', 
+  bigcup: '⋃', 
+  bigsqcup: '⨆', 
+
+  wedge: '∧', 
+  vee: '∨', 
+  sqcap: '⊓', 
+  sqcup: '⊔', 
+  boxdot: '⊡', 
+  boxplus: '⊞', 
+  boxminus: '⊟', 
+  boxtimes: '⊠', 
+
+  oplus: '⊕', 
+  ominus: '⊖', 
+  otimes: '⊗', 
+  oslash: '⊘', 
+
+  lhd: '⊲',
+  unlhd: '⊴',
+  rhd: '⊳', 
+  unrhd: '⊵',
+  setminus: '∖',
+  smallsetminus: '∖',
+  curlywedge: '⋏', 
+  doublebarwedge: '⩞', 
+  curlyvee: '⋎',
+  eebar: '⊻',
 
 
   /* Block 79 : Mathematical Operators */
@@ -72,7 +116,7 @@ const Fixed = {
   prod: '∏',
 
   coprod: '∐',
-  sum: '∑',
+  sum: '∑', 
   minus: '−',
   mp: '∓',
   dotplus: '∔',
@@ -142,14 +186,11 @@ const Fixed = {
 
   smile: '⌣', 
 
-  sub: '⊂',
-  subset: '⊂',
-  subsete: '⊆', 
-  subseteq: '⊆', 
+  sub: '⊂', subset: '⊂',
+  subsete: '⊆', subseteq: '⊆', 
   subseteqq: '⫅', 
   supset: '⊃',
-  supsete: '⊇', 
-  supseteq: '⊇', 
+  supsete: '⊇', supseteq: '⊇', 
   supseteqq: '⫆', 
 
   to: '→',
@@ -190,20 +231,36 @@ const Fixed = {
   '\\': '\n',
 }
 
-const greeks = [
-  'Alpha', 'Beta', 'Gamma', 'Delta',
-  'Epsilon', 'Zeta', 'Eta', 'Theta',
-  'Iota', 'Kappa', 'Lambda', 'Mu',
-  'Nu', 'Xi', 'Omicron', 'Pi',
-  'Rho', 'Sigma', 'Tau', 'Upsilon',
-  'Phi', 'Chi', 'Psi', 'Omega',
+const operatornames = [
+  'arcsin', 'arccos', 'arctan', 'arctg',
+  'arcctg', 'arg',    'ch',     'cos',
+  'det',    'gcd',    'inf',    'cosec',
+  'cosh',   'cot',    'cotg',   'coth',
+  'csc',    'ctg',    'cth',    'lim',
+  'max',    'deg',    'dim',    'exp',
+  'hom',    'ker',    'lg',     'ln',
+  'log',    'min',    'plim',   'Pr',
+  'sup',    'sec',    'sin',    'sinh',
+  'sh',     'tan',    'tanh',   'tg', 
+  'th'
+]
+operatornames.forEach(x => Fixed[x] = x)
 
-  'alpha', 'beta', 'gamma', 'delta',
-  'epsilon', 'zeta', 'eta', 'theta',
-  'iota', 'kappa', 'lambda', 'mu',
-  'nu', 'xi', 'omicron', 'pi',
-  'rho', 'sigma', 'tau', 'upsilon',
-  'phi', 'chi', 'psi', 'omega'
+
+const greeks = [
+  'Alpha',   'Beta',  'Gamma',   'Delta',
+  'Epsilon', 'Zeta',  'Eta',     'Theta',
+  'Iota',    'Kappa', 'Lambda',  'Mu',
+  'Nu',      'Xi',    'Omicron', 'Pi',
+  'Rho',     'Sigma', 'Tau',     'Upsilon',
+  'Phi',     'Chi',   'Psi',     'Omega',
+
+  'alpha',   'beta',  'gamma',   'delta',
+  'epsilon', 'zeta',  'eta',     'theta',
+  'iota',    'kappa', 'lambda',  'mu',
+  'nu',      'xi',    'omicron', 'pi',
+  'rho',     'sigma', 'tau',     'upsilon',
+  'phi',     'chi',   'psi',     'omega'
 ]
 greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i])
 
