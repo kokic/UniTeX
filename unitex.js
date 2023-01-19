@@ -27,18 +27,7 @@ const string = str => new Parser(
 )
 
 const digit = token(x => x.boundedIn('0', '9'))
-
-
-/*
-const digits = digit.plus()
-
-const add = digits.follow(token(x => x == '+')).follow(digits)
-console.log(add.parse('10+33*2'))
-
-
-
-*/
-
+// const digits = digit.plus()
 
 const letter = token(Unicode.isLetter)
 const letters = letter.plus()
@@ -79,29 +68,44 @@ const binaryMacro = macroh.check(x => Binary[x])
 const special = x => x == '\\'
   || x == '{' || x == '}'
   || x == '_' || x == '^'
-  || x == '%'
+  || x == '%' || x == '$'
 
 const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).follow(envira).second()
 const end = backslash.skip(string('end')).follow(envira).second()
 // [[begin, text], end]
-const environ = begin.follow(() => section)
-  .follow(end)
+const environ = begin.follow(() => section).follow(end)
   .check(xs => xs[0][0] == xs[1])
   .map(xs => Environment[xs[1]](xs[0][1]))
 //
 
-const supscript = character('^').follow(value).second()
-  .map(x => Unicode.supscripts[x] || '^' + Proper.brace(x))
-const subscript = character('_').follow(value).second()
-  .map(x => Unicode.subscripts[x] || '_' + Proper.brace(x))
-const suporsub = supscript.or(subscript)
 
+const corenderer = function (charset, str, otherwise) {
+  const array = Array.from(str)
+  let through = true
+  for (const element of array)
+    through &&= charset[element]
+  return through
+    ? array.map(x => charset[x]).join('')
+    : otherwise(str)
+}
+
+const supscript = character('^').follow(value).second()
+  .map(x => corenderer(Unicode.supscripts, x, s => '^' + Proper.brace(s)))
+const subscript = character('_').follow(value).second()
+  .map(x => corenderer(Unicode.subscripts, x, s => '_' + Proper.brace(s)))
+const suporsub = supscript.or(subscript)
 
 const comment = character('%')
   .skip(token(x => x != '\n').asterisk())
   .skip(character('\n'))
-  .map(x => '')
+  .map(() => '')
+
+// inline
+const mathstyle = character('$')
+  .follow(() => text).second()
+  .skip(character('$'))
+  .map(s => Unicode.render(s, 'mathit'))
 
 /** 
  * because there is a simplified version of 
@@ -112,6 +116,7 @@ const comment = character('%')
  */
 const element = token(x => !special(x)).plus()
   .or(comment)
+  .or(mathstyle)
   .or(suporsub)
   .or(environ)
   .or(fixedMacro)

@@ -30,8 +30,7 @@ const Unicode = {
   },
 
   render: (s, name) => Array.from(s)
-    .map(x => Unicode.typeface[name][x] || x)
-    .join(''),
+    .map(x => Unicode.typeface[name][x] || x).join(''),
 }
 
 Unicode.letterUppers = Unicode.series('A', 'Z')
@@ -61,6 +60,7 @@ typeface('mathscr', alphabets(...'𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ'
   'ℛ', ...series('𝒮', '𝒹'), 'ℯ', '𝒻', 'g', ...series('𝒽', '𝓃'),
   'ℴ', ...series('𝓅', '𝓏'))
 )
+typeface('mathcal', Unicode.typeface.mathscr) // remark
 typeface('mathbf', alphabets(...series('𝐀', '𝐳')))
 typeface('mathit', alphabets(...series('𝐴', '𝑔'), 'h', ...series('𝑖', '𝑧')))
 typeface('mathsf', alphabets(...series('𝖠', '𝗓')))
@@ -70,10 +70,14 @@ typeface('textit', Unicode.typeface.mathit)
 typeface('textsf', Unicode.typeface.mathsf)
 typeface('texttt', alphabets(...series('𝙰', '𝚣')))
 
+typeface('textscr', Unicode.typeface.mathscr) // original
+typeface('textcal', Unicode.typeface.mathcal) // original
 
 
 // supscript & subscript
 
+// Unicode Block
+/*
 Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
   'a',
   'ɐ',
@@ -98,15 +102,78 @@ Unicode.supscripts = Unicode.block('ᵃ', 'ᵡ', [
   't',
   'u',
 ])
+*/
 
-Unicode.supscripts.x = 'ˣ' // u02e3
-Unicode.supscripts.n = 'ⁿ' // u207f
+// supscripts
 
-Unicode.supscripts[2] = '²' // 
+Unicode.supscripts = {}
+
+Unicode.supscripts[0] = '⁰'
+Unicode.supscripts[1] = '¹'
+Unicode.supscripts[2] = '²'
 Unicode.supscripts[3] = '³' // u00b3
+Unicode.supscripts[4] = '⁴'
+Unicode.supscripts[5] = '⁵'
+Unicode.supscripts[6] = '⁶'
+Unicode.supscripts[7] = '⁷'
+Unicode.supscripts[8] = '⁸'
+Unicode.supscripts[9] = '⁹'
 
+Unicode.supscripts.a = 'ᵃ'
+Unicode.supscripts.b = 'ᵇ'
+Unicode.supscripts.c = 'ᶜ'
+Unicode.supscripts.d = 'ᵈ'
+Unicode.supscripts.e = 'ᵉ'
+Unicode.supscripts.f = 'ᶠ'
+Unicode.supscripts.g = 'ᵍ'
+Unicode.supscripts.h = 'ʰ'
+// Unicode.supscripts.i = '^i'
+Unicode.supscripts.j = 'ʲ'
+Unicode.supscripts.k = 'ᵏ'
+Unicode.supscripts.l = 'ˡ'
+Unicode.supscripts.m = 'ᵐ'
+Unicode.supscripts.n = 'ⁿ' // u207f
+Unicode.supscripts.o = 'ᵒ'
+Unicode.supscripts.p = 'ᵖ'
+Unicode.supscripts.r = 'ʳ'
+Unicode.supscripts.s = 'ˢ'
+Unicode.supscripts.t = 'ᵗ'
+Unicode.supscripts.u = 'ᵘ'
+Unicode.supscripts.v = 'ᵛ'
+Unicode.supscripts.w = 'ʷ'
+Unicode.supscripts.x = 'ˣ' // u02e3
+Unicode.supscripts.y = 'ʸ'
+Unicode.supscripts.z = 'ᶻ'
+
+Unicode.supscripts['+'] = '⁺'
+Unicode.supscripts['-'] = '⁻'
+Unicode.supscripts['='] = '⁼'
+Unicode.supscripts['('] = '⁽'
+Unicode.supscripts[')'] = '⁾'
+
+// Unicode: Phonetic Extensions
+Unicode.supscripts['α'] = 'ᵅ'
+Unicode.supscripts.A = 'ᴬ'
+// Unicode.supscripts. = 'ᴭ'
+Unicode.supscripts.B = 'ᴮ'
+// Unicode.supscripts. = 'ᴯ'
+Unicode.supscripts.D = 'ᴰ'
+Unicode.supscripts.E = 'ᴱ'
+// Unicode.supscripts. = 'ᴲ'
+Unicode.supscripts.G = 'ᴳ'
+Unicode.supscripts.H = 'ᴴ'
+Unicode.supscripts.I = 'ᴵ'
+Unicode.supscripts.J = 'ᴶ'
+Unicode.supscripts.K = 'ᴷ'
+Unicode.supscripts.L = 'ᴸ'
+Unicode.supscripts.M = 'ᴹ'
+Unicode.supscripts.N = 'ᴺ'
+// Unicode.supscripts. = 'ᴻ'
+
+// subscripts
 
 Unicode.subscripts = {}
+
 Unicode.subscripts[0] = '₀'
 Unicode.subscripts[1] = '₁'
 Unicode.subscripts[2] = '₂'
@@ -117,7 +184,32 @@ Unicode.subscripts[6] = '₆'
 Unicode.subscripts[7] = '₇'
 Unicode.subscripts[8] = '₈'
 Unicode.subscripts[9] = '₉'
+
+Unicode.subscripts.a = 'ₐ'
+Unicode.subscripts.e = 'ₑ'
+Unicode.subscripts.h = 'ₕ'
+Unicode.subscripts.i = 'ᵢ' // u1d62
+Unicode.subscripts.j = 'ⱼ'
+Unicode.subscripts.k = 'ₖ'
+Unicode.subscripts.l = 'ₗ'
+Unicode.subscripts.m = 'ₘ'
+Unicode.subscripts.n = 'ₙ'
+Unicode.subscripts.o = 'ₒ' 
 Unicode.subscripts.p = 'ₚ' // u209a
+Unicode.subscripts.r = 'ᵣ'
+Unicode.subscripts.s = 'ₛ'
+Unicode.subscripts.t = 'ₜ'
+Unicode.subscripts.u = 'ᵤ'
+Unicode.subscripts.v = 'ᵥ'
+Unicode.subscripts.x = 'ₓ'
+
+Unicode.supscripts['+'] = '₊'
+Unicode.supscripts['-'] = '₋'
+Unicode.subscripts['='] = '₌'
+Unicode.subscripts['('] = '₍'
+Unicode.subscripts[')'] = '₎'
+
+
 
 // console.log(Unicode.supscripts)
 

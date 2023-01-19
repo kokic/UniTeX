@@ -10,6 +10,7 @@ const Fixed = {
   CC: Unicode.typeface.mathbb.C,
   A: Unicode.typeface.mathbb.A,
   F: Unicode.typeface.mathbb.F,
+  SS: Unicode.typeface.mathbb.S, 
 
   natnums: Unicode.typeface.mathbb.N,
   reals: Unicode.typeface.mathbb.R,
@@ -93,6 +94,7 @@ const Fixed = {
   int: '∫',
   iint: '∬',
   iiint: '∭',
+  iiiint: '⨌', 
   oint: '∮',
   oiint: '∯',
   oiiint: '∰',
@@ -105,26 +107,47 @@ const Fixed = {
 
   sim: '∼',
   backsim: '∽',
-  approx: '≈',
   nsim: '≁',
   simeq: '≃',
   nsimeq: '≄',
   cong: '≅',
   congneq: '≆',
   ncong: '≇',
+  
+  approx: '≈', // u2248
+  nappox: '≉', // original
 
+  precapprox: '≾', 
+  succapprox: '≿', 
 
-  subset: '⊂',
-  supset: '⊃',
-  defeq: '≝',
-
-
+  eq: '=', 
+  ne: '≠', 
+  neq: '≠', 
+  stareq: '≛', // original
+  deltaeq: '≜', // original
+  triangleq: '≜', 
+  meq: '≞', // original
+  defeq: '≝', // original
+  qeq: '≟', // original
+  
   le: '≤',
   leq: '≤',
   leqslant: '⩽',
   ge: '≥',
   geq: '≥',
   geqslant: '⩾',
+
+  smile: '⌣', 
+
+  sub: '⊂',
+  subset: '⊂',
+  subsete: '⊆', 
+  subseteq: '⊆', 
+  subseteqq: '⫅', 
+  supset: '⊃',
+  supsete: '⊇', 
+  supseteq: '⊇', 
+  supseteqq: '⫆', 
 
   to: '→',
   mapsto: '↦',
@@ -183,5 +206,10 @@ greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i])
 
 // fixed symbol as supscripts
 Unicode.supscripts[Fixed.times] = Unicode.supscripts.x
+
+// fixed symbol as subscripts
+Unicode.subscripts[Fixed.in] = Fixed.smallin
+Unicode.subscripts[Fixed.ni] = Fixed.smallni
+
 
 export default Fixed

@@ -3,7 +3,7 @@ export const proxy = f => function (...xs) {
   return f(this, ...xs)
 }
 
-Object.prototype.map = proxy((x, morph) => morph(x))
+// Object.prototype.map = proxy((x, morph) => morph(x))
 
 // Link
 
