@@ -107,6 +107,16 @@ Unicode.supscripts[3] = '³' // u00b3
 
 
 Unicode.subscripts = {}
+Unicode.subscripts[0] = '₀'
+Unicode.subscripts[1] = '₁'
+Unicode.subscripts[2] = '₂'
+Unicode.subscripts[3] = '₃'
+Unicode.subscripts[4] = '₄'
+Unicode.subscripts[5] = '₅'
+Unicode.subscripts[6] = '₆'
+Unicode.subscripts[7] = '₇'
+Unicode.subscripts[8] = '₈'
+Unicode.subscripts[9] = '₉'
 Unicode.subscripts.p = 'ₚ' // u209a
 
 // console.log(Unicode.supscripts)
