@@ -152,7 +152,6 @@ const Fixed = {
   aleph: 'ℵ',
   alef: 'ℵ',
   alefsym: 'ℵ',
-  infty: '∞',
   ell: 'ℓ',
   wp: '℘',
   weierp: '℘',
