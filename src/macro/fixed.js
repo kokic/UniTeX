@@ -177,11 +177,9 @@ const Fixed = {
   defeq: '≝', // original
   qeq: '≟', // original
   
-  le: '≤',
-  leq: '≤',
+  le: '≤', leq: '≤',
   leqslant: '⩽',
-  ge: '≥',
-  geq: '≥',
+  ge: '≥', geq: '≥',
   geqslant: '⩾',
 
   smile: '⌣', 
@@ -194,6 +192,7 @@ const Fixed = {
   supseteqq: '⫆', 
 
   to: '→',
+  gets: '←',
   mapsto: '↦',
   larr: '←',
   lArr: '⇐',
@@ -202,11 +201,15 @@ const Fixed = {
   rArr: '⇒',
   Rarr: '⇒',
 
+  leftrightarrow: '↔', 
+
   longmapsto: '⟼',
   longrightarrow: '⟶',
   longleftarrow: '⟵',
   implies: '⟹',
+  Longrightarrow: '⟹',
   impliedby: '⟸',
+  Longleftarrow: '⟸',
   iff: '⟺',
 
   pm: '±',
