@@ -23,15 +23,22 @@ A transpiler that converts TeX into Unicode (as possible).
     - [ ] Accents
     - [x] Font Family
     - [ ] Extensible Arrows
+    - [x] Optionals
+      - [x] $\sqrt[n]x$
   - [ ] Binary
-    - [x] Fractions
+    - [x] Fractions (inline)
+    - [ ] Fractions (block)
     - [ ] Binomials
   - [ ] Environments
     - [x] Matrix (inline)
+    - [ ] Matrix (block)
     - [ ] Array
     - [ ] Align Family
-    - [ ] Tikzcd
+    - [ ] AMScd
+    - [ ] Tikzcd (?)
   - [ ] Macros
+    - [ ] Def
+    - [ ] Command
 
 - **A [website](https://unitex-web.netlify.app) convenient for input and output**. [Source code repository](https://github.com/kokic/UniTeX-Website).
 
