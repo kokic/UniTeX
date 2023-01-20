@@ -18,7 +18,7 @@ A transpiler that converts TeX into Unicode (as possible).
       - [x] Combined Operator Names
     - [x] Theorem Environment
     - [ ] Vertical Layout
-    - [ ] Spacing
+    - [x] Spacing
   - [ ] Unary
     - [ ] Accents
     - [x] Font Family
