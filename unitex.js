@@ -1,5 +1,4 @@
 
-import Proper from './src/utils/proper.js'
 import Unicode from './src/utils/unicode.js'
 
 import Binary from './src/macro/binary.js'
@@ -47,9 +46,15 @@ const space = character(' ')
 const spacea = space.asterisk()
 // const spaces = space.plus()
 
+
+const special = x => x == '\\'
+  || x == '{' || x == '}'
+  || x == '_' || x == '^'
+  || x == '%' || x == '$'
 const loose = x => spacea.follow(x).second()
 // const unit = digit.skip(string('em'))
-const single = digit.or(letter).or(() => fixedMacro)
+const valuesymbol = token(x => !special(x))
+const single = digit.or(letter).or(valuesymbol).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
 const optional = bracketWrap(value) // [value]
 
@@ -63,6 +68,8 @@ const symbolMacros = token(
     || x == '[' || x == ']'
     || x == '{' || x == '}'
     // || x == '.'
+    || x == '_'
+    || x == '%'
     || x == '\\'
 )
 
@@ -89,11 +96,6 @@ const binaryMacro = macroh.check(x => Binary[x])
   .follow(value)
   .follow(value)
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
-
-const special = x => x == '\\'
-  || x == '{' || x == '}'
-  || x == '_' || x == '^'
-  || x == '%' || x == '$'
 
 const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).follow(envira).second()
@@ -130,6 +132,7 @@ const mathstyle = character('$')
  *
  */
 const element = token(x => !special(x)).plus()
+  .or(value)
   .or(comment)
   .or(mathstyle)
   .or(suporsub)

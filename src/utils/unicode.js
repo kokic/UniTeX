@@ -1,5 +1,6 @@
 
 import { proxy } from './link.js'
+import Proper from './proper.js'
 
 Number.prototype.boundedIn = proxy((x, a, b) => a <= x && x <= b)
 String.prototype.code = proxy(x => x.codePointAt(0))
