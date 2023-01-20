@@ -23,8 +23,7 @@ A transpiler that converts TeX into Unicode (as possible).
     - [ ] Accents
     - [x] Font Family
     - [ ] Extensible Arrows
-    - [x] Optionals
-      - [x] $\sqrt[n]x$
+    - [x] Optionals (sqrt)
   - [ ] Binary
     - [x] Fractions (inline)
     - [ ] Fractions (block)
