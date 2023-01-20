@@ -31,6 +31,19 @@ const Unicode = {
 
   render: (s, name) => Array.from(s)
     .map(x => Unicode.typeface[name][x] || x).join(''),
+
+  corender: function (charset, str, otherwise) {
+    const array = Array.from(str)
+    let through = true
+    for (const element of array)
+      through &&= charset[element]
+    return through
+      ? array.map(x => charset[x]).join('')
+      : otherwise(str)
+  }, 
+
+  suprender: s => Unicode.corender(Unicode.supscripts, s, x => '^' + Proper.brace(x)), 
+  subrender: s => Unicode.corender(Unicode.subscripts, s, x => '_' + Proper.brace(x)), 
 }
 
 Unicode.letterUppers = Unicode.series('A', 'Z')
@@ -194,7 +207,7 @@ Unicode.subscripts.k = 'ₖ'
 Unicode.subscripts.l = 'ₗ'
 Unicode.subscripts.m = 'ₘ'
 Unicode.subscripts.n = 'ₙ'
-Unicode.subscripts.o = 'ₒ' 
+Unicode.subscripts.o = 'ₒ'
 Unicode.subscripts.p = 'ₚ' // u209a
 Unicode.subscripts.r = 'ᵣ'
 Unicode.subscripts.s = 'ₛ'

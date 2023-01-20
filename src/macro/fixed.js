@@ -221,14 +221,40 @@ const Fixed = {
   ell: 'ℓ',
   wp: '℘',
   weierp: '℘',
+
+  /* Spacing */
+  ',': ' ',
+  '>': ' ', 
+  ':': ' ',
+  ';': ' '.repeat(2),
+  '!': '', // stub
   quad: ' '.repeat(4),
   qquad: ' '.repeat(6),
-  ',': ' ',
-  ';': ' '.repeat(2),
+  thinspace: ' ', 
+  medspace: ' ', 
+  thickspace: ' '.repeat(2),
+  enspace: ' '.repeat(2), 
+  negthickspace: '', // stub
+  negthinspace: '', // stub
+  negmedspace: '', // stub
 
+
+  '(': '(', 
+  ')': ')', 
+  '[': '[', 
+  ']': ']', 
   '{': '{', 
   '}': '}', 
   '\\': '\n',
+  'newline': '\n', 
+
+  /* Symbols and Punctuation */
+  surd: '√', 
+  checkmark: '✓', 
+  top: '⊤', 
+  bot: '⊥', 
+  mho: '℧', 
+
 }
 
 const operatornames = [

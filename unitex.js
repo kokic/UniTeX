@@ -39,26 +39,51 @@ const lbrace = character('{')
 const rbrace = character('}')
 const braceWrap = x => lbrace.follow(x).skip(rbrace).second()
 
+const lbracket = character('[')
+const rbracket = character(']')
+const bracketWrap = x => lbracket.follow(x).skip(rbracket).second()
+
 const space = character(' ')
 const spacea = space.asterisk()
 // const spaces = space.plus()
 
 const loose = x => spacea.follow(x).second()
+// const unit = digit.skip(string('em'))
 const single = digit.or(letter).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
+const optional = bracketWrap(value) // [value]
 
+const symbolMacros = token(
+  x => x == ','
+    || x == '>'
+    || x == ':'
+    || x == ';'
+    || x == '!'
+    || x == '(' || x == ')'
+    || x == '[' || x == ']'
+    || x == '{' || x == '}'
+    // || x == '.'
+    || x == '\\'
+)
 
-
-
-const macroName = letters.or(lbrace).or(rbrace).or(backslash)
-  .or(token(x => x == ',' || x == '.' || x == '\\'))
+const macroName = letters.or(symbolMacros)
 
 const macroh = backslash.follow(macroName).second()
-const fixedMacro = macroh.check(x => Fixed[x]).map(x => Fixed[x]) // `\\${x}`
+const fixedMacro = macroh.check(x => Fixed[x]).map(x => Fixed[x])
+
 // [macro, value]
-const unaryMacro = macroh.check(x => Unary[x])
+const unaryOrdinaryMacro = macroh.check(x => Unary[x])
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
+
+// [[marco, optional], value]
+const unaryOptionalMacro = macroh.check(x => Unary.__optional__[x])
+  .follow(optional)
+  .follow(value)
+  .map(xs => Unary.__optional__[xs[0][0]](xs[0][1], xs[1]))
+
+const unaryMacro = unaryOrdinaryMacro.or(unaryOptionalMacro)
+
 // [[macro, value1], value2]
 const binaryMacro = macroh.check(x => Binary[x])
   .follow(value)
@@ -80,20 +105,10 @@ const environ = begin.follow(() => section).follow(end)
 //
 
 
-const corenderer = function (charset, str, otherwise) {
-  const array = Array.from(str)
-  let through = true
-  for (const element of array)
-    through &&= charset[element]
-  return through
-    ? array.map(x => charset[x]).join('')
-    : otherwise(str)
-}
-
 const supscript = character('^').follow(value).second()
-  .map(x => corenderer(Unicode.supscripts, x, s => '^' + Proper.brace(s)))
+  .map(Unicode.suprender)
 const subscript = character('_').follow(value).second()
-  .map(x => corenderer(Unicode.subscripts, x, s => '_' + Proper.brace(s)))
+  .map(Unicode.subrender)
 const suporsub = supscript.or(subscript)
 
 const comment = character('%')

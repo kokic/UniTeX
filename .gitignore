@@ -1,6 +1,7 @@
 
 package-lock.json
 test.js
+test/.local.tex
 console.js
 
 node_modules/
