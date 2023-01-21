@@ -1,7 +1,8 @@
 
+note.txt
 package-lock.json
-test.js
 test/.local.tex
+test.js
 console.js
 
 node_modules/

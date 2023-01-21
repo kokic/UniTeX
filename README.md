@@ -12,6 +12,7 @@ A transpiler that converts TeX into Unicode (as possible).
       - [x] 220x ~ 226x
       - [ ] 227x ~ 22Fx 
     - [ ] Delimiters
+    - [x] Arrows
     - [x] Operators
       - [x] Big Operators
       - [x] Operator Names
