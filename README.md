@@ -2,8 +2,7 @@
 # UniTeX
 A transpiler that converts TeX into Unicode (as possible). 
 
-
-## In-progress
+## TODO
 
 - **Some basic or commonly used macro commands**. ideally including but not limited to the functions in [MathJax](https://www.mathjax.org/) and [KaTeX](https://katex.org), They have some differences in the supported macros. This project will prefer the latter design (i.e. [Supported Functions](https://katex.org/docs/supported.html)).
   - [ ] Fixed
