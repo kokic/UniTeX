@@ -31,6 +31,7 @@ A transpiler that converts TeX into Unicode (as possible).
   - [ ] Environments
     - [x] Matrix (inline)
     - [ ] Matrix (block)
+    - [ ] Typesetting (math env)
     - [ ] Array
     - [ ] Align Family
     - [ ] AMScd
