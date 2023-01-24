@@ -4,7 +4,7 @@ import Unicode from '../utils/unicode.js'
 
 const Unary = {
   id: x => x,
-  text: x => x,
+  text: x => x, 
 
   sqrt: x => '√' + Proper.paren(x),
   cbrt: x => '∛' + Proper.paren(x), // original
@@ -31,7 +31,9 @@ Unary.mskip = Unary.kern
 Unary.hskip = Unary.kern
 Unary.hspace = Unary.kern
 
-const typefaceNames = Object.keys(Unicode.typeface)
-typefaceNames.forEach(x => Unary[x] = s => Unicode.render(s, x))
+Unicode.typefaceNames.forEach(x => Unary[x] = s => Unicode.render(s, x))
+
+/* just for typeface: Parser */
+Unary.typefaceNames = ['text', ...Unicode.typefaceNames]
 
 export default Unary

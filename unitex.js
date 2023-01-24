@@ -11,8 +11,8 @@ import {
   character,
   includes,
   string,
-  loose, 
-  digit, 
+  loose,
+  digit,
   letter,
   letters,
 } from './src/parsec.js'
@@ -39,7 +39,7 @@ const symbolMacros = includes(...',>:!()[]{}_%\\')
 
 const macroName = letters.or(symbolMacros)
 
-const macroh = backslash.follow(macroName).second()
+const macroh = backslash.move(macroName)
 const fixedMacro = macroh.check(x => Fixed[x]).map(x => Fixed[x])
 
 // [macro, value]
@@ -81,12 +81,25 @@ const comment = character('%')
   .skip(token(x => x != '\n').asterisk())
   .skip(character('\n'))
   .map(() => '')
+//
 
+
+const mathelem = token(x => !special(x)).plus()
+  .or(value)
+  .or(suporsub)
+  .or(environ)
+  .or(fixedMacro)
+  .or(unaryMacro)
+  .or(binaryMacro)
+
+const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
+  .follow(value)
+  .map(xs => Unary[xs[0]](xs[1]))
+
+const dollar = character('$')
 // inline
-const mathstyle = character('$')
-  .move(() => text)
-  .skip(character('$'))
-  .map(s => Unicode.render(s, 'mathit'))
+const mathrender = typeface.or(() => mathelem.map(s => Unicode.render(s, 'mathit')))
+const mathstyle = dollar.move(mathrender.plus()).skip(dollar)
 
 /** 
  * because there is a simplified version of 
@@ -96,14 +109,9 @@ const mathstyle = character('$')
  *
  */
 const element = token(x => !special(x)).plus()
-  .or(value)
   .or(comment)
   .or(mathstyle)
-  .or(suporsub)
-  .or(environ)
-  .or(fixedMacro)
-  .or(unaryMacro)
-  .or(binaryMacro)
+  .or(mathelem)
 //
 
 const doubleBackslash = string('\\\\')
@@ -117,8 +125,11 @@ const section = doubleBackslash.or(element).plus()
 
 const unknownMacro = macroh.map(x => '\\' + x)
 
-const text = element.or(unknownMacro).plus()
+const spectrum = element.or(unknownMacro)
+const text = spectrum.plus()
 
 export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s))
 }
+
+

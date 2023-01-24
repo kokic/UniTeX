@@ -6,6 +6,7 @@ import { proxy, link } from './utils/link.js'
 const Parser = function (parse) {
   this.parse = parse
 }
+Parser.create = parse => new Parser(parse)
 
 export default Parser
 
@@ -117,7 +118,7 @@ Parser.prototype.move = function (next) {
  *         -> [a, residue] (check predicate)
  */
 Parser.prototype.check = function (predicate) {
-  return new Parser(source => 
+  return new Parser(source =>
     link(() => this.parse(source))
       .check(x => predicate(...x))
       .run()
@@ -146,12 +147,12 @@ const token = predicate => new Parser(
 )
 
 const tokens = (n, predicate) => new Parser(
-  function (source) {
-    if (source.length < n) return undefined
-    const str = source.substring(0, n)
-    if (!predicate(str)) return undefined
-    return [str, source.substring(n)]
-  }
+  source => source.length >= n ?
+    link(() => source.substring(0, n))
+      .check(predicate)
+      .map(x => [x, source.substring(n)])
+      .run()
+    : undefined
 )
 const inclusive = (n, ...xs) => tokens(n, x => xs.includes(x))
 
