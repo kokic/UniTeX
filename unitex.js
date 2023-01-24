@@ -6,72 +6,36 @@ import Unary from './src/macro/unary.js'
 import Fixed from './src/macro/fixed.js'
 import Environment from './src/macro/environment.js'
 
-import Parser from './src/parsec.js'
-
-const token = predicate => new Parser(
-  source => source.length > 0
-    ? predicate(source[0])
-      ? [source[0], source.substring(1)]
-      : undefined
-    : undefined
-)
-const character = char => token(x => x == char)
-
-const string = str => new Parser(
-  source => source.length > 0
-    ? source.startsWith(str)
-      ? [str, source.substring(str.length)]
-      : undefined
-    : undefined
-)
-
-const digit = token(x => x.boundedIn('0', '9'))
-// const digits = digit.plus()
-
-const letter = token(Unicode.isLetter)
-const letters = letter.plus()
-
+import {
+  token,
+  character,
+  includes,
+  string,
+  loose, 
+  digit, 
+  letter,
+  letters,
+} from './src/parsec.js'
 
 const backslash = character('\\')
 
 const lbrace = character('{')
 const rbrace = character('}')
-const braceWrap = x => lbrace.follow(x).skip(rbrace).second()
+const braceWrap = x => lbrace.move(x).skip(rbrace)
 
 const lbracket = character('[')
 const rbracket = character(']')
-const bracketWrap = x => lbracket.follow(x).skip(rbracket).second()
+const bracketWrap = x => lbracket.move(x).skip(rbracket)
 
-const space = character(' ')
-const spacea = space.asterisk()
-// const spaces = space.plus()
-
-
-const special = x => x == '\\'
-  || x == '{' || x == '}'
-  || x == '_' || x == '^'
-  || x == '%' || x == '$'
-const loose = x => spacea.follow(x).second()
+const special = x => [...'\\{}_^%$'].includes(x)
 // const unit = digit.skip(string('em'))
+
 const valuesymbol = token(x => !special(x))
 const single = digit.or(letter).or(valuesymbol).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
 const optional = bracketWrap(value) // [value]
 
-const symbolMacros = token(
-  x => x == ','
-    || x == '>'
-    || x == ':'
-    || x == ';'
-    || x == '!'
-    || x == '(' || x == ')'
-    || x == '[' || x == ']'
-    || x == '{' || x == '}'
-    // || x == '.'
-    || x == '_'
-    || x == '%'
-    || x == '\\'
-)
+const symbolMacros = includes(...',>:!()[]{}_%\\')
 
 const macroName = letters.or(symbolMacros)
 
@@ -98,8 +62,8 @@ const binaryMacro = macroh.check(x => Binary[x])
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
 
 const envira = braceWrap(letters)
-const begin = backslash.skip(string('begin')).follow(envira).second()
-const end = backslash.skip(string('end')).follow(envira).second()
+const begin = backslash.skip(string('begin')).move(envira)
+const end = backslash.skip(string('end')).move(envira)
 // [[begin, text], end]
 const environ = begin.follow(() => section).follow(end)
   .check(xs => xs[0][0] == xs[1])
@@ -107,9 +71,9 @@ const environ = begin.follow(() => section).follow(end)
 //
 
 
-const supscript = character('^').follow(value).second()
+const supscript = character('^').move(value)
   .map(Unicode.suprender)
-const subscript = character('_').follow(value).second()
+const subscript = character('_').move(value)
   .map(Unicode.subrender)
 const suporsub = supscript.or(subscript)
 
@@ -120,7 +84,7 @@ const comment = character('%')
 
 // inline
 const mathstyle = character('$')
-  .follow(() => text).second()
+  .move(() => text)
   .skip(character('$'))
   .map(s => Unicode.render(s, 'mathit'))
 
