@@ -169,7 +169,6 @@ Unicode.supscripts['('] = '⁽'
 Unicode.supscripts[')'] = '⁾'
 
 // Unicode: Phonetic Extensions
-Unicode.supscripts['α'] = 'ᵅ'
 Unicode.supscripts.A = 'ᴬ'
 // Unicode.supscripts. = 'ᴭ'
 Unicode.supscripts.B = 'ᴮ'
@@ -186,6 +185,12 @@ Unicode.supscripts.L = 'ᴸ'
 Unicode.supscripts.M = 'ᴹ'
 Unicode.supscripts.N = 'ᴺ'
 // Unicode.supscripts. = 'ᴻ'
+
+Unicode.supscripts['α'] = 'ᵅ'
+
+
+Unicode.supscripts['′'] = '′'
+
 
 // subscripts
 

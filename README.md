@@ -20,11 +20,12 @@ A transpiler that converts TeX into Unicode (as possible).
     - [ ] Vertical Layout
     - [x] Spacing
   - [ ] Unary
-    - [ ] Accents
+    - [ ] Accents (hard)
     - [x] Font Family
     - [ ] Extensible Arrows
     - [x] Optionals (sqrt)
   - [ ] Binary
+    - [x] Relations Operators
     - [x] Fractions (inline)
     - [ ] Fractions (block)
     - [ ] Binomials
@@ -36,7 +37,7 @@ A transpiler that converts TeX into Unicode (as possible).
     - [ ] Array
     - [ ] Align Family
     - [ ] AMScd
-    - [ ] Tikzcd (?)
+    - [ ] Tikzcd (hard)
   - [ ] Macros
     - [ ] Def
     - [ ] Command
