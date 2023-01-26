@@ -510,6 +510,8 @@ const Fixed = {
   top: '⊤',
   bot: '⊥',
   mho: '℧',
+  star: '⋆', 
+  bigstar: '★', 
 
 }
 
