@@ -96,15 +96,15 @@ const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
 
-const mathrender = typeface.or(() => mathelem.map(s => Unicode.render(s, 'mathit')))
+const inlineRender = typeface.or(() => mathelem.map(s => Unicode.render(s, 'mathit')))
 
 // inline
 const dollar = character('$')
-const inlineMath = dollar.move(mathrender.plus()).skip(dollar)
+const inlineMath = dollar.move(inlineRender.plus()).skip(dollar)
 
 // block
 const doubleDollar = string('$$')
-const blockMath = doubleDollar.move(mathrender.plus()).skip(doubleDollar)
+const blockMath = doubleDollar.move(inlineRender.plus()).skip(doubleDollar)
 
 const mathstyle = blockMath.or(inlineMath)
 
