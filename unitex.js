@@ -5,6 +5,7 @@ import Binary from './src/macro/binary.js'
 import Unary from './src/macro/unary.js'
 import Fixed from './src/macro/fixed.js'
 import Environment from './src/macro/environment.js'
+import Block from './src/utils/block.js'
 
 import {
   token,
@@ -30,7 +31,11 @@ const bracketWrap = x => lbracket.move(x).skip(rbracket)
 const special = x => '\\{}_^%$'.includes(x)
 // const unit = digit.skip(string('em'))
 
-const valuesymbol = token(x => !special(x))
+const literal = token(x => !special(x))
+const literals = literal.plus()
+
+const solid = x => x.trim().length == 1
+const valuesymbol = literal.check(solid)
 const single = digit.or(letter).or(valuesymbol).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
 const optional = bracketWrap(value) // [value]
@@ -94,7 +99,7 @@ const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
 //
 
 // inline
-const inlineElem = token(x => !special(x)).plus()
+const inlineElem = literals
   .or(value)
   .or(suporsub)
   .or(environ)
@@ -124,9 +129,13 @@ const blockBinaryMacro = macroh.check(x => Binary.__block__[x])
   .map(xs => Binary.__block__[xs[0][0]](xs[0][1], xs[1]))
 
 const blockElem = blockInfix
-    .or(fixedMacro.map(x => x.toBlock()))
-    .or(blockValue)
-    .or(blockBinaryMacro)
+  .or(blockValue) // csp. value
+  .or(suporsub.map(Block.of))
+  .or(fixedMacro.map(Block.of))
+  .or(unaryMacro.map(Block.of))
+  .or(blockBinaryMacro) // csp. binary
+  .or(token(x => !solid(x)).some().map(x => Block.empty))
+
 const blockCluster = blockElem.some()
   .map(x => x.reduce((s, t) => s.append(t)))
 
@@ -150,7 +159,7 @@ const mathstyle = blockMath.or(inlineMath)
  * takes precedence over those macros. 
  *
  */
-const element = token(x => !special(x)).plus()
+const element = literals
   .or(comment)
   .or(mathstyle)
   .or(inlineElem)

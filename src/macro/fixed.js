@@ -182,7 +182,7 @@ const Fixed = {
 
   nsimeq: '≄',
   congneq: '≆',
-  nappox: '≉', // original
+  napprox: '≉', // original
 
   eq: '=',
   ne: '≠',

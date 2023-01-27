@@ -4,8 +4,9 @@ String.prototype.fill = function (n) {
   if (residue == n) return ' '.repeat(n)
   if (residue == 0) return this
   if (residue < 0) return this.substring(0, n)
-  const halfspace = ' '.repeat(residue / 2)
-  return halfspace + this + halfspace
+  const left = Math.floor(residue / 2)
+  const right = residue - left
+  return ' '.repeat(left) + this + ' '.repeat(right)
 }
 
 const Block = function (data, baseline = 0) {
@@ -15,24 +16,12 @@ const Block = function (data, baseline = 0) {
   this.string = this.data.join('\n')
   this.baseline = baseline
 
-  // this.verticalize = function () {
-  // return new Block(this.data.map(x => x.fill(this.width)))
-  // }
-
-  // this.heightlift = function (n) {
-  //   const halfline = Array((n - this.height) / 2).fill('')
-  //   return new Block(halfline.concat(this.data).concat(halfline))
-  // }
-
   this.blocklift = function (n, offset) {
     const residue = n - this.height
     if (residue == 0) return this
     const topline = Array(offset).fill('')
     const bottomline = Array(residue - offset).fill('')
     return new Block(topline.concat(this.data).concat(bottomline))
-    // const halfline = Array((n - this.height) / 2).fill('')
-    // const xs = halfline.concat(this.data).concat(halfline)
-    // return new Block(xs)
   }
 
   this.append = function (block) {
@@ -57,7 +46,14 @@ const Block = function (data, baseline = 0) {
     return new Block(data.map(x => x.fill(width)), this.height)
   }
 }
-Block.plus = new Block([' + '])
+
+String.prototype.toBlock = function () {
+  return new Block([this])
+}
+Block.of = s => s.toBlock()
+
+Block.empty = ''.toBlock()
+Block.plus = ' + '.toBlock()
 
 const fracByString = function (x, y) {
   const width = Math.max(x.length, y.length) + 2
@@ -66,16 +62,12 @@ const fracByString = function (x, y) {
 }
 
 const frac = function (a, b) {
-  if (typeof a == 'string' && typeof b == 'string') return fracByString(a, b)
   if (a instanceof Block && b instanceof Block) return a.over(b)
+  if (typeof a == 'string' && typeof b == 'string') return fracByString(a, b)
   if (typeof a == 'string') return frac(new Block([a]), b)
   if (typeof b == 'string') return frac(a, new Block([b]))
 }
 Block.frac = frac
-
-String.prototype.toBlock = function () {
-  return new Block([this])
-}
 
 String.prototype.add = function (x) {
   const other = typeof x == 'string' ? x.toBlock() : x
@@ -86,11 +78,9 @@ String.prototype.add = function (x) {
 
 export default Block
 
-// const a = new Block(['a'])
-// const x = new Block(['x'])
-// const u = new Block(['u'])
-
 // const frac1 = frac('a', 'b')
 // const frac2 = frac('x', 'y + z')
 
 // const frac3 = frac('u', x.add(frac1))
+
+
