@@ -135,7 +135,9 @@ Parser.prototype.or = function (next) {
   )
 }
 
-
+Parser.prototype.log = function (s) {
+  return this.map(x => (console.log(s + x), x))
+}
 
 
 const token = predicate => new Parser(

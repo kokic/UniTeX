@@ -41,6 +41,33 @@ const Fixed = {
   limsup: 'lim sup',
   projlim: 'proj lim',
 
+
+  /* Infix Names */ 
+  infixs: [
+    'plus',            'minus',         /* stub */
+    'cdot',            'gtrdot',        'cdotp',
+    'intercal',        'centerdot',     'land',
+    'rhd',             'circ',          'leftthreetimes',
+    'rightthreetimes', 'amalg',         'circledast',
+    'ldotp',           'rtimes',        'And',
+    'circledcirc',     'lor',           'setminus',
+    'ast',             'circleddash',   'lessdot',
+    'smallsetminus',   'barwedge',      'Cup',
+    'lhd',             'sqcap',         'bigcirc',
+    'cup',             'ltimes',        'sqcup',
+    'bmod',            'curlyvee',      'mod',
+    'times',           'boxdot',        'curlywedge',
+    'mp',              'unlhd',         'boxminus',
+    'div',             'odot',          'unrhd',
+    'boxplus',         'divideontimes', 'ominus',
+    'uplus',           'boxtimes',      'dotplus',
+    'oplus',           'vee',           'bullet',
+    'doublebarwedge',  'otimes',        'veebar',
+    'Cap',             'doublecap',     'oslash',
+    'wedge',           'cap',           'doublecup',
+    'pm',              'plusmn',        'wr'
+  ], 
+
   cdot: '⋅',
   cdotp: '⋅',
   circ: '∘',
@@ -118,6 +145,7 @@ const Fixed = {
 
   coprod: '∐',
   sum: '∑',
+  plus: '+', 
   minus: '−',
   mp: '∓',
   dotplus: '∔',
@@ -517,34 +545,33 @@ const Fixed = {
 
 const operatornames = [
   'arcsin', 'arccos', 'arctan', 'arctg',
-  'arcctg', 'arg', 'ch', 'cos',
-  'det', 'gcd', 'inf', 'cosec',
-  'cosh', 'cot', 'cotg', 'coth',
-  'csc', 'ctg', 'cth', 'lim',
-  'max', 'deg', 'dim', 'exp',
-  'hom', 'ker', 'lg', 'ln',
-  'log', 'min', 'plim', 'Pr',
-  'sup', 'sec', 'sin', 'sinh',
-  'sh', 'tan', 'tanh', 'tg',
+  'arcctg', 'arg',    'ch',     'cos',
+  'det',    'gcd',    'inf',    'cosec',
+  'cosh',   'cot',    'cotg',   'coth',
+  'csc',    'ctg',    'cth',    'lim',
+  'max',    'deg',    'dim',    'exp',
+  'hom',    'ker',    'lg',     'ln',
+  'log',    'min',    'plim',   'Pr',
+  'sup',    'sec',    'sin',    'sinh',
+  'sh',     'tan',    'tanh',   'tg',
   'th'
 ]
 operatornames.forEach(x => Fixed[x] = x)
 
 
 const greeks = [
-  'Alpha', 'Beta', 'Gamma', 'Delta',
-  'Epsilon', 'Zeta', 'Eta', 'Theta',
-  'Iota', 'Kappa', 'Lambda', 'Mu',
-  'Nu', 'Xi', 'Omicron', 'Pi',
-  'Rho', 'Sigma', 'Tau', 'Upsilon',
-  'Phi', 'Chi', 'Psi', 'Omega',
-
-  'alpha', 'beta', 'gamma', 'delta',
-  'epsilon', 'zeta', 'eta', 'theta',
-  'iota', 'kappa', 'lambda', 'mu',
-  'nu', 'xi', 'omicron', 'pi',
-  'rho', 'sigma', 'tau', 'upsilon',
-  'phi', 'chi', 'psi', 'omega'
+  'Alpha',   'Beta',  'Gamma',   'Delta',
+  'Epsilon', 'Zeta',  'Eta',     'Theta',
+  'Iota',    'Kappa', 'Lambda',  'Mu',
+  'Nu',      'Xi',    'Omicron', 'Pi',
+  'Rho',     'Sigma', 'Tau',     'Upsilon',
+  'Phi',     'Chi',   'Psi',     'Omega',
+  'alpha',   'beta',  'gamma',   'delta',
+  'epsilon', 'zeta',  'eta',     'theta',
+  'iota',    'kappa', 'lambda',  'mu',
+  'nu',      'xi',    'omicron', 'pi',
+  'rho',     'sigma', 'tau',     'upsilon',
+  'phi',     'chi',   'psi',     'omega'
 ]
 greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i])
 

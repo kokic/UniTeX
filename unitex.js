@@ -27,7 +27,7 @@ const lbracket = character('[')
 const rbracket = character(']')
 const bracketWrap = x => lbracket.move(x).skip(rbracket)
 
-const special = x => [...'\\{}_^%$'].includes(x)
+const special = x => '\\{}_^%$'.includes(x)
 // const unit = digit.skip(string('em'))
 
 const valuesymbol = token(x => !special(x))
@@ -84,27 +84,62 @@ const comment = character('%')
 //
 
 
-const mathelem = token(x => !special(x)).plus()
+
+
+
+const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
+  .follow(value)
+  .map(xs => Unary[xs[0]](xs[1]))
+
+//
+
+// inline
+const inlineElem = token(x => !special(x)).plus()
   .or(value)
   .or(suporsub)
   .or(environ)
   .or(fixedMacro)
   .or(unaryMacro)
   .or(binaryMacro)
-
-const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
-  .follow(value)
-  .map(xs => Unary[xs[0]](xs[1]))
-
-const inlineRender = typeface.or(() => mathelem.map(s => Unicode.render(s, 'mathit')))
-
-// inline
+const inlineCluster = typeface
+  .or(inlineElem.map(s => Unicode.render(s, 'mathit')))
+  .plus()
 const dollar = character('$')
-const inlineMath = dollar.move(inlineRender.plus()).skip(dollar)
+const inlineMath = dollar.move(inlineCluster).skip(dollar)
+
+
+
 
 // block
+const blockInfix = token(x => '+-*/<>~'.includes(x))
+  .or(macroh.check(x => Fixed.infixs.includes(x)).map(x => Fixed[x]))
+  .map(x => ` ${x} `.toBlock())
+
+const blockValue = loose(single
+  .map(x => x.toBlock())
+  .or(braceWrap(() => blockCluster)))
+const blockBinaryMacro = macroh.check(x => Binary.__block__[x])
+  .follow(blockValue)
+  .follow(blockValue)
+  .map(xs => Binary.__block__[xs[0][0]](xs[0][1], xs[1]))
+
+const blockElem = blockInfix
+    .or(fixedMacro.map(x => x.toBlock()))
+    .or(blockValue)
+    .or(blockBinaryMacro)
+const blockCluster = blockElem.some()
+  .map(x => x.reduce((s, t) => s.append(t)))
+
 const doubleDollar = string('$$')
-const blockMath = doubleDollar.move(inlineRender.plus()).skip(doubleDollar)
+const blockMath = doubleDollar
+  .move(blockCluster.map(x => x.string))
+  .skip(doubleDollar)
+//
+
+
+
+
+
 
 const mathstyle = blockMath.or(inlineMath)
 
@@ -118,7 +153,7 @@ const mathstyle = blockMath.or(inlineMath)
 const element = token(x => !special(x)).plus()
   .or(comment)
   .or(mathstyle)
-  .or(mathelem)
+  .or(inlineElem)
 //
 
 const doubleBackslash = string('\\\\')

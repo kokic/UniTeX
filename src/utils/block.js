@@ -47,10 +47,8 @@ const Block = function (data, baseline = 0) {
       : [this.blocklift(block.height, offset).data, block.data]
     return new Block(left.map((v, i) => v + right[i]), baseline)
   }
-
+  
   this.add = block => this.append(Block.plus).append(block)
-  this.sub = block => this.append(Block.minus).append(block)
-  this.mul = block => this.append(Block.cdot).append(block)
 
   this.over = function (block) {
     const width = Math.max(this.width, block.width) + 2
@@ -60,8 +58,6 @@ const Block = function (data, baseline = 0) {
   }
 }
 Block.plus = new Block([' + '])
-Block.minus = new Block([' - '])
-Block.cdot = new Block([' ⋅ '])
 
 const fracByString = function (x, y) {
   const width = Math.max(x.length, y.length) + 2
@@ -75,24 +71,26 @@ const frac = function (a, b) {
   if (typeof a == 'string') return frac(new Block([a]), b)
   if (typeof b == 'string') return frac(a, new Block([b]))
 }
+Block.frac = frac
 
-
-const a = new Block(['a'])
-const x = new Block(['x'])
-const u = new Block(['u'])
-
-const frac1 = frac('a', 'b')
-const frac2 = frac('x', 'y + z')
-
-const frac3 = frac('u', x.add(frac1))
-
-String.prototype.add = function (x) {
-  return new Block([this]).add(x)
+String.prototype.toBlock = function () {
+  return new Block([this])
 }
 
-console.log(
-  frac('a', 'b'.add(
-    frac('c', 'd'.add(
-      frac('e', 'f')))))
-.string)
+String.prototype.add = function (x) {
+  const other = typeof x == 'string' ? x.toBlock() : x
+  return this.toBlock().add(other)
+}
 
+
+
+export default Block
+
+// const a = new Block(['a'])
+// const x = new Block(['x'])
+// const u = new Block(['u'])
+
+// const frac1 = frac('a', 'b')
+// const frac2 = frac('x', 'y + z')
+
+// const frac3 = frac('u', x.add(frac1))

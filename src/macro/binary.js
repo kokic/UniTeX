@@ -1,8 +1,9 @@
 
+import Block from '../utils/block.js'
 import Proper from '../utils/proper.js'
-import Unicode from '../utils/unicode.js'
+// import Unicode from '../utils/unicode.js'
 import Fixed from './fixed.js'
-import Unary from './unary.js'
+// import Unary from './unary.js'
 
 const Binary = {
   frac: (x, y) => `${Proper.paren(x)}/${Proper.paren(y)}`,
@@ -13,6 +14,10 @@ const Binary = {
     if (x == Fixed['star'] && y == '=') return Fixed.stareq
     if (x == Fixed['Delta'] && y == '=') return Fixed.deltaeq
     return `\\overset\{${x}\}\{${y}\}`
+  }, 
+
+  __block__: {
+    frac: (x, y) => Block.frac(x, y)
   }
 }
 Binary['cfrac'] = Binary.frac
