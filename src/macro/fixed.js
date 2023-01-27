@@ -83,6 +83,32 @@ const Fixed = {
   S: '§',
   sect: '§',
 
+  /* Delimiters */
+  '|': '∥', 
+  lang: '⟨', 
+  rang: '⟩', 
+  vert: '∣', 
+  Vert: '∥', 
+  lVert: '∥', 
+  rVert: '∥', 
+  lceil: '⌈', 
+  rceil: '⌉', 
+  lfloor: '⌊',
+  rfloor: '⌋', 
+  lmoustache: '⎰', 
+  rmoustache: '⎱', 
+  lgroup: '⟮', 
+  rgroup: '⟯', 
+  ulcorner: '┌', 
+  urcorner: '┐', 
+  llcorner: '└', 
+  lrcorner: '┘', 
+  llbracket: '[[', 
+  rlbracket: ']]', 
+  lBrace: '{[', 
+  rBrace: ']}', 
+
+
   /* Big Operators */
   bigotimes: '⨂',
   bigvee: '⋁',

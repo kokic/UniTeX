@@ -10,7 +10,7 @@ A transpiler that converts TeX into Unicode (as possible).
     - [ ] Unicode Block 79 : Mathematical Operators
       - [x] 220x ~ 226x
       - [ ] 227x ~ 22Fx 
-    - [ ] Delimiters
+    - [x] Delimiters
     - [x] Arrows
     - [x] Operators
       - [x] Big Operators
@@ -27,13 +27,13 @@ A transpiler that converts TeX into Unicode (as possible).
   - [ ] Binary
     - [x] Relations Operators
     - [x] Fractions (inline)
-    - [ ] Fractions (block)
+    - [x] Fractions (block)
     - [ ] Binomials
   - [ ] Environments
     - [x] Matrix (inline)
     - [ ] Matrix (block)
     - [x] Typeface (math env)
-    - [ ] Typesetting (math env)
+    - [x] Typesetting (block)
     - [ ] Array
     - [ ] Align Family
     - [ ] AMScd

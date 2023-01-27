@@ -17,7 +17,8 @@ const Binary = {
   }, 
 
   __block__: {
-    frac: (x, y) => Block.frac(x, y)
+    frac: (x, y) => Block.frac(x, y), 
+    overset: (x, y) => Binary.overset(x.string, y.string).toBlock()
   }
 }
 Binary['cfrac'] = Binary.frac
