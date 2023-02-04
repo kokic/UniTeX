@@ -29,7 +29,7 @@ const Fixed = {
   varTheta: 'Θ', 
   varLambda: 'Λ', 
   varXi: 'Ξ', 
-  varPi: 'Π', 
+  varPi: 'ϖ', 
   varSigma: 'Σ', 
   varUpsilon: 'Υ', 
   varPhi: 'Φ', 
@@ -628,6 +628,8 @@ const greeks = [
   'phi',     'chi',   'psi',     'omega'
 ]
 greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i])
+Fixed.epsilon = 'ϵ'
+
 
 // fixed symbol as supscripts
 Unicode.supscripts[Fixed.times] = Unicode.supscripts.x
