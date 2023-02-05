@@ -20,6 +20,19 @@ const Fixed = {
   Bbbk: Unicode.typeface.mathbb.k,
 
 
+  /**
+   * In order to express my respect to all TeX-related project developers, 
+   * I reserve these special macro commands and follow the consistent tradition 
+   * to  to implement UniTeX.
+   */
+
+  TeX: 'TᴇX', 
+  LaTeX: 'LᴬTᴇX', 
+  KaTeX: 'KᴬTᴇX', 
+  UniTeX: 'UⁿᵢTᴇX', 
+
+
+
   /* Frequent */
 
 
@@ -48,7 +61,6 @@ const Fixed = {
 
 
   /* Theorem */
-
   proposition: Unicode.render('Proposition', 'textbf'),
   lemma: Unicode.render('Lemma', 'textbf'),
   theorem: Unicode.render('Theorem', 'textbf'),
