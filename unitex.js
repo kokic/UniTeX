@@ -59,7 +59,7 @@ const unaryOptionalMacro = macroh.check(x => Unary.__optional__[x])
   .follow(value)
   .map(xs => Unary.__optional__[xs[0][0]](xs[0][1], xs[1]))
 
-const unaryMacro = unaryOrdinaryMacro.or(unaryOptionalMacro)
+const unaryMacro = unaryOptionalMacro.or(unaryOrdinaryMacro)
 
 // [[macro, value1], value2]
 const binaryMacro = macroh.check(x => Binary[x])
@@ -101,7 +101,6 @@ const inlineElem = literals
   .or(value)
   .or(suporsub)
   .or(environ)
-  
   .or(unaryMacro)
   .or(binaryMacro)
 const inlineCluster = typeface
