@@ -90,9 +90,6 @@ const comment = character('%')
 //
 
 
-
-
-
 const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
@@ -104,10 +101,11 @@ const inlineElem = literals
   .or(value)
   .or(suporsub)
   .or(environ)
-  .or(fixedMacro)
+  
   .or(unaryMacro)
   .or(binaryMacro)
 const inlineCluster = typeface
+  .or(fixedMacro)
   .or(inlineElem.map(s => Unicode.render(s, 'mathit')))
   .plus()
 const dollar = character('$')
@@ -146,11 +144,6 @@ const blockMath = doubleDollar
   .skip(doubleDollar)
 //
 
-
-
-
-
-
 const mathstyle = blockMath.or(inlineMath)
 
 /** 
@@ -169,12 +162,6 @@ const element = literals
 const doubleBackslash = string('\\\\')
 const section = doubleBackslash.or(element).plus()
 
-// console.log(environ.parse(String.raw`\begin{bmatrix} 
-//   0 & 1 \\ 
-//   1 & 0 
-// \end{bmatrix}`))
-
-
 const unknownMacro = macroh.map(x => '\\' + x)
 
 const spectrum = element.or(unknownMacro)
@@ -184,4 +171,4 @@ export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s))
 }
 
-
+console.log(UniTeX.parse(String.raw`$$\int_0^a\,e^{-x}\,\mathrm{d}x\,=\,\cfrac{\sqrt\pi}{2}-\cfrac{e^{-a^2}}{2a+\cfrac{1}{a+\cfrac{2}{2a+\cfrac{3}{a+\cfrac{4}{2a+\cdots}}}}}$$`))

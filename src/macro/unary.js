@@ -5,6 +5,7 @@ import Unicode from '../utils/unicode.js'
 const Unary = {
   id: x => x,
   text: x => x, 
+  mathrm: x => x, 
 
   sqrt: x => '√' + Proper.paren(x),
   cbrt: x => '∛' + Proper.paren(x), // original
@@ -34,6 +35,6 @@ Unary.hspace = Unary.kern
 Unicode.typefaceNames.forEach(x => Unary[x] = s => Unicode.render(s, x))
 
 /* just for typeface: Parser */
-Unary.typefaceNames = ['text', ...Unicode.typefaceNames]
+Unary.typefaceNames = ['text', 'mathrm', ...Unicode.typefaceNames]
 
 export default Unary

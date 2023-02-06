@@ -21,8 +21,13 @@ const Binary = {
     overset: (x, y) => Binary.overset(x.string, y.string).toBlock()
   }
 }
+
 Binary['cfrac'] = Binary.frac
 Binary['dfrac'] = Binary.frac
 Binary['tfrac'] = Binary.frac
+
+Binary.__block__['cfrac'] = Binary.__block__.frac
+Binary.__block__['dfrac'] = Binary.__block__.frac
+Binary.__block__['tfrac'] = Binary.__block__.frac
 
 export default Binary
