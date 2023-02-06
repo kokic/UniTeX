@@ -3,45 +3,12 @@
 A transpiler that converts TeX into Unicode (as possible). 
 
 ## Usage
-```ts
+```js
 UniTeX.parse(source: string)
 ```
 
 ## Example
-```c
-> UniTeX.parse(String.raw`\TeX`)
-'TᴇX'
-
-> UniTeX.parse(String.raw`Let $L/K$ be a Galois field extension with Galois group $G$.`)
-'Let 𝐿/𝐾 be a Galois field extension with Galois group 𝐺.'
-
-> UniTeX.parse(String.raw`\prod_{n=1}^\infty (1 - q^{2n})(1 + zq^{2n-1})(1 + z^{-1}q^{2n-1})`)
-'∏ₙ₌₁^∞ (1 - q²ⁿ)(1 + zq²ⁿ⁻¹)(1 + z⁻¹q²ⁿ⁻¹)'
-
-> UniTeX.parse(String.raw`$j(z) = q^{-1} + 744 + 196884q + 21493760q^2 + \cdots$`)
-'𝑗(𝑧) = 𝑞⁻¹ + 744 + 196884𝑞 + 21493760𝑞² + ⋯'
-
-> UniTeX.parse(String.raw`对于素数 $p$, $|\tau(p)|\le 2p^{11/2}$.`)
-'对于素数 𝑝, |τ(𝑝)| ≤ 2𝑝^{11/2}.'
-
-> UniTex.parse(String.raw`$\dim_k H^0(X, \Omega_{X/k}^r)$`)
-'dimₖ 𝐻⁰(𝑋, Ω_{𝑋/𝑘}ʳ)'
-
-
-> console.log(UniTeX.parse(String.raw`$$\int_0^a\,e^{-x}\,\mathrm{d}x\,=\,\cfrac{\sqrt\pi}{2}-\cfrac{e^{-a^2}}{2a+\cfrac{1}{a+\cfrac{2}{2a+\cfrac{3}{a+\cfrac{4}{2a+\cdots}}}}}$$`))
-              √π                 e^{-a²}
-∫₀ᵃ e⁻ˣ dx = ---- - ----------------------------------
-              2                        1
-                     2a + ---------------------------
-                                         2
-                           a + ---------------------
-                                           3
-                                2a + --------------
-                                             4
-                                      a + --------
-                                           2a + ⋯
-```
-
+![unitex-example.png](./unitex-example.png)
 
 ## TODO
 

@@ -170,5 +170,3 @@ const text = spectrum.plus()
 export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s))
 }
-
-console.log(UniTeX.parse(String.raw`$$\int_0^a\,e^{-x}\,\mathrm{d}x\,=\,\cfrac{\sqrt\pi}{2}-\cfrac{e^{-a^2}}{2a+\cfrac{1}{a+\cfrac{2}{2a+\cfrac{3}{a+\cfrac{4}{2a+\cdots}}}}}$$`))
