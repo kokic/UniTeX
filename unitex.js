@@ -170,3 +170,4 @@ const text = spectrum.plus()
 export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s))
 }
+
