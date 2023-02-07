@@ -23,7 +23,7 @@ const Fixed = {
   /**
    * In order to express my respect to all TeX-related project developers, 
    * I reserve these special macro commands and follow the consistent tradition 
-   * to  to implement UniTeX.
+   * to implement UniTeX.
    */
 
   TeX: 'TᴇX', 

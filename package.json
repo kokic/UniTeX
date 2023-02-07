@@ -1,7 +1,7 @@
 {
   "name": "unitex",
   "version": "1.0.0",
-  "description": "tex-like source to unicode",
+  "description": "A transpiler that converts TeX into Unicode (as possible).",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kokic/UniTex.git"
@@ -10,9 +10,10 @@
   "keywords": [
     "tex",
     "latex",
-    "unicode"
+    "unicode", 
+    "transpiler"
   ],
-  "author": "kokic, Eiaton",
+  "author": "kokic",
   "license": "MIT",
   "private": true,
   "bugs": {
