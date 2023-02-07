@@ -41,10 +41,10 @@ const Unicode = {
     return through
       ? array.map(x => charset[x]).join('')
       : otherwise(str)
-  }, 
+  },
 
-  suprender: s => Unicode.corender(Unicode.supscripts, s, x => '^' + Proper.brace(x)), 
-  subrender: s => Unicode.corender(Unicode.subscripts, s, x => '_' + Proper.brace(x)), 
+  suprender: s => Unicode.corender(Unicode.supscripts, s, x => '^' + Proper.brace(x)),
+  subrender: s => Unicode.corender(Unicode.subscripts, s, x => '_' + Proper.brace(x)),
 }
 
 Unicode.letterUppers = Unicode.series('A', 'Z')
@@ -233,7 +233,6 @@ Unicode.subscripts[')'] = '₎'
 
 
 
-// console.log(Unicode.supscripts)
 
 export default Unicode
 

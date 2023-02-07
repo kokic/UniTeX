@@ -2,7 +2,7 @@
 
 import fs from "fs";
 import { UniTeX } from "./unitex.js";
-import { exec } from "child_process";
+import { execSync } from "child_process";
 
 let exitCode = 0;
 
@@ -32,7 +32,7 @@ const runTest = (
     fs.writeFileSync(outName, calcOut);
   } else {
     fs.writeFileSync(resName, calcOut);
-    const child = exec(
+    const child = execSync(
       "diff -u " + outName + " " + resName,
       (err, stdout, stderr) => {
         if (err != null) {
@@ -43,16 +43,6 @@ const runTest = (
         }
       },
     );
-    child.on("exit", () => {
-      if (child.exitCode != 0) {
-        const stdout = child.stdout;
-        const stderr = child.stderr;
-        console.log("test err for case `" + testName + "`");
-        console.log("stdout:\n\t" + stdout);
-        console.log("stderr:\n\t" + stderr);
-        exitCode = child.exitCode;
-      }
-    });
   }
 };
 
@@ -70,6 +60,8 @@ const main = () => {
       runTest(testName);
     },
   );
+
+  process.exit(exitCode)
 };
 
 main();

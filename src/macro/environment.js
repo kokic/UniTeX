@@ -24,12 +24,12 @@ const Environment = {
   conjecture: xs => theoremstyle('conjecture', xs),
   axiom: xs => theoremstyle('axiom', xs),
   example: xs => theoremstyle('example', xs),
-  proof: xs => theoremstyle('proof', xs), 
+  proof: xs => theoremstyle('proof', xs),
 
   // misc family
   // center: xs => xs,
 
-  // document: xs => xs, 
+  // document: xs => xs,
 }
 
 const doubleBackslash = '\\\\'
@@ -38,7 +38,6 @@ const matrim = x => x.replace(/\s/g, '').replace(/&/g, ' ')
 
 const regMatrix = function (gel, ls, rs, lg = ls, rg = rs) {
   const xs = gel.split(doubleBackslash)
-  // console.log(xs)
   const s = ''.concat(...xs.map(x => ls + matrim(x) + rs))
   return xs.length > 1 ? lg + s + rg : s
 }
@@ -51,12 +50,12 @@ const sepMatrix = function (gel, lg, rg, sep) {
 
 
 /**
- * Adjustments to text formatting (such as spaces, line breaks, and indents) 
- * are made after macro replacement Therefore, the current processing is not 
- * friendly to macros such as quad The specific scheme for the format in the 
- * environment is still under discussion, so this question will be put on 
+ * Adjustments to text formatting (such as spaces, line breaks, and indents)
+ * are made after macro replacement Therefore, the current processing is not
+ * friendly to macros such as quad The specific scheme for the format in the
+ * environment is still under discussion, so this question will be put on
  * hold temporarily.
- * 
+ *
  */
 const polymerizeTeX = function (s) {
   let result = s.trim()
@@ -69,7 +68,6 @@ const regexpDoubleLine = /\r\n\r\n|\n\n/
 
 const theoremstyle = function (type, content) {
   let title = Fixed[type] + '. '
-  console.log(content)
   return title + content
     .split(regexpDoubleLine)
     .map(polymerizeTeX)
