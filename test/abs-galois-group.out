@@ -1,0 +1,16 @@
+
+1. the absolute Galois group G_K of a field K is Gal(Kˢep/K) 
+i.e. the Galois group of Kˢep over K, where Kˢep is a separable closure of K.
+
+2. When K is a perfect field, Kˢep is the same as an algebraic closure Kᵃlg of K. 
+This holds e.g. for K of characteristic zero, or K a finite field. 
+
+3. The absolute Galois group of a finite field K is isomorphic to the group
+𝐙-hat := lim_← 𝐙/n𝐙. 
+
+4. G_ℚ := Gal(ℚ-bar/ℚ), where ℚ-bar or Q̄ is the algebraic closure of 
+the field of rational numbers i.e. the field of algebraic numbers.
+
+𝔽₁
+
+ℤₚ ≝ lim_←ℤ/pⁿℤ
