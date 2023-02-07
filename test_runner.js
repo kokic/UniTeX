@@ -5,6 +5,7 @@ import { UniTeX } from "./unitex.js";
 import { execSync } from "child_process";
 
 let exitCode = 0;
+let failedNum = 0;
 
 const ignoreTests = [];
 
@@ -32,17 +33,20 @@ const runTest = (
     fs.writeFileSync(outName, calcOut);
   } else {
     fs.writeFileSync(resName, calcOut);
-    const child = execSync(
-      "diff -u " + outName + " " + resName,
-      (err, stdout, stderr) => {
-        if (err != null) {
-          console.log("test err: " + err + " for case `" + testName + "`");
-          console.log("stdout:\n\t" + stdout);
-          console.log("stderr:\n\t" + stderr);
-          exitCode = -1;
-        }
-      },
-    );
+    try {
+      execSync(
+        "diff -u " + outName + " " + resName,
+      );
+    } catch (error) {
+      console.log(
+        "test err: " + error.message + " for case `" + testName + "`",
+      );
+      console.log("status:\n\t" + error.status);
+      console.log("stdout:\n\t" + error.stdout);
+      console.log("stderr:\n\t" + error.stderr);
+      exitCode = -1;
+      failedNum += 1;
+    }
   }
 };
 
@@ -61,7 +65,11 @@ const main = () => {
     },
   );
 
-  process.exit(exitCode)
+  console.log("");
+  console.log(
+    failedNum == 0 ? "all tests passed" : failedNum + " tests failed",
+  );
+  process.exit(exitCode);
 };
 
 main();
