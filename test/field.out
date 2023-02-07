@@ -1,0 +1,22 @@
+
+  § 1. Finite fields. Let F be a field (commutative or not) with the
+unit-element 1. Its characteristic must clearly be a prime p > 1, 
+prime ring in F is isomorphic to the prime field 𝐅ₚ = 𝐙/p𝐙, with 
+which we may identify it. Then F may be regarded as a vector-space over 𝐅ₚ;  
+as such, it has an obviously finite dimension n, and the number of its 
+elements is q = pⁿ. 
+
+𝐓𝐡𝐞𝐨𝐫𝐞𝐦 (Wedderburn). All finite fields are commutative. 
+𝑝𝑟𝑜𝑜𝑓. Omitted.
+
+𝐋𝐞𝐦𝐦𝐚. If K is a commutative field, every finite subgroup of Kˣ is cyclic.
+
+𝐓𝐡𝐞𝐨𝐫𝐞𝐦. Let K be an algebraically closed field of characteristic p > 1. 
+Then, for every f ≥ 1, K contains one and only one field F = F_q with 
+q = pⁿ elements; F consists of the roots of X^q = X in K; Fˣ consists 
+of the roots of X^{q-1} = 1 in K and is a cyclic group of order q-1. 
+
+𝑝𝑟𝑜𝑜𝑓. If F is any field with q elements, lemma shows that Fˣ is a cyclicgroup of order q-1. Thus, if K contains such a field F, Fˣ must consistof the roots of X^{q-1} = 1, hence F of the roots of X(X^{q-1}-1) = X^q-X = 0, so that both are uniquely determined. Conversely, if q = pⁿ, x ↦ x^q is an automorphism of K, so that the elements of K which are fixed under it make up a field Fconsisting of the roots of X^q - X = 0; as it is clear that X^q - Xhas only simple roots in K, F is a field with q elements. 
+
+𝐂𝐨𝐫𝐨𝐥𝐥𝐚𝐫𝐲. Up to isomorphisms, there is one and only one field with q = pⁿ elements. 
+𝑝𝑟𝑜𝑜𝑓. Omitted.

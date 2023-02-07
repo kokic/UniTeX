@@ -26,5 +26,8 @@
   "directories": {
     "doc": "docs",
     "test": "test"
+  },
+  "scripts": {
+    "test": "node ./test_runner.js"
   }
 }
