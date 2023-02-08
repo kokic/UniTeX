@@ -1,0 +1,10 @@
+
+  § 1. The periodicity of classical modular function j can be 
+described algebraically by saying that j(τ) = j((aτ+b)/(cτ+d)) 
+for any a, b, c, d ∈ ℤ with ad - bc = 1.
+
+𝐓𝐡𝐞𝐨𝐫𝐞𝐦 (Kronecker). for any integer τ in the quadratic field ℚ(√-D), 
+j(τ) is an algebraic integer whose degree is the class number of ℚ(√-D)
+
+𝐄𝐱𝐚𝐦𝐩𝐥𝐞. for ℚ(√-1), class number = 1, j(-1) = 12³.
+𝐄𝐱𝐚𝐦𝐩𝐥𝐞. for ℚ(√(-163)), class number = 1, j((1+√(-163))/2) = -640320³.
