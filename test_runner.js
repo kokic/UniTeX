@@ -36,9 +36,7 @@ const runTest = (
   } else {
     fs.writeFileSync(resName, calcOut);
     try {
-      execSync(
-        "diff -u " + outName + " " + resName,
-      );
+      execSync(`diff -u ${outName} ${resName}`);
     } catch (error) {
       console.log(
         "test err: " + error.message + " for case `" + testName + "`",

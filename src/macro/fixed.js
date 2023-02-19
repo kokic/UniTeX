@@ -31,7 +31,12 @@ const Fixed = {
   KaTeX: 'KᴬTᴇX', 
   UniTeX: 'UⁿᵢTᴇX', 
 
-
+  /* Accents */
+  hat: '\u0302', 
+  tilde: '\u0303', 
+  bar: '\u0304', 
+  overline: '\u0305', 
+  breve: '\u0306', 
 
   /* Frequent */
 
@@ -58,8 +63,8 @@ const Fixed = {
   varsigma: 'ς', 
   varphi: 'φ', 
   digamma: 'ϝ', 
-
-
+  
+  
   /* Theorem */
   proposition: Unicode.render('Proposition', 'textbf'),
   lemma: Unicode.render('Lemma', 'textbf'),
@@ -73,7 +78,7 @@ const Fixed = {
   example: Unicode.render('Example', 'textbf'),
   proof: Unicode.render('proof', 'textit'),
 
-  /* combined operatorname */
+  /* Combined Operatorname */
   argmax: 'arg max',
   argmin: 'arg min',
   injlim: 'inj lim',

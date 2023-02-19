@@ -98,13 +98,14 @@ const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
 
 // inline
 const inlineElem = literals
-  .or(value)
   .or(suporsub)
   .or(environ)
   .or(unaryMacro)
   .or(binaryMacro)
+  .or(value)
+
 const inlineCluster = typeface
-  .or(fixedMacro)
+  // .or(fixedMacro)
   .or(inlineElem.map(s => Unicode.render(s, 'mathit')))
   .plus()
 const dollar = character('$')

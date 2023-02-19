@@ -14,7 +14,7 @@ const Unary = {
   hat: x => x + (Unicode.isLetter(x) ? '\u0302' : '-hat'),
   tilde: x => x + (Unicode.isLetter(x) ? '\u0303' : '-tilde'),
   bar: x => x + (Unicode.isLetter(x) ? '\u0304' : '-bar'),
-  overline: x => x,
+  overline: x => x + (Unicode.isLetter(x) ? '\u0305' : '-underline'),
   breve: x => x + (Unicode.isLetter(x) ? '\u0306' : '-breve'),
 
   kern: x => x.endsWith('em') ? ' '.repeat(x.substring(0, x.length - 2)) : ' ',
