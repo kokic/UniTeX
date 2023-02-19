@@ -38,6 +38,28 @@ const Fixed = {
   overline: '\u0305', 
   breve: '\u0306', 
 
+  widetilde: '\u0360', 
+
+  uwidebreve: '\u035c', 
+  widebreve: '\u035d', 
+  widepreve: '\u0361', 
+
+  uvec: '\u0362', 
+
+  overa: '\u0363', // original
+  overe: '\u0364', // original
+  overi: '\u0365', // original
+  overo: '\u0366', // original
+  overu: '\u0367', // original
+
+  overc: '\u0368', // original
+  overd: '\u0369', // original
+  overh: '\u036A', // original
+  overm: '\u036B', // original
+  overr: '\u036C', // original
+  overt: '\u036E', // original
+  overx: '\u036F', // original
+
   /* Frequent */
 
 
