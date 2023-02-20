@@ -35,17 +35,17 @@ UniTeX.parse(source: string)
   - [ ] Binary
     - [x] Relations Operators
     - [x] Fractions (inline)
-    - [x] Fractions (block)
+    - [x] (**cmdline only**) Fractions (block)
     - [ ] Binomials
   - [ ] Environments
     - [x] Matrix (inline)
-    - [ ] Matrix (block)
+    - [ ] (**cmdline only**) Matrix (block)
     - [x] Typeface (math env)
     - [x] Typesetting (block)
     - [ ] Array
     - [ ] Align Family
-    - [ ] AMScd
-    - [ ] Tikzcd (hard)
+    - [ ] (**cmdline only**) AMScd
+    - [ ] (**cmdline only**) Tikzcd (hard)
   - [ ] Macros
     - [ ] Def
     - [ ] Command
