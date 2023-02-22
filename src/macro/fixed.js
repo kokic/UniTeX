@@ -60,8 +60,10 @@ const Fixed = {
   overt: '\u036E', // original
   overx: '\u036F', // original
 
-  /* Frequent */
+  
 
+  /* Frequent */
+  degree: '°', 
 
   /* Variant */
   varGamma: 'Γ', 
@@ -287,6 +289,11 @@ const Fixed = {
   defeq: '≝', // original
   qeq: '≟', // original
 
+  questeq: '≟', // fcitx & ibus
+  arceq: '≘', // fcitx & ibus
+  wedgeq: '≙', // fcitx & ibus
+  veeeq: '≚', // fcitx & ibus
+  circeq: '≗', // fcitx & ibus
   smile: '⌣',
 
   /* Relations */
@@ -633,7 +640,14 @@ const Fixed = {
   mho: '℧',
   star: '⋆', 
   bigstar: '★', 
+  Game: '⅁', 
 
+  /* exp */
+  sumtop: '⎲', 
+  sumtop: '⎳', 
+  lbraceuend: '⎧', 
+	lbracemid: '⎨', 
+  lbracelend: '⎩', 
 }
 
 const operatornames = [
@@ -676,6 +690,11 @@ Unicode.supscripts[Fixed.times] = Unicode.supscripts.x
 // fixed symbol as subscripts
 Unicode.subscripts[Fixed.in] = Fixed.smallin
 Unicode.subscripts[Fixed.ni] = Fixed.smallni
+
+
+
+// Gothic
+const gothics = ['ahsa', 'bairkan', 'giba', 'dags', 'aihvus']
 
 
 export default Fixed

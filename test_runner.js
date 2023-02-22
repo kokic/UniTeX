@@ -31,6 +31,7 @@ const runTest = (
 
   const rawTeX = fs.readFileSync(texName).toString();
   const calcOut = UniTeX.parse(rawTeX);
+
   if (enableApplyCalcResults) {
     fs.writeFileSync(outName, calcOut);
   } else {
@@ -38,9 +39,7 @@ const runTest = (
     try {
       execSync(`diff -u ${outName} ${resName}`);
     } catch (error) {
-      console.log(
-        "test err: " + error.message + " for case `" + testName + "`",
-      );
+      console.log("test err: " + error.message + " for case `" + testName + "`");
       console.log("status:\n\t" + error.status);
       console.log("stdout:\n\t" + error.stdout);
       console.log("stderr:\n\t" + error.stderr);
@@ -50,7 +49,7 @@ const runTest = (
   }
 };
 
-const main = () => {
+(() => {
   console.log("testSrc = ", testSrc);
   console.log("will run tests: ", testNames);
   console.log(
@@ -59,17 +58,9 @@ const main = () => {
   );
   console.log("");
 
-  testNames.forEach(
-    (testName) => {
-      runTest(testName);
-    },
-  );
+  testNames.forEach(runTest);
 
   console.log("");
-  console.log(
-    failedNum == 0 ? "all tests passed" : failedNum + " tests failed",
-  );
+  console.log(failedNum == 0 ? "all tests passed" : failedNum + " tests failed");
   process.exit(exitCode);
-};
-
-main();
+}) ();
