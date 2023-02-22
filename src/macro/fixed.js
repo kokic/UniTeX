@@ -644,7 +644,7 @@ const Fixed = {
 
   /* exp */
   sumtop: '⎲', 
-  sumtop: '⎳', 
+  sumbottom: '⎳', 
   lbraceuend: '⎧', 
 	lbracemid: '⎨', 
   lbracelend: '⎩', 
