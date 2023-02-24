@@ -19,6 +19,12 @@ UniTeX.parse(source: string)
     &emsp; `$E[m] \simeq \Z/m\Z \times \Z/m\Z, \text{Gal}(\bar K/K) \rarr \text{Aut}(E[m])$`
 
 - block formula
+  ```
+       aτ + b                   
+    f(--------) = (cτ + d)ᵏ f(τ)
+       cτ + d                   
+  ``` 
+    &emsp; `$$f(\frac{a\tau+b}{c\tau+d})\,=\,(c\tau+d)^k\,f(\tau)$$`
 
 ## TODO
 
