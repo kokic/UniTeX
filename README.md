@@ -10,6 +10,16 @@ UniTeX.parse(source: string)
 ## Example
 ![unitex-example.png](./unitex-example.png)
 
+- text formula
+  > ℓ(D) - ℓ(K_C-D) = deg D - g + 1 
+    &emsp; `\ell(D) - \ell(K_C-D) = deg D - g + 1`
+
+- inline formula
+  > 𝐸[𝑚] ≃ ℤ/𝑚ℤ × ℤ/𝑚ℤ, Gal(𝐾̄/𝐾) → Aut(𝐸[𝑚])
+    &emsp; `$E[m] \simeq \Z/m\Z \times \Z/m\Z, \text{Gal}(\bar K/K) \rarr \text{Aut}(E[m])$`
+
+- block formula
+
 ## TODO
 
 - **Some basic or commonly used macro commands**. ideally including but not limited to the functions in [MathJax](https://www.mathjax.org/) and [KaTeX](https://katex.org), They have some differences in the supported macros. This project will prefer the latter design (i.e. [Supported Functions](https://katex.org/docs/supported.html)).
