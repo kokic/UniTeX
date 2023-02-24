@@ -24,7 +24,7 @@ UniTeX.parse(source: string)
     f(--------) = (cτ + d)ᵏ f(τ)
        cτ + d                   
   ``` 
-    &emsp; `$$f(\frac{a\tau+b}{c\tau+d})\,=\,(c\tau+d)^k\,f(\tau)$$`
+&emsp; `$$f(\frac{a\tau+b}{c\tau+d})\,=\,(c\tau+d)^k\,f(\tau)$$`
 
 ## TODO
 
