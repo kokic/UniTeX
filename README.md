@@ -31,9 +31,9 @@ UniTeX.parse(source: string)
 - **Some basic or commonly used macro commands**. ideally including but not limited to the functions in [MathJax](https://www.mathjax.org/) and [KaTeX](https://katex.org), They have some differences in the supported macros. This project will prefer the latter design (i.e. [Supported Functions](https://katex.org/docs/supported.html)).
   - [ ] Fixed
     - [x] Greek Letters
-    - [ ] Unicode Block 79 : Mathematical Operators
+    - [x] Unicode Block 79 : Mathematical Operators
       - [x] 220x ~ 226x
-      - [ ] 227x ~ 22Fx 
+      - [x] 227x ~ 22Fx 
     - [x] Delimiters
     - [x] Arrows
     - [x] Operators

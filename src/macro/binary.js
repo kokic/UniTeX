@@ -13,6 +13,7 @@ const Binary = {
     if (x == Fixed['Delta'] && y == '=') return Fixed.deltaeq
     return `\\overset\{${x}\}\{${y}\}`
   }, 
+  binom: (n, k) => `(${n} ${k})`, 
 
   __block__: {
     frac: (x, y) => Block.frac(x, y), 
@@ -23,6 +24,9 @@ const Binary = {
 Binary['cfrac'] = Binary.frac
 Binary['dfrac'] = Binary.frac
 Binary['tfrac'] = Binary.frac
+
+Binary['dbinom'] = Binary.binom
+Binary['tbinom'] = Binary.binom
 
 Binary.__block__['cfrac'] = Binary.__block__.frac
 Binary.__block__['dfrac'] = Binary.__block__.frac
