@@ -12,7 +12,7 @@ import {
   character,
   includes,
   string,
-  loose, 
+  loose,
   digit,
   letter,
   letters,
@@ -67,6 +67,13 @@ const binaryMacro = macroh.check(x => Binary[x])
   .follow(value)
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
 
+// [[value1, macro], value2]
+const infixMacro = value
+  .follow(macroh.check(x => Binary.__infix__[x]))
+  .follow(value)
+  .map(xs => Binary[xs[0][1]](xs[0][0], xs[1]))
+
+
 const envira = braceWrap(letters)
 const begin = backslash.skip(string('begin')).move(envira)
 const end = backslash.skip(string('end')).move(envira)
@@ -96,8 +103,10 @@ const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
 
 //
 
+
 // inline
 const inlineElem = literals
+  // .or(infixMacro)
   .or(suporsub)
   .or(environ)
   .or(unaryMacro)
@@ -172,4 +181,3 @@ const text = spectrum.plus()
 export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s))
 }
-
