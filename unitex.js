@@ -43,8 +43,8 @@ const optional = bracketWrap(value) // [value]
 const symbolMacros = includes(...'|,>:!()[]{}_%\\')
 
 const macroName = letters.or(symbolMacros)
-
 const macroh = backslash.move(macroName)
+
 const fixedMacro = macroh.check(x => Fixed[x] != undefined)
   .map(x => Fixed[x])
 
