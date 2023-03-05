@@ -12,7 +12,7 @@ import {
   character,
   includes,
   string,
-  loose,
+  loose, 
   digit,
   letter,
   letters,
@@ -104,9 +104,11 @@ const inlineElem = literals
   .or(binaryMacro)
   .or(value)
 
+const italicRender = s => Unicode.render(s, 'mathit')
+
 const inlineCluster = typeface
   // .or(fixedMacro)
-  .or(inlineElem.map(s => Unicode.render(s, 'mathit')))
+  .or(inlineElem.map(italicRender))
   .plus()
 const dollar = character('$')
 const inlineMath = dollar.move(inlineCluster).skip(dollar)
@@ -127,7 +129,7 @@ const blockBinaryMacro = macroh.check(x => Binary.__block__[x])
   .follow(blockValue)
   .map(xs => Binary.__block__[xs[0][0]](xs[0][1], xs[1]))
 
-const blockElem = blockInfix
+const blockElem = loose(blockInfix)
   .or(blockValue) // csp. value
   .or(suporsub.map(Block.of))
   .or(fixedMacro.map(Block.of))
