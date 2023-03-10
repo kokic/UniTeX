@@ -100,6 +100,11 @@ Although UniTeX faces similar problems <sup><a id='tables-packages-back' href='#
 webpack ./unitex.js --mode=none --output-library-type=window
 ```
 
+
+## License
+UniTeX is licensed under the [MIT License](https://github.com/kokic/UniTeX/blob/main/LICENSE). 
+
+
 --- 
 
 <a id='tables-packages' href='#tables-packages-back'>[1].</a>
