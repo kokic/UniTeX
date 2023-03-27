@@ -4,23 +4,26 @@
   "description": "A transpiler that converts TeX into Unicode (as possible).",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kokic/UniTex.git"
+    "url": "git+https://github.com/kokic/UniTeX.git"
   },
   "type": "module",
   "keywords": [
     "tex",
     "latex",
-    "unicode", 
+    "unicode",
     "transpiler"
   ],
   "author": "kokic",
   "license": "MIT",
   "private": true,
   "bugs": {
-    "url": "https://github.com/kokic/UniTex/issues"
+    "url": "https://github.com/kokic/UniTeX/issues"
   },
-  "homepage": "https://github.com/kokic/UniTex#readme",
+  "homepage": "https://github.com/kokic/UniTeX#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
     "webpack-cli": "^5.0.1"
   },
   "directories": {

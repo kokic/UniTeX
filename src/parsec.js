@@ -1,5 +1,4 @@
 
-
 import { proxy, link } from './utils/link.js'
 
 // Parse<A>.parse: String -> [A, String]
@@ -13,6 +12,7 @@ export default Parser
 Parser.prototype.many = function () {
   return new Parser(source => {
     let [list, residue, tuple] = [[], source]
+    // eslint-disable-next-line no-cond-assign
     while (tuple = this.parse(residue)) {
       list.push(tuple[0])
       residue = tuple[1]
@@ -31,6 +31,7 @@ Parser.prototype.some = function () {
 Parser.prototype.asterisk = function () {
   return new Parser(source => {
     let [buffer, residue, tuple] = ['', source,]
+    // eslint-disable-next-line no-cond-assign
     while (tuple = this.parse(residue)) {
       buffer += tuple[0]
       residue = tuple[1]

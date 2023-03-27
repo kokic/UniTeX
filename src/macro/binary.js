@@ -11,7 +11,7 @@ const Binary = {
     if (x == 'def' && y == '=') return Fixed.defeq
     if (x == Fixed['star'] && y == '=') return Fixed.stareq
     if (x == Fixed['Delta'] && y == '=') return Fixed.deltaeq
-    return `\\overset\{${x}\}\{${y}\}`
+    return `\\overset{${x}}{${y}}`
   }, 
   binom: (n, k) => `(${n} ${k})`, 
 

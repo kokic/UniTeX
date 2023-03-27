@@ -139,7 +139,6 @@ const Fixed = {
 
   cdot: '⋅',
   cdotp: '⋅',
-  circ: '∘',
 
   dots: '…',
   cdots: '⋯',
@@ -184,7 +183,7 @@ const Fixed = {
   bigoplus: '⨁',
   bigwedge: '⋀',
   bigodot: '⨀',
-  bigcup: '⋂',
+  bigcap: '⋂',
   biguplus: '⨄',
   bigcup: '⋃',
   bigsqcup: '⨆',
@@ -294,7 +293,6 @@ const Fixed = {
   wedgeq: '≙', // fcitx & ibus
   veeeq: '≚', // fcitx & ibus
   circeq: '≗', // fcitx & ibus
-  smile: '⌣',
 
   /* Relations */
   doteqdot: '≑',
@@ -337,7 +335,7 @@ const Fixed = {
   subseteqq: '⫅',
   backepsilon: '∍',
   equiv: '≡',
-  mid: '∣',
+  // mid: '∣', 
   succ: '≻',
   backsim: '∽',
   fallingdotseq: '≒',
@@ -357,13 +355,13 @@ const Fixed = {
   succsim: '≿',
   bumpeq: '≏',
   geqq: '≧',
-  parallel: '∥',
+  // parallel: '∥',
   Supset: '⋑',
   Bumpeq: '≎',
   geqslant: '⩾',
   perp: '⊥',
   supset: '⊃',
-  circeq: '≗',
+  // circeq: '≗',
   gg: '≫',
   pitchfork: '⋔',
   supseteq: '⊇',
@@ -391,7 +389,7 @@ const Fixed = {
   colonequals: '≔',
   gtreqless: '⋛',
   precsim: '≾',
-  triangleq: '≜',
+  // triangleq: '≜',
   Coloneqq: '∷=',
   coloncolonequals: '∷=',
   gtreqqless: '⪌',
@@ -463,7 +461,7 @@ const Fixed = {
   nsupseteqq: '⊉',
   succneqq: '⪶',
   lneq: '⪇',
-  nmid: '∤',
+  // nmid: '∤',
   ntriangleleft: '⋪',
   succnsim: '⋩',
   lneqq: '≨',
@@ -475,7 +473,7 @@ const Fixed = {
   ntriangleright: '⋫',
   supsetneqq: '⫌',
   lvertneqq: '≨',
-  nparallel: '∦',
+  // nparallel: '∦',
   ntrianglerighteq: '⋭',
   varsubsetneq: '⊊',
   ncong: '≆',
@@ -485,7 +483,7 @@ const Fixed = {
   npreceq: '⋠',
   nvDash: '⊭',
   varsupsetneq: '⊋',
-  neq: '≠',
+  // neq: '≠',
   nshortmid: '∤',
   nVDash: '⊯',
   varsupsetneqq: '⫌',
@@ -692,8 +690,8 @@ Unicode.subscripts[Fixed.in] = Fixed.smallin
 Unicode.subscripts[Fixed.ni] = Fixed.smallni
 
 
-
 // Gothic
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const gothics = ['ahsa', 'bairkan', 'giba', 'dags', 'aihvus']
 
 

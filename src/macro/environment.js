@@ -60,7 +60,7 @@ const sepMatrix = function (gel, lg, rg, sep) {
 const polymerizeTeX = function (s) {
   let result = s.trim()
     .replace(/ *\r\n *| *\n *| (?= )/g, '')
-    .replace(/ *(\,|\.) */g, '$1 ')
+    .replace(/ *(,|\.) */g, '$1 ')
   return result
 }
 

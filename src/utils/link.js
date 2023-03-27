@@ -20,10 +20,12 @@ const Link = function (run, chain = true) {
 
   this.check = (predicate = defined) => this.next = new Link((...xs) =>
     (x => x.y ? x.x : (this.next.suspend(), undefined))
+      // eslint-disable-next-line no-unexpected-multiline
       (point(this.run(...xs), this.transphism(predicate))))
 
   this.pip = next => this.next = new Link((...xs) =>
     (x => defined(x.y) ? [x.x, x.y] : (this.next.suspend(), undefined))
+      // eslint-disable-next-line no-unexpected-multiline
       (point(this.run(...xs), this.transphism(next.run))))
 
   this.map = morph => this.next = new Link((...xs) =>
