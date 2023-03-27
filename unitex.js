@@ -68,6 +68,7 @@ const binaryMacro = macroh.check(x => Binary[x])
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
 
 // [[value1, macro], value2]
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const infixMacro = value
   .follow(macroh.check(x => Binary.__infix__[x]))
   .follow(value)
@@ -144,7 +145,7 @@ const blockElem = loose(blockInfix)
   .or(fixedMacro.map(Block.of))
   .or(unaryMacro.map(Block.of))
   .or(blockBinaryMacro) // csp. binary
-  .or(token(x => !solid(x)).some().map(x => Block.empty))
+  .or(token(x => !solid(x)).some().map(() => Block.empty))
 
 const blockCluster = blockElem.some()
   .map(x => x.reduce((s, t) => s.append(t)))
@@ -179,5 +180,6 @@ const spectrum = element.or(unknownMacro)
 const text = spectrum.plus()
 
 export const UniTeX = {
-  parse: s => (x => x ? x[0] : '')(text.parse(s))
+  parse: s => (x => x ? x[0] : '')(text.parse(s)), 
+  fixeds: () => Object.keys(Fixed), 
 }
