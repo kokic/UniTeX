@@ -26,5 +26,13 @@ jobs:
      
       - name: Build
         run: webpack ./unitex.js --mode=none --output-library-type=window
-
+      
       - run: npm test
+      
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with: 
+          token: ${{ secrets.TOKEN }}
+          repository-name: kokic/UniTeX-Website
+          branch: main
+          folder: dist/main.js
