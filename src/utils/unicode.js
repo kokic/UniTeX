@@ -87,6 +87,7 @@ typeface('texttt', alphabets(...series('𝙰', '𝚣')))
 typeface('textscr', Unicode.typeface.mathscr) // original
 typeface('textcal', Unicode.typeface.mathcal) // original
 
+typeface('Bbb', Unicode.typeface.mathbb)
 // typeface('text', alphabets(...series('A', 'Z'), ...series('a', 'z')))
 
 Unicode.typefaceNames = Object.keys(Unicode.typeface)
