@@ -87,6 +87,19 @@ typeface('texttt', alphabets(...series('𝙰', '𝚣')))
 typeface('textscr', Unicode.typeface.mathscr) // original
 typeface('textcal', Unicode.typeface.mathcal) // original
 
+typeface('sf', Unicode.typeface.mathsf)
+typeface('bf', Unicode.typeface.mathbf)
+typeface('bold', Unicode.typeface.mathbf)
+
+typeface('boldsymbol', Unicode.typeface.mathbf)
+typeface('bm', Unicode.typeface.mathbf)
+
+typeface('tt', Unicode.typeface.texttt)
+typeface('it', Unicode.typeface.mathit)
+
+typeface('frak', Unicode.typeface.mathfrak)
+typeface('cal', Unicode.typeface.mathcal)
+
 typeface('Bbb', Unicode.typeface.mathbb)
 // typeface('text', alphabets(...series('A', 'Z'), ...series('a', 'z')))
 

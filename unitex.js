@@ -182,4 +182,6 @@ const text = spectrum.plus()
 export const UniTeX = {
   parse: s => (x => x ? x[0] : '')(text.parse(s)), 
   fixeds: () => Object.keys(Fixed), 
+  unaries: () => Object.keys(Unary), 
+  binaries: () => Object.keys(Binary), 
 }
