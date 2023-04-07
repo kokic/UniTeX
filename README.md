@@ -27,7 +27,23 @@ UniTeX.parse(source: string)
   | source | `E[m] \simeq \Z/m\Z \times \Z/m\Z, \text{Gal}(\bar a/a) \rarr \text{Aut}(E[m])` | 
   | - | - |
   | target | E[m] ≃ ℤ/mℤ × ℤ/mℤ, Gal(ā/a) → Aut(E[m]) |
+  
+  --- 
+  
+  ```
+  % source & target
+  \theorem (Wedderburn). All finite fields are commutative. 
+  \proof. Omitted.
+  
+  \lemma. If K is a commutative field, every finite subgroup of K^\times is cyclic.
+  
+  𝐓𝐡𝐞𝐨𝐫𝐞𝐦 (Wedderburn). All finite fields are commutative. 
+  𝑝𝑟𝑜𝑜𝑓. Omitted.
+  
+  𝐋𝐞𝐦𝐦𝐚. If K is a commutative field, every finite subgroup of Kˣ is cyclic.
+  ```
 
+- inline formula
 
 ## TODO
 
