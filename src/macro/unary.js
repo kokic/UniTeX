@@ -11,11 +11,33 @@ const Unary = {
   cbrt: x => '∛' + Proper.paren(x), // original
   furt: x => '∜' + Proper.paren(x), // original
 
+  grave: x => x + (Unicode.isLetter(x) ? '\u0300' : '-grave'),
+  '`': x => x + (Unicode.isLetter(x) ? '\u0300' : ''),
+
+  acute: x => x + (Unicode.isLetter(x) ? '\u0301' : '-acute'),
+  '\'': x => x + (Unicode.isLetter(x) ? '\u0301' : ''),
+  
   hat: x => x + (Unicode.isLetter(x) ? '\u0302' : '-hat'),
+  '^': x => x + (Unicode.isLetter(x) ? '\u0302' : ''),
+  
   tilde: x => x + (Unicode.isLetter(x) ? '\u0303' : '-tilde'),
+  '~': x => x + (Unicode.isLetter(x) ? '\u0303' : ''),
+
   bar: x => x + (Unicode.isLetter(x) ? '\u0304' : '-bar'),
+  '=': x => x + (Unicode.isLetter(x) ? '\u0304' : ''),
+  
   overline: x => x + (Unicode.isLetter(x) ? '\u0305' : '-underline'),
   breve: x => x + (Unicode.isLetter(x) ? '\u0306' : '-breve'),
+  u: x => x + (Unicode.isLetter(x) ? '\u0306' : ''),
+
+  '.': x => x + (Unicode.isLetter(x) ? '\u0307' : ''),
+  '"': x => x + (Unicode.isLetter(x) ? '\u0308' : ''),
+  
+  
+  r: x => x + (Unicode.isLetter(x) ? '\u030A' : ''),
+  H: x => x + (Unicode.isLetter(x) ? '\u030B' : ''),
+  v: x => x + (Unicode.isLetter(x) ? '\u030C' : ''),
+
 
   kern: x => x.endsWith('em') ? ' '.repeat(x.substring(0, x.length - 2)) : ' ',
 
