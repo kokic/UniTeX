@@ -40,7 +40,7 @@ const single = digit.or(letter).or(valuesymbol).or(() => fixedMacro)
 const value = loose(single.or(braceWrap(() => text)))
 const optional = bracketWrap(value) // [value]
 
-const symbolMacros = includes(...'|,>:!()[]{}_%\\`^~=."\'')
+const symbolMacros = includes(...'|,>:;!()[]{}_%\\`^~=."\'')
 
 const macroName = letters.or(symbolMacros)
 const macroh = backslash.move(macroName)
