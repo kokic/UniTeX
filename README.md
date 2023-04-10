@@ -8,23 +8,42 @@ UniTeX.parse(source: string)
 ```
 
 ## Example
-![unitex-example.png](./unitex-example.png)
 
 - text formula
-  > ℓ(D) - ℓ(K_C-D) = deg D - g + 1 
-    &emsp; `\ell(D) - \ell(K_C-D) = deg D - g + 1`
+
+  | source | target || source | target |
+  | - | - | - | - | - |
+  | `\TeX` | TᴇX || `\LaTeX` | LᴬTᴇX |
+  | `\KaTeX` | KᴬTᴇX || `\UniTeX` | UⁿᵢTᴇX |
+
+  | source | target |
+  | - | - |
+  | `a^2 + b^2 = c^2` | a² + b² = c² |
+
+  | source | `\ell(D) - \ell(K-D) = \deg D - g + 1` |
+  | - | - |
+  | target | ℓ(D) - ℓ(K-D) = deg D - g + 1 |
+
+  | source | `E[m] \simeq \Z/m\Z \times \Z/m\Z, \text{Gal}(\bar a/a) \rarr \text{Aut}(E[m])` | 
+  | - | - |
+  | target | E[m] ≃ ℤ/mℤ × ℤ/mℤ, Gal(ā/a) → Aut(E[m]) |
+  
+  --- 
+  
+  ```
+  % source & target
+  \theorem (Wedderburn). All finite fields are commutative. 
+  \proof. Omitted.
+  
+  \lemma. If K is a commutative field, every finite subgroup of K^\times is cyclic.
+  
+  𝐓𝐡𝐞𝐨𝐫𝐞𝐦 (Wedderburn). All finite fields are commutative. 
+  𝑝𝑟𝑜𝑜𝑓. Omitted.
+  
+  𝐋𝐞𝐦𝐦𝐚. If K is a commutative field, every finite subgroup of Kˣ is cyclic.
+  ```
 
 - inline formula
-  > 𝐸[𝑚] ≃ ℤ/𝑚ℤ × ℤ/𝑚ℤ, Gal(𝐾̄/𝐾) → Aut(𝐸[𝑚])
-    &emsp; `$E[m] \simeq \Z/m\Z \times \Z/m\Z, \text{Gal}(\bar K/K) \rarr \text{Aut}(E[m])$`
-
-- block formula
-  ```
-       aτ + b                   
-    f(--------) = (cτ + d)ᵏ f(τ)
-       cτ + d                   
-  ``` 
-&emsp; `$$f(\frac{a\tau+b}{c\tau+d})\,=\,(c\tau+d)^k\,f(\tau)$$`
 
 ## TODO
 
@@ -70,9 +89,6 @@ UniTeX.parse(source: string)
 
 - **Additional unicode characters** and corresponding macro commands ([BabelMap](https://www.babelstone.co.uk/Unicode/babelmap.html)). This is mainly for the macro commands that exist in the common packages of TeX, which are not implemented by KaTeX or MathJax but are supported by Unicode.
 
-- **Various Tables**. 
-Although UniTeX faces similar problems <sup><a id='tables-packages-back' href='#tables-packages'>[1]</a></sup>, it is much easier to implement for UniTeX (e.g. [zeich.hs](https://github.com/kokic/dynastes/blob/main/zeich.hs)), the really important problem is the font, because the unique spacing of the non-monospace (equal width) font may cause the elements such as the border to not be aligned, but this is completely determined by the user or the platform it is displayed on therefore, users can only be advised to use monospace-like fonts <sup><a id='tables-remedies-back' href='#tables-remedies'>[2]</a></sup>. 
-
 - **Multiline Structure**. 
 
 ## Future
@@ -106,12 +122,6 @@ UniTeX is licensed under the [MIT License](https://github.com/kokic/UniTeX/blob/
 
 
 --- 
-
-<a id='tables-packages' href='#tables-packages-back'>[1].</a>
-Perhaps due to the complexity of macro packages itself in history, KaTeX does not support any form of table environment at present (of course, the array environment is sufficient for some simple cases, so it is not a big problem for KaTeX from the perspective of basic functions). 
-
-<a id='tables-remedies' href='#tables-remedies-back'>[2].</a>
-There may be some remedies, it is conceivable that they are not completely effective.
 
 <!-- ## Acknowledge -->
 
