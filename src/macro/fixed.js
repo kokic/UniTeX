@@ -235,8 +235,10 @@ const Fixed = {
   ni: '∋',
   smallni: '∍', // original
   blacksquare: '∎',
+  square: '▢',
   prod: '∏',
-
+  qed: '□',
+	
   coprod: '∐',
   sum: '∑',
   plus: '+', 
