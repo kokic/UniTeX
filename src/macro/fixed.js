@@ -593,6 +593,7 @@ const Fixed = {
   times: '×',
   ltimes: '⋉',
   rtimes: '⋊',
+  div: '÷', 
 
   aleph: 'ℵ',
   alef: 'ℵ',
@@ -639,6 +640,8 @@ const Fixed = {
   star: '⋆', 
   bigstar: '★', 
   Game: '⅁', 
+
+  
 
   /* exp */
   sumtop: '⎲', 

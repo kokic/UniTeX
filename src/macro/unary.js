@@ -47,7 +47,8 @@ const Unary = {
         n == 3 ? Unary.cbrt(x) :
           n == 4 ? Unary.furt(x) :
             Unicode.suprender(n) + Unary.sqrt(x), 
-  }
+  }, 
+
 }
 Unary.mkern = Unary.kern
 Unary.mskip = Unary.kern

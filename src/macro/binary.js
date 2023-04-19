@@ -4,7 +4,9 @@ import Proper from '../utils/proper.js'
 import Fixed from './fixed.js'
 
 const Binary = {
+  
   frac: (x, y) => `${Proper.paren(x)}/${Proper.paren(y)}`,
+  
   overset: function (x, y) {
     if (x == '?' && y == '=') return Fixed.qeq
     if (x == 'm' && y == '=') return Fixed.meq
@@ -13,6 +15,7 @@ const Binary = {
     if (x == Fixed['Delta'] && y == '=') return Fixed.deltaeq
     return `\\overset{${x}}{${y}}`
   }, 
+
   binom: (n, k) => `(${n} ${k})`, 
 
   __block__: {
@@ -22,7 +25,10 @@ const Binary = {
 
   __infix__: {
     choose: (n, k) => Binary.binom(n, k)
-  }
+  }, 
+
+  /* unstable */
+  alias: (a, x) => (Fixed[a] = x, '')
 }
 
 Binary['cfrac'] = Binary.frac
