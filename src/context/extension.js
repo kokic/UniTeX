@@ -3,6 +3,7 @@
 import Fixed from "../macro/fixed.js";
 import Unary from "../macro/unary.js";
 import Binary from "../macro/binary.js";
+import { UniTeX } from "../../unitex.js";
 
 // more mathematics unicode as tex source code style
 
@@ -52,10 +53,13 @@ export const unimath = {
     overt: '\u036E', // original
     overx: '\u036F', // original
 
-  }, 
+  },
 
   binary: {
-    repeat: (s, n) => s.repeat(n)
+    repeat: (s, n) => s.repeat(n),
+    for: (s, n) => [...Array(parseInt(n)).keys()]
+      .map(x => UniTeX.parse(s.replace(/#(\d+)/g, (__, n) => x + + n)))
+      .reduce((x, y) => x + y)
   }
 
 }

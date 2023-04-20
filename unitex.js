@@ -184,5 +184,9 @@ export const UniTeX = {
   fixeds: () => Object.keys(Fixed), 
   unaries: () => Object.keys(Unary), 
   binaries: () => Object.keys(Binary), 
+
+  fixedMacros: Fixed, 
+  unaryMacros: Unary, 
+  binaryMacros: Binary, 
 }
 
