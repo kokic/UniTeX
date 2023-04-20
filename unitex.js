@@ -185,3 +185,4 @@ export const UniTeX = {
   unaries: () => Object.keys(Unary), 
   binaries: () => Object.keys(Binary), 
 }
+

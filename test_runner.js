@@ -7,7 +7,7 @@ import { execSync } from "child_process";
 let exitCode = 0;
 let failedNum = 0;
 
-const ignoreTests = [];
+// const ignoreTests = [];
 
 const testDir = "./test/";
 const testDirContents = fs.readdirSync(testDir);
@@ -21,9 +21,7 @@ const testNames = allTeXFiles.map(getTeXName);
 
 const enableApplyCalcResults = process.env["TEST_APPLY_RESULTS"] == "1";
 
-const runTest = (
-  testName,
-) => {
+const runTest = testName => {
   console.log("running test `" + testName + "`");
   const texName = testDir + testName + ".tex";
   const outName = testDir + testName + ".out";
