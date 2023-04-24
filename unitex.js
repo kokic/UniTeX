@@ -18,6 +18,8 @@ import {
   letters,
 } from './src/parsec.js'
 
+import Context from './src/context/context.js'
+
 const backslash = character('\\')
 
 const lbrace = character('{')
@@ -185,8 +187,6 @@ export const UniTeX = {
   unaries: () => Object.keys(Unary), 
   binaries: () => Object.keys(Binary), 
 
-  fixedMacros: Fixed, 
-  unaryMacros: Unary, 
-  binaryMacros: Binary, 
+  getContext: () => Context.getContext(), 
 }
 

@@ -1,5 +1,4 @@
 
-import Context from '../context/context.js'
 import Proper from '../utils/proper.js'
 import Unicode from '../utils/unicode.js'
 
@@ -49,8 +48,6 @@ const Unary = {
           n == 4 ? Unary.furt(x) :
             Unicode.suprender(n) + Unary.sqrt(x), 
   }, 
-
-  usecontext: x => (Context.use(x), '')
 }
 Unary.mkern = Unary.kern
 Unary.mskip = Unary.kern
