@@ -28,7 +28,21 @@ UniTeX.parse(source: string)
   | - | - |
   | target | E[m] ≃ ℤ/mℤ × ℤ/mℤ, Gal(ā/a) → Aut(E[m]) |
   
+- environment
+  ```
+  % source & target
+  \begin{pmatrix} 
+     \cos\theta & -\sin\theta \\
+     \sin\theta & \cos\theta 
+  \end{pmatrix}
+  
+  ((cosθ -sinθ)(sinθ cosθ))
+  ```
+    
+   
   --- 
+  
+  
   
   ```
   % source & target
@@ -44,6 +58,25 @@ UniTeX.parse(source: string)
   ```
 
 - inline formula
+
+  |source| `$J = [\frac{\partial f_1}{\partial x_1} \cdots \frac{\partial f_n}{\partial x_n}]$` |
+  |-|-|
+  |target| 𝐽 = [(∂ 𝑓₁)/(∂ 𝑥₁) ⋯ (∂ 𝑓ₙ)/(∂ 𝑥ₙ)] |
+
+- block formula
+
+  ```
+  % source & target
+  $$\dfrac{4}{\pi}\;=\;1+\dfrac{1^2}{2+\dfrac{3^2}{2+\dfrac{5^2}{2+\ddots}}}$$
+  
+   4                  1²         
+  ---  =  1 + -------------------
+   π                    3²       
+               2 + ------------- 
+                          5²     
+                    2 + -------  
+                         2 + ⋱   
+  ```
 
 ## TODO
 
