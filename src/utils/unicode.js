@@ -208,18 +208,10 @@ Unicode.supscripts['′'] = '′'
 
 // subscripts
 
-Unicode.subscripts = {}
+Unicode.subscripts = {};
+['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉']
+  .forEach((x, i) => Unicode.subscripts[i] == x);
 
-Unicode.subscripts[0] = '₀'
-Unicode.subscripts[1] = '₁'
-Unicode.subscripts[2] = '₂'
-Unicode.subscripts[3] = '₃'
-Unicode.subscripts[4] = '₄'
-Unicode.subscripts[5] = '₅'
-Unicode.subscripts[6] = '₆'
-Unicode.subscripts[7] = '₇'
-Unicode.subscripts[8] = '₈'
-Unicode.subscripts[9] = '₉'
 
 Unicode.subscripts.a = 'ₐ'
 Unicode.subscripts.e = 'ₑ'

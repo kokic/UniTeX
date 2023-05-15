@@ -47,4 +47,8 @@ export const unimath = {
 
   },
 
+  unary: {
+    
+  }, 
+
 }
