@@ -74,17 +74,17 @@ const Fixed = {
   
   
   /* Theorem */
-  proposition: Unicode.render('Proposition', 'textbf'),
-  lemma: Unicode.render('Lemma', 'textbf'),
-  theorem: Unicode.render('Theorem', 'textbf'),
-  corollary: Unicode.render('Corollary', 'textbf'),
-  definition: Unicode.render('Definition', 'textbf'),
-  remark: Unicode.render('Remark', 'textbf'),
-  hypothesis: Unicode.render('Hypothesis', 'textbf'),
-  conjecture: Unicode.render('Conjecture', 'textbf'),
-  axiom: Unicode.render('Axiom', 'textbf'),
-  example: Unicode.render('Example', 'textbf'),
-  proof: Unicode.render('proof', 'textit'),
+  proposition: Unicode.render_if_exists('Proposition', 'textbf'),
+  lemma: Unicode.render_if_exists('Lemma', 'textbf'),
+  theorem: Unicode.render_if_exists('Theorem', 'textbf'),
+  corollary: Unicode.render_if_exists('Corollary', 'textbf'),
+  definition: Unicode.render_if_exists('Definition', 'textbf'),
+  remark: Unicode.render_if_exists('Remark', 'textbf'),
+  hypothesis: Unicode.render_if_exists('Hypothesis', 'textbf'),
+  conjecture: Unicode.render_if_exists('Conjecture', 'textbf'),
+  axiom: Unicode.render_if_exists('Axiom', 'textbf'),
+  example: Unicode.render_if_exists('Example', 'textbf'),
+  proof: Unicode.render_if_exists('proof', 'textit'),
 
   /* Combined Operatorname */
   argmax: 'arg max',

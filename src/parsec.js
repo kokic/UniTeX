@@ -141,14 +141,28 @@ Parser.prototype.log = function (s) {
 }
 
 
+
+/**
+ * Creates a parser that matches a single token based on the given predicate.
+ *
+ * @param {function} predicate - A function that takes a token and returns a boolean value indicating whether the token matches the desired criteria.
+ * @return {Parser} - A parser object that can be used to parse tokens from a source string.
+ */
 const token = predicate => new Parser(
   source => source.length > 0
     ? predicate(source[0])
       ? [source[0], source.substring(1)]
       : undefined
     : undefined
-)
+);
 
+/**
+ * Parses a string into an array of tokens of length n that satisfy a given predicate.
+ *
+ * @param {number} n - The length of the tokens to parse.
+ * @param {function} predicate - The function that checks if a token satisfies a condition.
+ * @return {Parser} - The parser object that can parse the tokens.
+ */
 const tokens = (n, predicate) => new Parser(
   source => source.length >= n ?
     link(() => source.substring(0, n))
@@ -156,8 +170,8 @@ const tokens = (n, predicate) => new Parser(
       .map(x => [x, source.substring(n)])
       .run()
     : undefined
-)
-const inclusive = (n, ...xs) => tokens(n, x => xs.includes(x))
+);
+const inclusive = (n, ...xs) => tokens(n, x => xs.includes(x));
 
 const character = char => token(x => x == char)
 const includes = (...xs) => token(x => xs.includes(x))
@@ -170,9 +184,9 @@ const string = str => new Parser(
     : undefined
 )
 
-const space = character(' ')
-const spacea = space.asterisk()
-const spaces = space.plus()
+const space = character(' ');
+const spacea = space.asterisk();
+const spaces = space.plus();
 
 const loose = x => spacea.follow(x).second()
 const soft = x => loose(x).skip(spacea)

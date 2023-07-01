@@ -6,6 +6,8 @@ note.js
 test.js
 console.js
 
+*.lean
+
 node_modules/
 dist/
 lecture/

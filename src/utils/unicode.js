@@ -30,21 +30,38 @@ const Unicode = {
     return map
   },
 
-  render: (s, name) => Array.from(s)
+  /**
+   * Renders the given string if it exists, using the specified unicode typeface.
+   *
+   * @param {Array} s - The string to render.
+   * @param {string} name - The name of the Unicode typeface to use.
+   * @return {string} - The rendered string.
+   */
+  render_if_exists: (s, name) => Array.from(s)
     .map(x => Unicode.typeface[name][x] || x).join(''),
 
-  corender: function (charset, str, otherwise) {
-    const array = Array.from(str)
-    let through = true
+  /**
+   * Checks if all characters in the given string are present in the charset object.
+   *
+   * @param {object} charset - The charset object containing the characters to check against.
+   * @param {string} str - The string to be checked.
+   * @param {function} otherwise - The callback function to be called if the characters are not present.
+   * @return {boolean|string} Returns either true if all characters are present or the result of the otherwise callback.
+   */
+  render_if_forall: function (charset, str, otherwise) {
+    const array = Array.from(str);
+    let through = true;
+    
     for (const element of array)
       through &&= charset[element]
+
     return through
       ? array.map(x => charset[x]).join('')
       : otherwise(str)
   },
 
-  suprender: s => Unicode.corender(Unicode.supscripts, s, x => '^' + Proper.brace(x)),
-  subrender: s => Unicode.corender(Unicode.subscripts, s, x => '_' + Proper.brace(x)),
+  suprender: s => Unicode.render_if_forall(Unicode.supscripts, s, x => '^' + Proper.brace(x)),
+  subrender: s => Unicode.render_if_forall(Unicode.subscripts, s, x => '_' + Proper.brace(x)),
 }
 
 Unicode.letterUppers = Unicode.series('A', 'Z')

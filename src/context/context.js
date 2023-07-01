@@ -15,6 +15,8 @@ const Context = {
     enableDefaultValueIdentity: true,
     extensions: [],
     language: 'en-US',
+    // `latex` or ``
+    target: 'latex' 
   },
 
   standard: {
