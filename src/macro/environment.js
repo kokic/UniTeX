@@ -14,17 +14,17 @@ const Environment = {
   Vmatrix: xs => sepMatrix(xs, '||', '||', '; '),
 
   // theorem family
-  proposition: xs => theoremstyle('proposition', xs),
-  lemma: xs => theoremstyle('lemma', xs),
-  theorem: xs => theoremstyle('theorem', xs),
-  corollary: xs => theoremstyle('corollary', xs),
-  definition: xs => theoremstyle('definition', xs),
-  remark: xs => theoremstyle('remark', xs),
-  hypothesis: xs => theoremstyle('hypothesis', xs),
-  conjecture: xs => theoremstyle('conjecture', xs),
-  axiom: xs => theoremstyle('axiom', xs),
-  example: xs => theoremstyle('example', xs),
-  proof: xs => theoremstyle('proof', xs),
+  proposition: xs => theorem_style('proposition', xs),
+  lemma: xs => theorem_style('lemma', xs),
+  theorem: xs => theorem_style('theorem', xs),
+  corollary: xs => theorem_style('corollary', xs),
+  definition: xs => theorem_style('definition', xs),
+  remark: xs => theorem_style('remark', xs),
+  hypothesis: xs => theorem_style('hypothesis', xs),
+  conjecture: xs => theorem_style('conjecture', xs),
+  axiom: xs => theorem_style('axiom', xs),
+  example: xs => theorem_style('example', xs),
+  proof: xs => theorem_style('proof', xs),
 
   // misc family
   // center: xs => xs,
@@ -57,7 +57,7 @@ const sepMatrix = function (gel, lg, rg, sep) {
  * hold temporarily.
  *
  */
-const polymerizeTeX = function (s) {
+const polymerize_tex = function (s) {
   let result = s.trim()
     .replace(/ *\r\n *| *\n *| (?= )/g, '')
     .replace(/ *(,|\.) */g, '$1 ')
@@ -66,11 +66,11 @@ const polymerizeTeX = function (s) {
 
 const regexpDoubleLine = /\r\n\r\n|\n\n/
 
-const theoremstyle = function (type, content) {
+const theorem_style = function (type, content) {
   let title = Fixed[type] + '. '
   return title + content
     .split(regexpDoubleLine)
-    .map(polymerizeTeX)
+    .map(polymerize_tex)
     .join('\n')
 }
 

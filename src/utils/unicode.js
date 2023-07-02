@@ -48,7 +48,7 @@ const Unicode = {
    * @param {function} otherwise - The callback function to be called if the characters are not present.
    * @return {boolean|string} Returns either true if all characters are present or the result of the otherwise callback.
    */
-  render_if_forall: function (charset, str, otherwise) {
+  render_if_forall: function (charset, str, otherwise = x => x) {
     const array = Array.from(str);
     let through = true;
     
@@ -120,7 +120,7 @@ typeface('cal', Unicode.typeface.mathcal)
 typeface('Bbb', Unicode.typeface.mathbb)
 // typeface('text', alphabets(...series('A', 'Z'), ...series('a', 'z')))
 
-Unicode.typefaceNames = Object.keys(Unicode.typeface)
+Unicode.typefaceNames = Object.keys(Unicode.typeface);
 
 // supscript & subscript
 

@@ -5,6 +5,7 @@ package-lock.json
 note.js
 test.js
 console.js
+output.txt
 
 *.lean
 

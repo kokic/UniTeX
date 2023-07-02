@@ -12,11 +12,11 @@ let failedNum = 0;
 const testDir = "./test/";
 const testDirContents = fs.readdirSync(testDir);
 
-const isTeXFile = fileName => fileName.endsWith(".tex")
-const allTeXFiles = testDirContents.filter(isTeXFile)
+const isTeXFile = fileName => fileName.endsWith(".tex");
+const allTeXFiles = testDirContents.filter(isTeXFile);
 const testSrc = allTeXFiles;
 
-const getTeXName = x => x.substring(0, x.lastIndexOf('.tex'))
+const getTeXName = x => x.substring(0, x.lastIndexOf('.tex'));
 const testNames = allTeXFiles.map(getTeXName);
 
 const enableApplyCalcResults = process.env["TEST_APPLY_RESULTS"] == "1";

@@ -3,32 +3,33 @@ import Block from '../utils/block.js'
 import Proper from '../utils/proper.js'
 import Fixed from './fixed.js'
 
+const oversetEquationMap = {
+  '?=': Fixed.qeq,
+  'm=': Fixed.meq,
+  'def=': Fixed.defeq, 
+
+  // from unimath, wait hook style
+  [Fixed['star'] + '=']: Fixed['stareq'],
+  [Fixed['Delta'] + '=']: Fixed['deltaeq'],
+};
+
 const Binary = {
-  
+
   frac: (x, y) => `${Proper.paren(x)}/${Proper.paren(y)}`,
-  
-  overset: function (x, y) {
-    if (x == '?' && y == '=') return Fixed.qeq
-    if (x == 'm' && y == '=') return Fixed.meq
-    if (x == 'def' && y == '=') return Fixed.defeq
-    if (x == Fixed['star'] && y == '=') return Fixed.stareq
-    if (x == Fixed['Delta'] && y == '=') return Fixed.deltaeq
-    return `\\overset{${x}}{${y}}`
-  }, 
-
-  binom: (n, k) => `(${n} ${k})`, 
-
-  __block__: {
-    frac: (x, y) => Block.frac(x, y), 
-    overset: (x, y) => Binary.overset(x.string, y.string).toBlock()
-  }, 
-
-  __infix__: {
-    choose: (n, k) => Binary.binom(n, k)
-  }, 
+  overset: (x, y) => oversetEquationMap[`${x}${y}`] || `\\overset{${x}}{${y}}`,
+  binom: (n, k) => `(${n} ${k})`,
 
   /* unstable */
   alias: (a, x) => (Fixed[a] = x, '')
+}
+
+const BinaryBlock = {
+  frac: (x, y) => Block.frac(x, y),
+  overset: (x, y) => Binary.overset(x.string, y.string).toBlock()
+}
+
+const BinaryInfix = {
+  choose: (n, k) => Binary.binom(n, k)
 }
 
 Binary['cfrac'] = Binary.frac
@@ -38,8 +39,9 @@ Binary['tfrac'] = Binary.frac
 Binary['dbinom'] = Binary.binom
 Binary['tbinom'] = Binary.binom
 
-Binary.__block__['cfrac'] = Binary.__block__.frac
-Binary.__block__['dfrac'] = Binary.__block__.frac
-Binary.__block__['tfrac'] = Binary.__block__.frac
+BinaryBlock['cfrac'] = BinaryBlock.frac
+BinaryBlock['dfrac'] = BinaryBlock.frac
+BinaryBlock['tfrac'] = BinaryBlock.frac
 
 export default Binary
+export { BinaryBlock, BinaryInfix }

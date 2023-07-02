@@ -1,8 +1,8 @@
 
 import Unicode from './src/utils/unicode.js'
 
-import Binary from './src/macro/binary.js'
-import Unary from './src/macro/unary.js'
+import Binary, { BinaryBlock, BinaryInfix } from './src/macro/binary.js'
+import Unary, { UnaryOptional } from './src/macro/unary.js'
 import Fixed from './src/macro/fixed.js'
 import Environment from './src/macro/environment.js'
 import Block from './src/utils/block.js'
@@ -20,15 +20,15 @@ import {
 
 import Context from './src/context/context.js'
 
-const backslash = character('\\')
+const backslash = character('\\');
 
-const lbrace = character('{')
-const rbrace = character('}')
-const braceWrap = x => lbrace.move(x).skip(rbrace)
+const lbrace = character('{');
+const rbrace = character('}');
+const brace_wrap = x => lbrace.move(x).skip(rbrace);
 
-const lbracket = character('[')
-const rbracket = character(']')
-const bracketWrap = x => lbracket.move(x).skip(rbracket)
+const lbracket = character('[');
+const rbracket = character(']');
+const bracket_wrap = x => lbracket.move(x).skip(rbracket);
 
 const special = x => '\\{}_^%$'.includes(x)
 // const unit = digit.skip(string('em'))
@@ -38,46 +38,46 @@ const literals = literal.plus()
 
 const solid = x => x.trim().length == 1
 const valuesymbol = literal.check(solid)
-const single = digit.or(letter).or(valuesymbol).or(() => fixedMacro)
-const value = loose(single.or(braceWrap(() => text)))
-const optional = bracketWrap(value) // [value]
+const single = digit.or(letter).or(valuesymbol).or(() => fixed_macro)
+const value = loose(single.or(brace_wrap(() => text)))
+const optional = bracket_wrap(value) // [value]
 
-const symbolMacros = includes(...'|,>:;!()[]{}_%\\`^~=."\'')
+const symbol_macros = includes(...'|,>:;!()[]{}_%\\`^~=."\'')
 
-const macroName = letters.or(symbolMacros)
-const macroh = backslash.move(macroName)
+const macro_name = letters.or(symbol_macros)
+const macro_head = backslash.move(macro_name)
 
-const fixedMacro = macroh.check(x => Fixed[x] != undefined)
+const fixed_macro = macro_head.check(x => Fixed[x] != undefined)
   .map(x => Fixed[x])
 
 // [macro, value]
-const unaryOrdinaryMacro = macroh.check(x => Unary[x])
+const unary_ordinary_macro = macro_head.check(x => Unary[x])
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
 
 // [[marco, optional], value]
-const unaryOptionalMacro = macroh.check(x => Unary.__optional__[x])
+const unary_optional_macro = macro_head.check(x => UnaryOptional[x])
   .follow(optional)
   .follow(value)
-  .map(xs => Unary.__optional__[xs[0][0]](xs[0][1], xs[1]))
+  .map(xs => UnaryOptional[xs[0][0]](xs[0][1], xs[1]))
 
-const unaryMacro = unaryOptionalMacro.or(unaryOrdinaryMacro)
+const unary_macro = unary_optional_macro.or(unary_ordinary_macro)
 
 // [[macro, value1], value2]
-const binaryMacro = macroh.check(x => Binary[x])
+const binary_macro = macro_head.check(x => Binary[x])
   .follow(value)
   .follow(value)
   .map(xs => Binary[xs[0][0]](xs[0][1], xs[1]))
 
 // [[value1, macro], value2]
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const infixMacro = value
-  .follow(macroh.check(x => Binary.__infix__[x]))
+const infix_macro = value
+  .follow(macro_head.check(x => BinaryInfix[x]))
   .follow(value)
   .map(xs => Binary[xs[0][1]](xs[0][0], xs[1]))
 
 
-const envira = braceWrap(letters)
+const envira = brace_wrap(letters)
 const begin = backslash.skip(string('begin')).move(envira)
 const end = backslash.skip(string('end')).move(envira)
 // [[begin, text], end]
@@ -100,7 +100,7 @@ const comment = character('%')
 //
 
 
-const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
+const typeface = macro_head.check(x => Unary.typefaceNames.includes(x))
   .follow(value)
   .map(xs => Unary[xs[0]](xs[1]))
 
@@ -108,57 +108,58 @@ const typeface = macroh.check(x => Unary.typefaceNames.includes(x))
 
 
 // inline
-const inlineElem = literals
+const inline_elem = literals
   // .or(infixMacro)
   .or(suporsub)
   .or(environ)
-  .or(unaryMacro)
-  .or(binaryMacro)
+  .or(unary_macro)
+  .or(binary_macro)
   .or(value)
 
-const italicRender = s => Unicode.render(s, 'mathit')
+const italic_render = s => Unicode.render_if_exists(s, 'mathit')
 
-const inlineCluster = typeface
+const inline_cluster = typeface
   // .or(fixedMacro)
-  .or(inlineElem.map(italicRender))
+  .or(inline_elem.map(italic_render))
   .plus()
 const dollar = character('$')
-const inlineMath = dollar.move(inlineCluster).skip(dollar)
+const inline_math = dollar.move(inline_cluster).skip(dollar)
 
 
 
 
 // block
-const blockInfix = token(x => '+-*/<>~'.includes(x))
-  .or(macroh.check(x => Fixed.infixs.includes(x)).map(x => Fixed[x]))
+const block_infix = token(x => '+-*/<>~'.includes(x))
+  .or(macro_head.check(x => Fixed.infixs.includes(x)).map(x => Fixed[x]))
   .map(x => ` ${x} `.toBlock())
 
-const blockValue = loose(single
+const block_value = loose(single
   .map(x => x.toBlock())
-  .or(braceWrap(() => blockCluster)))
-const blockBinaryMacro = macroh.check(x => Binary.__block__[x])
-  .follow(blockValue)
-  .follow(blockValue)
-  .map(xs => Binary.__block__[xs[0][0]](xs[0][1], xs[1]))
+  .or(brace_wrap(() => block_cluster)));
 
-const blockElem = loose(blockInfix)
-  .or(blockValue) // csp. value
+const block_binary_macro = macro_head.check(x => BinaryBlock[x])
+  .follow(block_value)
+  .follow(block_value)
+  .map(xs => BinaryBlock[xs[0][0]](xs[0][1], xs[1]));
+
+const block_elem = loose(block_infix)
+  .or(block_value) // csp. value
   .or(suporsub.map(Block.of))
-  .or(fixedMacro.map(Block.of))
-  .or(unaryMacro.map(Block.of))
-  .or(blockBinaryMacro) // csp. binary
-  .or(token(x => !solid(x)).some().map(() => Block.empty))
+  .or(fixed_macro.map(Block.of))
+  .or(unary_macro.map(Block.of))
+  .or(block_binary_macro) // csp. binary
+  .or(token(x => !solid(x)).some().map(() => Block.empty));
 
-const blockCluster = blockElem.some()
-  .map(x => x.reduce((s, t) => s.append(t)))
+const block_cluster = block_elem.some()
+  .map(x => x.reduce((s, t) => s.append(t)));
 
-const doubleDollar = string('$$')
-const blockMath = doubleDollar
-  .move(blockCluster.map(x => x.string))
-  .skip(doubleDollar)
+const double_dollar = string('$$')
+const blockMath = double_dollar
+  .move(block_cluster.map(x => x.string))
+  .skip(double_dollar);
 //
 
-const mathstyle = blockMath.or(inlineMath)
+const mathstyle = blockMath.or(inline_math);
 
 /** 
  * because there is a simplified version of 
@@ -170,15 +171,15 @@ const mathstyle = blockMath.or(inlineMath)
 const element = literals
   .or(comment)
   .or(mathstyle)
-  .or(inlineElem)
+  .or(inline_elem)
 //
 
 const doubleBackslash = string('\\\\')
 const section = doubleBackslash.or(element).plus()
 
-const unknownMacro = macroh.map(x => '\\' + x)
+const unknown_macro = macro_head.map(x => '\\' + x)
 
-const spectrum = element.or(unknownMacro)
+const spectrum = element.or(unknown_macro)
 const text = spectrum.plus()
 
 export const UniTeX = {
@@ -189,4 +190,3 @@ export const UniTeX = {
 
   getContext: () => Context.getContext(), 
 }
-
