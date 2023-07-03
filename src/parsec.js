@@ -82,6 +82,10 @@ Parser.prototype.follow = function (next) {
   )
 }
 
+Parser.prototype.follows = function () {
+  return [...arguments].reduce((prev, curr) => prev.follow(curr), this)
+}
+
 /*
  *  tuple1? -> [a, phase1]                 (check)
  *          -> [[a, phase1], tuple2?]      (glue )
