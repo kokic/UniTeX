@@ -30,6 +30,9 @@ const Fixed = {
   LaTeX: 'LᴬTᴇX', 
   KaTeX: 'KᴬTᴇX', 
   UniTeX: 'UⁿᵢTᴇX', 
+  Agda: '𝐴gda', 
+  Lean: 'L∃∀N', 
+
 
   /* Accents */
   hat: '\u0302', 
@@ -638,8 +641,8 @@ const operatornames = [
   'sup',    'sec',    'sin',    'sinh',
   'sh',     'tan',    'tanh',   'tg',
   'th'
-]
-operatornames.forEach(x => Fixed[x] = x)
+];
+operatornames.forEach(x => Fixed[x] = x);
 
 
 const greeks = [
