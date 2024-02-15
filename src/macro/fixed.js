@@ -618,6 +618,9 @@ const Fixed = {
   star: '⋆', 
   bigstar: '★', 
   Game: '⅁', 
+  because: '∵',
+  suchthat: '∴',
+  
 
   
 
