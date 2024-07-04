@@ -143,18 +143,12 @@ UniTeX.parse(source: string)
 ## Build (for Browser)
 
 - node.js
-- webpack
+- any bundler
 
+### esbuild
+```sh
+esbuild unitex.js --bundle --outfile=dist/unitex.js --global-name=UniTeX
 ```
-webpack ./unitex.js --mode=none --output-library-type=window
-```
-
 
 ## License
 UniTeX is licensed under the [MIT License](https://github.com/kokic/UniTeX/blob/main/LICENSE). 
-
-
---- 
-
-<!-- ## Acknowledge -->
-

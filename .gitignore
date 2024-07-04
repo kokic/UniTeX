@@ -1,17 +1,5 @@
-
-.local.tex
-note.txt
 package-lock.json
-note.js
-test.js
-console.js
-output.txt
 
-*.lean
-
+.local/
 node_modules/
 dist/
-lecture/
-syllabus/
-
-*.out.tmp

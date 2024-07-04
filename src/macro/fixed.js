@@ -444,6 +444,8 @@ const Fixed = {
   succnsim: '⋩',
   lneqq: '≨',
   notin: '∉',
+  neg: '¬', 
+  lnot: '¬', 
   ntrianglelefteq: '⋬',
   supsetneq: '⊋',
   lnsim: '⋦',
@@ -624,7 +626,7 @@ const Fixed = {
 
   
 
-  /* exp */
+  /* Extensions */
   sumtop: '⎲', 
   sumbottom: '⎳', 
   lbraceuend: '⎧', 

@@ -1,5 +1,5 @@
 
-import { UniTeX } from "../../../unitex.js";
+import { parse } from "../../../unitex.js";
 
 export const hyper = {
 
@@ -15,7 +15,7 @@ export const hyper = {
   binary: {
     repeat: (s, n) => s.repeat(n),
     for: (s, n) => [...Array(parseInt(n)).keys()]
-      .map(x => UniTeX.parse(s.replace(/#(\d+)/g, (__, n) => x + + n)))
+      .map(x => parse(s.replace(/#(\d+)/g, (__, n) => x + + n)))
       .reduce((x, y) => x + y)
   }
 

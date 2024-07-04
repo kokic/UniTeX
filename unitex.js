@@ -181,12 +181,8 @@ const unknown_macro = macro_head.map(x => '\\' + x);
 const spectrum = element.or(unknown_macro);
 const text = spectrum.plus();
 
-export const UniTeX = {
-  parse: s => (x => x ? x[0] : '')(text.parse(s)), 
-  fixeds: () => Object.keys(Fixed), 
-  unaries: () => Object.keys(Unary), 
-  binaries: () => Object.keys(Binary), 
-
-  getContext: () => Context.getContext(), 
-}
-
+export const parse = s => (x => x ? x[0] : '')(text.parse(s));
+export const fixeds = () => Object.keys(Fixed);
+export const unaries = () => Object.keys(Unary);
+export const binaries = () => Object.keys(Binary); 
+export const getContext = () => Context.getContext();
