@@ -2,8 +2,6 @@
 import Proper from '../utils/proper.js'
 import Unicode from '../utils/unicode.js'
 
-// const use_latex_style = true;
-
 const unchecked_accents = unicode => x => `${x}${unicode}`;
 
 const Unary = {
@@ -40,10 +38,10 @@ const Unary = {
   r: unchecked_accents('\u030A'),
   H: unchecked_accents('\u030B'),
   v: unchecked_accents('\u030C'),
+  not: unchecked_accents('\u0338'),
 
   kern: x => x.endsWith('em') ? ' '.repeat(x.substring(0, x.length - 2)) : ' ',
-
-}
+};
 
 const UnaryOptional = {
   sqrt: (n, x) => {
@@ -54,7 +52,7 @@ const UnaryOptional = {
       default: return Unicode.suprender(n) + Unary.sqrt(x);
     }
   },
-}
+};
 
 Unary.mkern = Unary.kern;
 Unary.mskip = Unary.kern;
