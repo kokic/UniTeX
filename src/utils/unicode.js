@@ -227,7 +227,7 @@ Unicode.supscripts['′'] = '′'
 
 Unicode.subscripts = {};
 ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉']
-  .forEach((x, i) => Unicode.subscripts[i] == x);
+  .forEach((x, i) => Unicode.subscripts[i] = x);
 
 
 Unicode.subscripts.a = 'ₐ'

@@ -143,11 +143,10 @@ UniTeX.parse(source: string)
 ## Build (for Browser)
 
 - node.js
-- any bundler
+- esbuild
 
-### esbuild
 ```sh
-esbuild unitex.js --bundle --outfile=dist/unitex.js --global-name=UniTeX
+npm run build
 ```
 
 ## License
