@@ -2,4 +2,4 @@ package-lock.json
 
 .local/
 node_modules/
-dist/
+/dist/
