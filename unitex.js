@@ -138,7 +138,7 @@ const block_value = loose(single
   .or(brace_wrap(() => block_cluster)));
 
 const block_binary_macro = macro_head.check(x => BinaryBlock[x])
-  .follow(block_value, block_value)
+  .follows(block_value, block_value)
   .map(xs => BinaryBlock[xs[0][0]](xs[0][1], xs[1]));
 
 const block_elem = loose(block_infix)

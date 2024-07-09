@@ -12,7 +12,7 @@ const S_A = /(%)([A-Za-z])/g;
 const INSERT_SPACE = '$1 $2';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const pangu_space = function (s) {
+export const pangu_space = function (s) {
   return s
     .replace(/～/g, '~ ')
     .replace(/！/g, '! ')

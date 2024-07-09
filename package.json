@@ -32,6 +32,6 @@
   },
   "scripts": {
     "build": "esbuild unitex.js --bundle --outfile=dist/unitex.js --global-name=UniTeX", 
-    "test": "node ./test_runner.js"
+    "test": "node ./test-runner.js"
   }
 }

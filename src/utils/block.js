@@ -65,7 +65,7 @@ class Block {
       const width = Math.max(this.width, block.width) + 2
       const fracline = '-'.repeat(width)
       const data = [...this.data, fracline, ...block.data]
-      return new Block(data.map(x => x.fill(width)), this.height)
+      return new Block(data.map(x => desired_length_string(x, width)), this.height)
     }
   }
   static of(s) { return s.toBlock() }
