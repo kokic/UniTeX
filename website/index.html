@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono">
+  <script src="https://codemirror.net/codemirror.js"></script>
+
+  <script src="./dist/unitex.js"></script>
+  <script src="./dist/legacy-modes-stex/stex.js"></script>
+
+  <link rel="stylesheet" href="./page/css/site.css">
+  <link rel="stylesheet" href="./page/css/font.css">
+
+  <title>UniTeX</title>
+</head>
+
+<body>
+
+  <div id="container" class="day">
+
+    <div id="header">
+      <h2>UniTeX - a transpiler that converts TeX into Unicode</h2>
+
+      <h3>&nbsp; * see some examples <a href="https://github.com/kokic/UniTeX#example" target="_blank">here</a>.</h3>
+      <h3>&nbsp; * open a new <a href="https://github.com/kokic/UniTeX/issues/new" target="_blank">issue</a>.</h3>
+
+    </div>
+
+    <div id="snackbar">snackbar</div>
+
+    <div id="console" class="console">script console</div>
+    <div id="leftside">edit or paste</div>
+    <pre id="unicode-board"></pre>
+
+
+    <div id="optionals">
+      <div id="copy-trim" class="optional">
+        <input type="checkbox" id="copy-trim-box">
+        <label for="copy-trim-box">trim</label>
+      </div>
+
+      <div id="copy-minify" class="optional">
+        <input type="checkbox" id="copy-minify-box">
+        <label for="copy-minify-box">minify</label>
+      </div>
+    </div>
+
+    <div id="typeface-set">
+      <label for="output-typeface">output typeface</label>
+      <select name="typefaces" id="output-typeface">
+        <option value="TexGyrePagella, LatinModern-Math">Default</option>
+        <option value="UbuntuMono">Ubuntu Mono</option>
+        <option value="monospace">Monospace</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div id="footer">
+    Created by <a class="vert-top" href="https://github.com/kokic" target="_blank">kokic</a> |
+    <a class="vert-top" href="https://github.com/kokic/UniTeX/blob/main/LICENSE" target="_blank">MIT License</a> |
+    <a class="vert-top" href="https://github.com/kokic/UniTeX" target="_blank">Github</a>
+  </div>
+
+  <script>
+
+    const { basicSetup } = CM["codemirror"]
+    const { EditorView, keymap } = CM["@codemirror/view"]
+    const { EditorState } = CM["@codemirror/state"]
+
+    const { StreamLanguage } = CM["@codemirror/language"]
+    const { autocompletion, snippetCompletion } = CM["@codemirror/autocomplete"]
+
+    const { javascript } = CM["@codemirror/lang-javascript"]
+    
+
+    const ofLetters = xs => xs.filter(x => /^[A-Za-z]+$/.test(x))
+
+    const supplyKeywordOptions = function () {
+      const fixed = ofLetters(UniTeX.fixeds())
+        .map(x => ({ label: `\\${x}`, type: 'keyword' }))
+      const unary = ofLetters(UniTeX.unaries())
+        .map(x => snippetCompletion(`\\${x}{\${}}`, { label: `\\${x}{}`, type: 'keyword' }))
+      const binary = ofLetters(UniTeX.binaries())
+        .map(x => snippetCompletion(`\\${x}{\${}}{\${}}`, { label: `\\${x}{}{}`, type: 'keyword' }))
+      return fixed.concat(unary).concat(binary)
+    }
+
+    function supplyUniTeXCompletions(context) {
+      let token = context.matchBefore(/\\[A-Za-z]*/)
+      if (!token || (token.from == token.to && !context.explicit))
+        return null
+      return {
+        from: token.from,
+        options: supplyKeywordOptions(),
+      }
+    }
+
+    const container = document.getElementById('container');
+    (new Date().getHours() >= 18) && (container.classList.add('night'));
+
+
+    const createElement = name => document.createElement(name)
+
+    Element.prototype.bindParent = function (parent) {
+      parent.appendChild(this)
+    }
+
+    const elemLeftside = document.getElementById('leftside')
+
+    const queriesData = {}
+    const search = decodeURI(window.location.search)
+    search && search.substring(1).split('&')
+      .map(x => x.split('='))
+      .forEach(x => queriesData[x[0]] = x[1])
+
+
+    const theme = EditorView.theme({
+      ".cm-content": {
+        fontFamily: "JetBrains Mono",
+      },
+      "&.cm-focused": {
+        outline: "none",
+      },
+      ".cm-gutters": {
+        backgroundColor: 'transparent',
+        color: "#ccc",
+        border: "none",
+      }
+    })
+
+    const editorView = new EditorView({
+      doc: queriesData['tex'] || '' /* '\n'.repeat(2) // only for test */,
+      extensions: [
+        basicSetup,
+        theme,
+        StreamLanguage.define(stexMath),
+        EditorView.updateListener.of(x => x.docChanged && updateUnicodeBoard()),
+        autocompletion({ override: [supplyUniTeXCompletions] }),
+      ],
+      parent: elemLeftside,
+    })
+
+
+    const consoleView = new EditorView({
+      doc: '',
+      extensions: [
+        basicSetup,
+        theme, 
+        javascript(), 
+      ],
+      parent: document.querySelector('#console'),
+    })
+
+
+    const elemUnicodeBoard = document.getElementById('unicode-board')
+
+    const updateUnicodeBoard = function () {
+      const s = editorView.state.doc.toString()
+      elemUnicodeBoard.innerText = UniTeX.parse(s)
+    }
+    updateUnicodeBoard()
+
+
+    const rightOperates = createElement('div')
+    rightOperates.bindParent(elemLeftside)
+
+    const copyUnicode = createElement('div')
+    copyUnicode.innerText = 'copy'
+    copyUnicode.className = 'right-operate'
+    copyUnicode.bindParent(rightOperates)
+    copyUnicode.addEventListener('click', function () {
+      showSnackbar('copied')
+      copiesBridge.value = chainSynthesis()
+        .reduce((f, g) => g(f), elemUnicodeBoard.innerText)
+      copiesExec()
+    })
+
+    const copiesBridge = createElement('textarea')
+    const copiesExec = function () {
+      leftside.appendChild(copiesBridge)
+      copiesBridge.select()
+      document.execCommand('copy')
+      leftside.removeChild(copiesBridge)
+    }
+
+    const copiesMappers = {
+      'copy-trim-box': s => s.trim(),
+      'copy-minify-box': s => s.replace(/\n/g, '')
+    }
+
+    const chainSynthesis = function () {
+      const chain = [];
+      [...document.getElementsByClassName('optional')]
+        .map(x => document.getElementById(`${x.id}-box`))
+        .forEach(x => x.checked && (chain.push(copiesMappers[x.id])))
+      return chain
+    }
+
+
+
+
+    const clearEditor = createElement('div')
+    clearEditor.innerText = 'clear'
+    clearEditor.className = 'right-operate'
+    clearEditor.bindParent(rightOperates)
+    clearEditor.addEventListener('click', function () {
+      const length = editorView.state.doc.length
+      editorView.dispatch({
+        changes: { from: 0, to: length, insert: '' }
+      })
+    })
+
+
+
+    const baseTypeface = 'serif, sans-serif'
+    const elemOutputTypeface = document.getElementById('output-typeface')
+    elemOutputTypeface.addEventListener('click', function () {
+      const value = elemOutputTypeface.value + ', ' + baseTypeface
+      elemUnicodeBoard.style.fontFamily = value
+    })
+
+    const snackbar = document.getElementById("snackbar");
+    const snackbarUpdate = (s, t) => (snackbar.classList.remove(s), snackbar.classList.add(t));
+    const showSnackbar = function (message) {
+      if (getComputedStyle(snackbar).visibility == 'hidden') {
+        snackbar.innerText = message;
+        snackbar.style.width = Math.ceil(message.length / 2) + 'em';
+        snackbar.classList.add('show');
+        setTimeout(() => snackbarUpdate('show', 'hide'), 1200);
+        setTimeout(() => snackbar.classList.remove('hide'), 1500);
+      }
+    }
+
+  </script>
+</body>
+
+</html>
