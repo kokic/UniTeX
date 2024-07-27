@@ -1,0 +1,31 @@
+{
+  "name": "unitex",
+  "version": "1.0.0",
+  "description": "A transpiler that converts TeX into Unicode (as possible).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokic/UniTeX.git"
+  },
+  "type": "module",
+  "keywords": [
+    "tex",
+    "latex",
+    "unicode",
+    "transpiler"
+  ],
+  "author": "kokic",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/kokic/UniTeX/issues"
+  },
+  "homepage": "https://github.com/kokic/UniTeX#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "bun build unitex.ts --outfile=website/dist/unitex.js", 
+    "test": "bun test-runner.js"
+  }
+}

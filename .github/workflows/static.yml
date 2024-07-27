@@ -1,0 +1,36 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on: [push]
+permissions:
+  contents: write
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Bun
+        run: bun install
+        
+      - name: Build
+        run: |
+          npm run build
+        
+      - name: Test
+        run: npm run test
+        
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with: 
+          token: ${{ secrets.TOKEN }}
+          repository-name: kokic/UniTeX-Website
+          branch: main
+          folder: website
