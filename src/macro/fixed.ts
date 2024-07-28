@@ -1,5 +1,5 @@
 
-import Unicode from '../utils/unicode.js'
+import Unicode from '../utils/unicode.ts'
 
 type Fixed = {
   [key: string]: string;
@@ -691,7 +691,7 @@ Unicode.subscripts[Fixed.ni] = Fixed.smallni;
 
 // Gothic
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const gothics = ['ahsa', 'bairkan', 'giba', 'dags', 'aihvus']
+const gothics = ['ahsa', 'bairkan', 'giba', 'dags', 'aihvus'];
 
 
 export default Fixed;

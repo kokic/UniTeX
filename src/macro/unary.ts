@@ -56,7 +56,7 @@ const UnaryOptional = {
       case 2: return Unary.sqrt(x);
       case 3: return Unary.cbrt(x);
       case 4: return Unary.furt(x);
-      default: return Unicode.suprender(n) + Unary.sqrt(x);
+      default: return Unicode.suprender(`${n}`) + Unary.sqrt(x);
     }
   },
 };

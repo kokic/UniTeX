@@ -61,13 +61,3 @@ export namespace Flat {
     attempt(bind(anyChar, u => u == c ? pure(c) : fail(`expected: ${c}`)))
 
 }
-
-declare global {
-  interface String {
-    toIterator(this: string): StringIterator;
-  }
-}
-
-String.prototype.toIterator = function () {
-  return new StringIterator(this, 0)
-}

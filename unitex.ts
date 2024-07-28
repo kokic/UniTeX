@@ -1,11 +1,11 @@
 
-import Unicode from './src/utils/unicode.js'
+import Unicode from './src/utils/unicode.ts'
 
-import Binary, { BinaryBlock, BinaryInfix } from './src/macro/binary.js'
+import Binary, { BinaryBlock, BinaryInfix } from './src/macro/binary.ts'
 import Unary, { UnaryOptional, UnaryTypefaceNames } from './src/macro/unary.ts'
 import Fixed, { FixedInfixes } from './src/macro/fixed.ts'
-import Environment from './src/macro/environment.js'
-import Block from './src/utils/block.js'
+import Environment from './src/macro/environment.ts'
+import Block from './src/utils/block.ts'
 
 import {
   character, 
@@ -18,7 +18,6 @@ import {
   token,
 } from './src/collection.ts'
 
-import Context from './src/context/context.js'
 import { Parser } from './src/combinator.ts'
 import { Lazy, of } from './src/lazy.ts'
 
@@ -65,14 +64,14 @@ const unary_optional_macro = macro_head.assume(x => UnaryOptional[x])
 const unary_macro = unary_optional_macro.or(unary_ordinary_macro)
 
 // [[macro, value1], value2]
-const binary_macro = macro_head.assume(x => Binary[x])
+const binary_macro = macro_head.assume(x => !!Binary[x])
   .follow2(value, value)
   .map(([[name, arg1], arg2]) => Binary[name](arg1, arg2))
 
 // [[value1, macro], value2]
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const infix_macro = value
-  .follow(macro_head.assume(x => BinaryInfix[x]))
+  .follow(macro_head.assume(x => !!BinaryInfix[x]))
   .follow(value)
   .map(xs => Binary[xs[0][1]](xs[0][0], xs[1]))
 
@@ -157,7 +156,7 @@ const block_cluster = block_elem.some()
 
 const double_dollar = string('$$')
 const block_math = double_dollar
-  .move(block_cluster.map(x => x.string as string))
+  .move(block_cluster.map(x => x.display))
   .skip(double_dollar);
 //
 
@@ -191,8 +190,7 @@ const parse = (s: string) =>
 const fixeds = () => Object.keys(Fixed);
 const unaries = () => Object.keys(Unary);
 const binaries = () => Object.keys(Binary);
-const getContext = () => Context.getContext();
 
 export const UniTeX = {
-  parse, fixeds, unaries, binaries, getContext
+  parse, fixeds, unaries, binaries,
 };

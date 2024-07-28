@@ -32,21 +32,3 @@ export const digits = digit.plus();
 
 export const letter = token(c => c.boundedIn('a', 'z') || c.boundedIn('A', 'Z'));
 export const letters = letter.plus();
-
-declare global {
-  interface Number {
-    boundedIn(this: number, a: number, b: number): boolean;
-  }
-
-  interface String {
-    boundedIn(this: char, a: char, b: char): boolean;
-  }
-}
-
-Number.prototype.boundedIn = function (a, b) {
-  return a <= this && this <= b;
-}
-
-String.prototype.boundedIn = function (a, b) {
-  return this.codePointAt(0)!.boundedIn(a.codePointAt(0)!, b.codePointAt(0)!);
-}

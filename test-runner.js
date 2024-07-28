@@ -25,9 +25,30 @@ assert.strictEqual(parse(supscript_test.join("")), "p⁰p¹p²p³p⁴p⁵p⁶p�
 
 assert.strictEqual(parse(String.raw`\N\Z\Q\R\C\A\F`), "ℕℤℚℝℂ𝔸𝔽", "`\\mathbb` abbr assert failed!");
 
+// bar
+assert.strictEqual(
+  parse(String.raw`\text{Gal}(\bar a/a) \rarr \text{Aut}(E[m])`), 
+  "Gal(ā/a) → Aut(E[m])"
+);
+
+// matrix
+assert.strictEqual(
+  parse(String.raw
+    `\begin{pmatrix}
+       \cos\theta & -\sin\theta \\
+       \sin\theta & \cos\theta 
+       \end{pmatrix}`
+  ), 
+  `((cosθ -sinθ)(sinθ cosθ))`
+);
+
 // frac
 
-assert.strictEqual(parse(String.raw`\frac12 + \frac3a - \frac{b}5`), "1/2 + 3/a - b/5", "``\\frac` inline assert failed!");
+assert.strictEqual(
+  parse(String.raw`\frac12 + \frac3a - \frac{b}5`), 
+  "1/2 + 3/a - b/5", 
+  "``\\frac` inline assert failed!"
+);
 
 const pi_cfrac = 
   ' 4                  1²         \n' +
@@ -38,7 +59,11 @@ const pi_cfrac =
   '                  2 + -------  \n' +
   '                       2 + ⋱   ';
 
-assert.strictEqual(parse(String.raw`$$\dfrac{4}{\pi}\;=\;1+\dfrac{1^2}{2+\dfrac{3^2}{2+\dfrac{5^2}{2+\ddots}}}$$`), pi_cfrac, "`\\frac` block assert failed!");
+assert.strictEqual(
+  parse(String.raw`$$\dfrac{4}{\pi}\;=\;1+\dfrac{1^2}{2+\dfrac{3^2}{2+\dfrac{5^2}{2+\ddots}}}$$`), 
+  pi_cfrac, 
+  "`\\frac` block assert failed!"
+);
 
 console.log("🎉 All tests passed!");
 
