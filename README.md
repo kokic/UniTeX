@@ -138,12 +138,9 @@ UniTeX.parse(source: string)
 
 ## Development
 
-- node.js
+- bun
 
-## Build (for Browser)
-
-- node.js
-- esbuild
+## Build
 
 ```sh
 npm run build

@@ -1,7 +1,8 @@
 
-import Proper from './proper.ts'
-import "../declare-global.ts"
-import { type char } from '../string-iterator.ts';
+import { type char } from '../../parsec/string-iterator.ts';
+
+import Proper from './proper.ts';
+// import "./parsec/declare-global.ts";
 
 type SMap = { [key: string]: string };
 

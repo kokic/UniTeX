@@ -1,7 +1,9 @@
 
-import Block from '../utils/block.ts'
-import Proper from '../utils/proper.ts'
-import Fixed from './fixed.ts'
+import { type Binary, type BinaryBlock } from '../../cli.ts';
+
+import Block from './block.ts';
+import Proper from './proper.ts';
+import Fixed from './fixed.ts';
 
 const oversetEquationMap = {
   '?=': Fixed.qeq,
@@ -11,10 +13,6 @@ const oversetEquationMap = {
   // from unimath, wait hook style
   [Fixed['star'] + '=']: Fixed['stareq'],
   [Fixed['Delta'] + '=']: Fixed['deltaeq'],
-};
-
-type Binary = {
-  [key: string]: (x: string, y: string) => string
 };
 
 const Binary: Binary = {
@@ -27,8 +25,8 @@ const Binary: Binary = {
   alias: (a, x) => (Fixed[a] = x, '')
 };
 
-const BinaryBlock = {
-  frac: (x: string, y: string) => Block.frac(x, y),
+const BinaryBlock: BinaryBlock<Block> = {
+  frac: Block.frac,
   overset: (x: Block, y: Block) => Block.of(Binary.overset(x.display, y.display))
 };
 

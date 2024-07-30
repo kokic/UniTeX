@@ -66,7 +66,7 @@
 
   <script type="module">
 
-    import { UniTeX } from "./dist/unitex.js"
+    import { UniTeX } from "./dist/unitex.js";
 
     const { basicSetup } = CM["codemirror"]
     const { EditorView, keymap } = CM["@codemirror/view"]
@@ -77,16 +77,19 @@
 
     const { javascript } = CM["@codemirror/lang-javascript"]
     
+    const ofLetters = xs => xs.filter(x => /^[A-Za-z]+$/.test(x));
 
-    const ofLetters = xs => xs.filter(x => /^[A-Za-z]+$/.test(x))
+    const fixeds = Object.keys(UniTeX.fixed);
+    const unaries = Object.keys(UniTeX.unary);
+    const binaries = Object.keys(UniTeX.binary);
 
     const supplyKeywordOptions = function () {
-      const fixed = ofLetters(UniTeX.fixeds())
-        .map(x => ({ label: `\\${x}`, type: 'keyword' }))
-      const unary = ofLetters(UniTeX.unaries())
-        .map(x => snippetCompletion(`\\${x}{\${}}`, { label: `\\${x}{}`, type: 'keyword' }))
-      const binary = ofLetters(UniTeX.binaries())
-        .map(x => snippetCompletion(`\\${x}{\${}}{\${}}`, { label: `\\${x}{}{}`, type: 'keyword' }))
+      const fixed = ofLetters(fixeds)
+        .map(x => ({ label: `\\${x}`, type: 'keyword', detail: UniTeX.fixed[x] }));
+      const unary = ofLetters(unaries)
+        .map(x => snippetCompletion(`\\${x}{\${}}`, { label: `\\${x}{}`, type: 'keyword', detail: UniTeX.unary[x]('a') }));
+      const binary = ofLetters(binaries)
+        .map(x => snippetCompletion(`\\${x}{\${}}{\${}}`, { label: `\\${x}{}{}`, type: 'keyword' }));
       return fixed.concat(unary).concat(binary)
     }
 

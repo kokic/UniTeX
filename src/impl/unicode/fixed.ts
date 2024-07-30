@@ -1,9 +1,7 @@
 
-import Unicode from '../utils/unicode.ts'
+import { type Fixed } from '../../cli.ts';
 
-type Fixed = {
-  [key: string]: string;
-};
+import Unicode from './unicode-table.ts';
 
 const stableFixed: Fixed = {
   N: Unicode.typeface.mathbb.N,

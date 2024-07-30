@@ -1,14 +1,13 @@
 
-import Proper from '../utils/proper.js'
-import Unicode from '../utils/unicode.js'
+import { type Unary, type UnaryOptional } from '../../cli.ts';
+import { type char } from '../../parsec/string-iterator.js';
 
-type char = string;
+import Proper from './proper.js';
+import Unicode from './unicode-table.js';
+
+// type char = string;
 
 const unchecked_accents = (unicode: char) => (x: char) => `${x}${unicode}`;
-
-type Unary = {
-  [key: string]: (x: string) => string
-};
 
 const Unary: Unary = {
   id: x => x,
@@ -50,13 +49,13 @@ const Unary: Unary = {
 };
 export default Unary;
 
-const UnaryOptional = {
-  sqrt: (n: number, x: string) => {
+const UnaryOptional: UnaryOptional = {
+  sqrt: (n: string, x: string) => {
     switch (n) {
-      case 2: return Unary.sqrt(x);
-      case 3: return Unary.cbrt(x);
-      case 4: return Unary.furt(x);
-      default: return Unicode.suprender(`${n}`) + Unary.sqrt(x);
+      case "2": return Unary.sqrt(x);
+      case "3": return Unary.cbrt(x);
+      case "4": return Unary.furt(x);
+      default: return Unicode.suprender(n) + Unary.sqrt(x);
     }
   },
 };

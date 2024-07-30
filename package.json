@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "bun build unitex.ts --outfile=website/dist/unitex.js", 
+    "serve": "npm run build && cd website && npx http-server", 
     "test": "bun test-runner.js"
   }
 }

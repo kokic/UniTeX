@@ -1,9 +1,7 @@
 
-import Fixed from './fixed.ts'
+import { Environment } from '../../cli.ts';
 
-type Environment = {
-  [key: string]: (s: string) => string
-};
+import Fixed from './fixed.ts';
 
 const Environment: Environment = {
   // matrix family
