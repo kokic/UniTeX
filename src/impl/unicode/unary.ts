@@ -20,7 +20,6 @@ const Unary: Unary = {
   id: x => x,
   text: x => x,
   mathrm: x => x, 
-  codesymbol: unicode_convert, // `symbol` is a special property name in JavaScript.
 
   sqrt: x => '√' + Proper.paren(x),
   cbrt: x => '∛' + Proper.paren(x), // original
