@@ -523,6 +523,11 @@ const stableFixed: Fixed = {
   aleph: 'ℵ',
   alef: 'ℵ',
   alefsym: 'ℵ',
+  beth: 'ℶ', 
+  gimel: 'ℷ', 
+  daleth: 'ℸ', 
+  eth: 'ð', 
+
   ell: 'ℓ',
   wp: '℘',
   weierp: '℘',
