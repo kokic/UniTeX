@@ -13,14 +13,14 @@ const unicode_convert = (codepoint: string) => {
   const head = codepoint.charAt(0);
   const base = head == `"` ? 16 : head == `'` ? 8 : 10;
   const code = base == 10 ? codepoint : codepoint.substring(1); 
-  return String.fromCodePoint(parseInt(code, base));  
+  return String.fromCodePoint(parseInt(code, base));
 };
 
 const Unary: Unary = {
   id: x => x,
   text: x => x,
   mathrm: x => x, 
-  symbol: unicode_convert, 
+  codesymbol: unicode_convert, // `symbol` is a special property name in JavaScript.
 
   sqrt: x => '√' + Proper.paren(x),
   cbrt: x => '∛' + Proper.paren(x), // original
