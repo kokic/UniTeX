@@ -62,22 +62,23 @@ const solid = (s: string) => s.trim().length == 1;
 const valuesymbol = literal.assume(solid);
 
 export const createTranslator = <Block>({
-  fixed = {}, 
-  fixedInfixes = [], 
-  unary = {}, 
-  unaryOptional = {}, 
-  unaryTypefaceNames = [], 
-  binary = {}, 
-  binaryInfix = {}, 
-  binaryBlock = {}, 
-  environment = {}, 
-  emptyBlock, 
-  createBlock, 
-  concatBlock, 
-  displayBlock, 
-  subscriptHandler, 
-  supscriptHandler, 
-  typefaceHandler
+  fixed = {},
+  fixedInfixes = [],
+  unary = {},
+  unaryOptional = {},
+  unaryTypefaceNames = [],
+  binary = {},
+  binaryInfix = {},
+  binaryBlock = {},
+  environment = {},
+  emptyBlock,
+  createBlock,
+  concatBlock,
+  displayBlock,
+  subscriptHandler,
+  supscriptHandler,
+  typefaceHandler,
+  inlineMathHandler = (s) => s,
 }: {
   fixed?: Fixed,
   fixedInfixes?: string[],
@@ -88,13 +89,14 @@ export const createTranslator = <Block>({
   binaryInfix?: Binary,
   binaryBlock?: BinaryBlock<Block>,
   environment?: Environment,
-  emptyBlock: Block, 
-  createBlock: (s: string) => Block, 
-  concatBlock: (s: Block, t: Block) => Block, 
-  displayBlock: (b: Block) => string, 
-  subscriptHandler: (s: string) => string, 
-  supscriptHandler: (s: string) => string, 
-  typefaceHandler: (typeface: string, s: string) => string, 
+  emptyBlock: Block,
+  createBlock: (s: string) => Block,
+  concatBlock: (s: Block, t: Block) => Block,
+  displayBlock: (b: Block) => string,
+  subscriptHandler: (s: string) => string,
+  supscriptHandler: (s: string) => string,
+  typefaceHandler: (s: string, typeface: string) => string,
+  inlineMathHandler?: (s: string) => string,
 }) => {
   const single = digit.or(letter).or(valuesymbol).or(of(() => fixed_macro));
   const value = loose(single.or(brace_wrap(of(() => text))));
@@ -162,7 +164,7 @@ export const createTranslator = <Block>({
     .or(binary_macro)
     .or(value)
 
-  const italic_render = (s: string) => typefaceHandler("mathit", s);
+  const italic_render = (s: string) => typefaceHandler(s, "mathit");
   // Unicode.render_if_exists(s, 'mathit');
 
   const inline_cluster = typeface
@@ -171,7 +173,10 @@ export const createTranslator = <Block>({
     .plus();
 
   const dollar = character('$')
-  const inline_math = dollar.move(inline_cluster).skip(dollar);
+  const inline_math = dollar
+    .move(inline_cluster)
+    .skip(dollar)
+    .map(inlineMathHandler);
 
 
 
@@ -191,13 +196,15 @@ export const createTranslator = <Block>({
     .follow2(block_value, block_value)
     .map(xs => binaryBlock[xs[0][0]](xs[0][1], xs[1]));
 
-  const block_elem: Parser<Block> = loose(block_infix)
-    .or(block_value) // csp. value
-    .or(sup_or_sub.map(createBlock))
-    .or(fixed_macro.map(createBlock))
-    .or(unary_macro.map(createBlock))
-    .or(block_binary_macro) // csp. binary
-    .or(token(x => !solid(x)).some().map(_ => emptyBlock));
+  const block_elem: Parser<Block> = loose(
+    block_infix
+      .or(block_value) // csp. value
+      .or(sup_or_sub.map(createBlock))
+      .or(fixed_macro.map(createBlock))
+      .or(unary_macro.map(createBlock))
+      .or(block_binary_macro) // csp. binary
+      .or(token(x => !solid(x)).some().map(_ => emptyBlock))
+  );
 
   const block_cluster = block_elem.some()
     .map(xs => xs.reduce(concatBlock));

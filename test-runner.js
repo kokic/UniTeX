@@ -60,11 +60,26 @@ assert.strictEqual(
   "``\\frac` inline assert failed!"
 );
 
+// inline math
+assert.strictEqual(
+  translate(String.raw`$abc \in \mathscr{W}$`), 
+  "𝑎𝑏𝑐 ∈ 𝒲"
+);
+
+// block math
+
 assert.strictEqual(
   translate(String.raw`$$\dfrac12\times\frac{1}p$$`), 
   ' 1     1 \n' +
   '--- × ---\n' + 
   ' 2     p '
+);
+
+assert.strictEqual(
+  translate(String.raw`$$\frac{a}b \cdot \frac{b}a \; = \; 1$$`), 
+  ' a     b       \n' + 
+  '--- ⋅ ---  =  1\n' + 
+  ' b     a       '
 );
 
 const pi_cfrac = 

@@ -52,8 +52,8 @@ const Unicode = {
    * @param {string} name - The name of the Unicode typeface to use.
    * @return {string} - The rendered string.
    */
-  render_if_exists: (s: string, name: string): string => Array.from(s)
-    .map(x => Unicode.typeface[name][x] || x).join(''),
+  render_if_exists: (s: string, name: string): string => 
+    Array.from(s).map(x => Unicode.typeface[name][x] || x).join(''), 
 
   /**
    * Checks if all characters in the given string are present in the charset object.
