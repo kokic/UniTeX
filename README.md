@@ -81,42 +81,40 @@ UniTeX.parse(source: string)
 ## TODO
 
 - **Some basic or commonly used macro commands**. ideally including but not limited to the functions in [MathJax](https://www.mathjax.org/) and [KaTeX](https://katex.org), They have some differences in the supported macros. This project will prefer the latter design (i.e. [Supported Functions](https://katex.org/docs/supported.html)).
-  - [ ] Fixed
-    - [x] Greek Letters
-    - [x] Unicode Block 79 : Mathematical Operators
+  - [ ] fixed
+    - [x] greek letters
+    - [x] unicode block 79 : mathematical operators
       - [x] 220x ~ 226x
       - [x] 227x ~ 22Fx 
-    - [x] Delimiters
-    - [x] Arrows
-    - [x] Operators
-      - [x] Big Operators
-      - [x] Operator Names
-      - [x] Combined Operator Names
-    - [x] Theorem Environment
-    - [ ] Vertical Layout
-    - [x] Spacing
-  - [ ] Unary
-    - [ ] Accents (hard)
-    - [x] Font Family
-    - [ ] Extensible Arrows
-    - [x] Optionals (sqrt)
-  - [ ] Binary
-    - [x] Relations Operators
-    - [x] Fractions (inline)
-    - [x] (**cmdline only**) Fractions (block)
-    - [ ] Binomials
-  - [ ] Environments
-    - [x] Matrix (inline)
-    - [ ] (**cmdline only**) Matrix (block)
-    - [x] Typeface (math env)
-    - [x] Typesetting (block)
-    - [ ] Array
-    - [ ] Align Family
-    - [ ] (**cmdline only**) AMScd
-    - [ ] (**cmdline only**) Tikzcd (hard)
-  - [ ] Macros
-    - [ ] Def
-    - [ ] Command
+    - [x] delimiters
+    - [x] arrows
+    - [x] operators
+      - [x] big operators
+      - [x] operator names
+      - [x] combined operator names
+    - [x] theorem environment
+    - [ ] vertical layout
+    - [x] spacing
+  - [ ] unary
+    - [ ] accents
+    - [x] font family
+    - [ ] extensible arrows
+    - [x] optionals (e.g. sqrt)
+  - [ ] binary
+    - [x] relations operators
+    - [x] fractions (inline)
+    - [x] fractions (block)
+    - [ ] binomials
+  - [ ] environments
+    - [x] matrix (inline)
+    - [ ] matrix (block)
+    - [ ] array
+    - [x] typeface (math env)
+    - [x] typesetting (block)
+    - [ ] align
+  - [ ] macros
+    - [ ] def
+    - [ ] command
 
 - **A [website](https://unitex-web.netlify.app) convenient for input and output**. [Source code repository](https://github.com/kokic/UniTeX-Website).
 
