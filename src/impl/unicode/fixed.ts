@@ -677,6 +677,8 @@ const texLikeExtensions = {
   UniTeX: 'UⁿᵢTᴇX',
   Agda: '𝐴gda',
   Lean: 'L∃∀N',
+  BibTeX: 'BIBTᴇX', 
+  bTeX: '🍌TᴇX', 
 };
 
 const combinatorialExtensions = {
