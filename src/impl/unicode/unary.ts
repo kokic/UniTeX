@@ -25,23 +25,23 @@ const Unary: Unary = {
   cbrt: x => '∛' + Proper.paren(x), // original
   furt: x => '∜' + Proper.paren(x), // original
 
-  grave: x => x + (Unicode.isLetter(x) ? '\u0300' : '-grave'),
+  grave: x => x + (Unicode.isLetterOrGreek(x) ? '\u0300' : '-grave'),
   '`': unchecked_accents('\u0300'),
 
-  acute: x => x + (Unicode.isLetter(x) ? '\u0301' : '-acute'),
+  acute: x => x + (Unicode.isLetterOrGreek(x) ? '\u0301' : '-acute'),
   '\'': unchecked_accents('\u0301'),
 
-  hat: x => x + (Unicode.isLetter(x) ? '\u0302' : '-hat'),
+  hat: x => x + (Unicode.isLetterOrGreek(x) ? '\u0302' : '-hat'),
   '^': unchecked_accents('\u0302'),
 
-  tilde: x => x + (Unicode.isLetter(x) ? '\u0303' : '-tilde'),
+  tilde: x => x + (Unicode.isLetterOrGreek(x) ? '\u0303' : '-tilde'),
   '~': unchecked_accents('\u0303'),
 
-  bar: x => x + (Unicode.isLetter(x) ? '\u0304' : '-bar'),
+  bar: x => x + (Unicode.isLetterOrGreek(x) ? '\u0304' : '-bar'),
   '=': unchecked_accents('\u0304'),
 
-  overline: x => x + (Unicode.isLetter(x) ? '\u0305' : '-underline'),
-  breve: x => x + (Unicode.isLetter(x) ? '\u0306' : '-breve'),
+  overline: x => x + (Unicode.isLetterOrGreek(x) ? '\u0305' : '-underline'),
+  breve: x => x + (Unicode.isLetterOrGreek(x) ? '\u0306' : '-breve'),
   u: unchecked_accents('\u0306'),
 
   '.': unchecked_accents('\u0307'),
