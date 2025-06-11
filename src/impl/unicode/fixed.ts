@@ -88,7 +88,9 @@ const stableFixed: Fixed = {
   /* Delimiters */
   '|': '‖',
   lang: '⟨',
+  langle: '⟨',
   rang: '⟩',
+  rangle: '⟩',
   vert: '∣',
   Vert: '‖',
   lVert: '‖',
