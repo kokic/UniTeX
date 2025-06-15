@@ -18,9 +18,9 @@ type Typeface = {
 };
 
 const Unicode = {
-  typeface: {} as Typeface, 
+  typeface: {} as Typeface,
 
-  isLetter: (s: string) => s.boundedIn('a', 'z') || s.boundedIn('A', 'Z'),
+  isLetterOrGreek: (s: string) => s.boundedIn('a', 'z') || s.boundedIn('A', 'Z') || s.boundedIn('α', '϶') || s.boundedIn('Α', 'Ω'),
 
   /**
    * @returns string from code point `a` to `b`
@@ -52,8 +52,8 @@ const Unicode = {
    * @param {string} name - The name of the Unicode typeface to use.
    * @return {string} - The rendered string.
    */
-  render_if_exists: (s: string, name: string): string => 
-    Array.from(s).map(x => Unicode.typeface[name][x] || x).join(''), 
+  render_if_exists: (s: string, name: string): string =>
+    Array.from(s).map(x => Unicode.typeface[name][x] || x).join(''),
 
   /**
    * Checks if all characters in the given string are present in the charset object.
@@ -64,8 +64,8 @@ const Unicode = {
    * @return {string} Returns if all characters are present or the result of the otherwise callback.
    */
   render_if_forall: (
-    charset: SMap, 
-    str: string, 
+    charset: SMap,
+    str: string,
     otherwise: (s: string) => string = x => x
   ): string => {
     const array = Array.from(str);
@@ -73,7 +73,7 @@ const Unicode = {
 
     for (const element of array)
       through &&= !!charset[element];
-    
+
     return through
       ? array.map(x => charset[x]).join('')
       : otherwise(str)
@@ -82,10 +82,10 @@ const Unicode = {
   typefaceNames: [] as string[],
 
   suprender: (s: string) => Unicode.render_if_forall(Unicode["supscripts"], s, x => '^' + Proper.brace(x)),
-  subrender: (s: string) => Unicode.render_if_forall(Unicode["subscripts"], s, x => '_' + Proper.brace(x)), 
+  subrender: (s: string) => Unicode.render_if_forall(Unicode["subscripts"], s, x => '_' + Proper.brace(x)),
 
-  supscripts: {} as SMap, 
-  subscripts: {} as SMap, 
+  supscripts: {} as SMap,
+  subscripts: {} as SMap,
 
   greeks: {} as SMap,
 };
