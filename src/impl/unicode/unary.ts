@@ -1,15 +1,14 @@
 
-import { type Unary, type UnaryOptional } from '../../cli.ts';
-import { type char } from '../../parsec/string-iterator.js';
+import type { Unary, UnaryOptional } from '../../macro-types.ts';
+import { type char } from '../../parsec/string-iterator.ts';
 
-import Proper from './proper.js';
-import Unicode from './unicode-table.js';
-
-// type char = string;
+import Proper from './proper.ts';
+import Unicode from './unicode-table.ts';
 
 const unchecked_accents = (unicode: char) => (x: char) => `${x}${unicode}`;
 
-const unicode_convert = (codepoint: string) => {
+// oxlint-disable-next-line no-unused-vars
+const unicode_convert = (codepoint: string): string => {
   const head = codepoint.charAt(0);
   const base = head == `"` ? 16 : head == `'` ? 8 : 10;
   const code = base == 10 ? codepoint : codepoint.substring(1); 
@@ -25,26 +24,29 @@ const Unary: Unary = {
   cbrt: x => '∛' + Proper.paren(x), // original
   furt: x => '∜' + Proper.paren(x), // original
 
-  grave: x => x + (Unicode.isLetterOrGreek(x) ? '\u0300' : '-grave'),
+  grave: unchecked_accents('\u0300'),
   '`': unchecked_accents('\u0300'),
 
-  acute: x => x + (Unicode.isLetterOrGreek(x) ? '\u0301' : '-acute'),
+  acute: unchecked_accents('\u0301'), 
   '\'': unchecked_accents('\u0301'),
 
-  hat: x => x + (Unicode.isLetterOrGreek(x) ? '\u0302' : '-hat'),
+  hat: unchecked_accents('\u0302'),
   '^': unchecked_accents('\u0302'),
 
-  tilde: x => x + (Unicode.isLetterOrGreek(x) ? '\u0303' : '-tilde'),
+  tilde: unchecked_accents('\u0303'),
   '~': unchecked_accents('\u0303'),
 
-  bar: x => x + (Unicode.isLetterOrGreek(x) ? '\u0304' : '-bar'),
+  bar: unchecked_accents('\u0304'),
   '=': unchecked_accents('\u0304'),
 
   overline: x => x + (Unicode.isLetterOrGreek(x) ? '\u0305' : '-underline'),
   breve: x => x + (Unicode.isLetterOrGreek(x) ? '\u0306' : '-breve'),
   u: unchecked_accents('\u0306'),
 
+  dot: unchecked_accents('\u0307'),
   '.': unchecked_accents('\u0307'),
+
+  ddot: unchecked_accents('\u0308'),
   '"': unchecked_accents('\u0308'),
 
   r: unchecked_accents('\u030A'),

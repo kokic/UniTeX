@@ -1,5 +1,5 @@
 
-import { Environment } from '../../cli.ts';
+import { Environment } from '../../macro-types.ts';
 
 import Fixed from './fixed.ts';
 
@@ -16,17 +16,17 @@ const Environment: Environment = {
   Vmatrix: s => separateMatrix(s, '||', '||', '; '),
 
   // theorem family
-  proposition: s => theorem_style('proposition', s),
-  lemma: s => theorem_style('lemma', s),
-  theorem: s => theorem_style('theorem', s),
-  corollary: s => theorem_style('corollary', s),
-  definition: s => theorem_style('definition', s),
-  remark: s => theorem_style('remark', s),
-  hypothesis: s => theorem_style('hypothesis', s),
-  conjecture: s => theorem_style('conjecture', s),
-  axiom: s => theorem_style('axiom', s),
-  example: s => theorem_style('example', s),
-  proof: s => theorem_style('proof', s),
+  proposition: s => theoremStyle('proposition', s),
+  lemma: s => theoremStyle('lemma', s),
+  theorem: s => theoremStyle('theorem', s),
+  corollary: s => theoremStyle('corollary', s),
+  definition: s => theoremStyle('definition', s),
+  remark: s => theoremStyle('remark', s),
+  hypothesis: s => theoremStyle('hypothesis', s),
+  conjecture: s => theoremStyle('conjecture', s),
+  axiom: s => theoremStyle('axiom', s),
+  example: s => theoremStyle('example', s),
+  proof: s => theoremStyle('proof', s),
 
   // misc family
   // center: xs => xs,
@@ -38,25 +38,25 @@ const doubleBackslash = '\\\\';
 const matrixM = (s: string) => s.replace(/\s/g, '').replace(/&/g, ' ');
 
 const regularMatrix = function (
-  matrix: string, 
-  leftSymbol: string, 
-  rightSymbol: string, 
-  leftGlobalSymbol: string = leftSymbol, 
-  rightGlobalSymbol: string = rightSymbol
+  matrix: string,
+  leftMark: string,
+  rightMark: string,
+  leftOuterMark: string = leftMark,
+  rightOuterMark: string = rightMark
 ) {
   const xs = matrix.split(doubleBackslash);
-  const s = ''.concat(...xs.map(s => leftSymbol + matrixM(s) + rightSymbol));
-  return xs.length > 1 ? leftGlobalSymbol + s + rightGlobalSymbol : s;
+  const s = ''.concat(...xs.map(s => leftMark + matrixM(s) + rightMark));
+  return xs.length > 1 ? leftOuterMark + s + rightOuterMark : s;
 }
 
 const separateMatrix = function (
   matrix: string,
-  leftGlobalSymbol: string,
-  rightGlobalSymbol: string,
+  leftOuterMark: string,
+  rightOuterMark: string,
   separator: string
 ) {
   const xs = matrix.split(doubleBackslash);
-  return leftGlobalSymbol + xs.map(matrixM).join(separator) + rightGlobalSymbol;
+  return leftOuterMark + xs.map(matrixM).join(separator) + rightOuterMark;
 }
 
 
@@ -69,7 +69,7 @@ const separateMatrix = function (
  * hold temporarily.
  *
  */
-const polymerize_tex = function (s: string) {
+const polymerize = function (s: string) {
   let result = s.trim()
     .replace(/ *\r\n *| *\n *| (?= )/g, '')
     .replace(/ *(,|\.) */g, '$1 ')
@@ -78,11 +78,11 @@ const polymerize_tex = function (s: string) {
 
 const regexpDoubleLine = /\r\n\r\n|\n\n/;
 
-const theorem_style = function (type: string, content: string) {
+const theoremStyle = function (type: string, content: string) {
   let title = Fixed[type] + '. ';
   return title + content
     .split(regexpDoubleLine)
-    .map(polymerize_tex)
+    .map(polymerize)
     .join('\n')
 }
 

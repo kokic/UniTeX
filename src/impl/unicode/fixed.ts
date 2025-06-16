@@ -1,5 +1,5 @@
 
-import { type Fixed } from '../../cli.ts';
+import { type Fixed } from '../../macro-types.ts';
 
 import Unicode from './unicode-table.ts';
 
@@ -660,59 +660,9 @@ const stableFixed: Fixed = {
   suchthat: '∴',
 };
 
-const theoremEnvExtensions = {
-  proposition: Unicode.render_if_exists('Proposition', 'textbf'),
-  lemma: Unicode.render_if_exists('Lemma', 'textbf'),
-  theorem: Unicode.render_if_exists('Theorem', 'textbf'),
-  corollary: Unicode.render_if_exists('Corollary', 'textbf'),
-  definition: Unicode.render_if_exists('Definition', 'textbf'),
-  remark: Unicode.render_if_exists('Remark', 'textbf'),
-  hypothesis: Unicode.render_if_exists('Hypothesis', 'textbf'),
-  conjecture: Unicode.render_if_exists('Conjecture', 'textbf'),
-  axiom: Unicode.render_if_exists('Axiom', 'textbf'),
-  example: Unicode.render_if_exists('Example', 'textbf'),
-  proof: Unicode.render_if_exists('proof', 'textit'),
-};
-
-const texLikeExtensions = {
-  KaTeX: 'KᴬTᴇX',
-  UniTeX: 'UⁿᵢTᴇX',
-  Agda: '𝐴gda',
-  Lean: 'L∃∀N',
-  BibTeX: 'BIBTᴇX',
-  bTeX: '🍌TᴇX',
-};
-
-const combinatorialExtensions = {
-  sumtop: '⎲',
-  sumbottom: '⎳',
-  lbraceuend: '⎧',
-  lbracemid: '⎨',
-  lbracelend: '⎩',
-};
-
-type FixedOptions = {
-  useTheoremEnvExtensions: boolean,
-  useTexLikeExtensions: boolean,
-  useCombinatorialExtensions: boolean,
-};
-
-const createFixed = (options: FixedOptions): Fixed => {
-  const fixed = stableFixed;
-  options.useTheoremEnvExtensions && Object.assign(fixed, theoremEnvExtensions);
-  options.useTexLikeExtensions && Object.assign(fixed, texLikeExtensions);
-  options.useCombinatorialExtensions && Object.assign(fixed, combinatorialExtensions);
-  return fixed;
-};
-
-const Fixed = createFixed({
-  useTheoremEnvExtensions: true,
-  useTexLikeExtensions: true,
-  useCombinatorialExtensions: true,
-});
 
 const FixedInfixes = [
-  'plus', 'minus',         /* stub */
+  'plus', 'minus',
   'cdot', 'gtrdot', 'cdotp',
   'intercal', 'centerdot', 'land',
   'rhd', 'circ', 'leftthreetimes',
@@ -737,7 +687,6 @@ const FixedInfixes = [
 ];
 export { FixedInfixes };
 
-
 const operatorNames = [
   'arcsin', 'arccos', 'arctan', 'arctg',
   'arcctg', 'arg', 'ch', 'cos',
@@ -751,8 +700,7 @@ const operatorNames = [
   'sh', 'tan', 'tanh', 'tg',
   'th'
 ];
-operatorNames.forEach(x => Fixed[x] = x);
-
+operatorNames.forEach(x => stableFixed[x] = x);
 
 const greeks = [
   'Alpha', 'Beta', 'Gamma', 'Delta',
@@ -768,21 +716,20 @@ const greeks = [
   'rho', 'sigma', 'tau', 'upsilon',
   'phi', 'chi', 'psi', 'omega'
 ]
-greeks.forEach((x, i) => Fixed[x] = Unicode.greeks[i]);
-Fixed.epsilon = 'ϵ';
+greeks.forEach((x, i) => stableFixed[x] = Unicode.greeks[i]);
+stableFixed.epsilon = 'ϵ';
 
+export const stableValue = (key: string): string => stableFixed[key] as string;
 
 // fixed symbol as supscripts
-Unicode.supscripts[Fixed.times] = Unicode.supscripts.x;
+Unicode.supscripts[stableValue("times")] = Unicode.supscripts.x;
 
 // fixed symbol as subscripts
-Unicode.subscripts[Fixed.in] = Fixed.smallin;
-Unicode.subscripts[Fixed.ni] = Fixed.smallni;
-
+Unicode.subscripts[stableValue("in")] = stableValue("smallin");
+Unicode.subscripts[stableValue("ni")] = stableValue("smallni");
 
 // Gothic
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// oxlint-disable-next-line no-unused-vars
 const gothics = ['ahsa', 'bairkan', 'giba', 'dags', 'aihvus'];
 
-
-export default Fixed;
+export default stableFixed;

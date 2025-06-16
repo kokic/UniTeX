@@ -1,6 +1,7 @@
 import { error, Flat, success } from "./parse.ts";
 import { char, StringIterator } from "./string-iterator.ts";
 import { Parser } from "./combinator.ts";
+import "./declare-global.ts";
 
 export const token = (predicate: (c: char) => boolean, err?: string) =>
   new Parser<string>((it, c = it.curr()) =>

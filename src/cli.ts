@@ -1,31 +1,7 @@
 /**
  * CLI - Common LaTeX Implements
  */
-
-export type Fixed = {
-  [key: string]: string;
-};
-
-export type Unary = {
-  [key: string]: (x: string) => string
-};
-
-export type UnaryOptional = {
-  [key: string]: (s: string, t: string) => string
-};
-
-export type Binary = {
-  [key: string]: (x: string, y: string) => string
-};
-
-export type BinaryBlock<Block> = {
-  [key: string]: (x: Block, y: Block) => Block;
-};
-
-export type Environment = {
-  [key: string]: (s: string) => string
-};
-
+import { Fixed, Unary, UnaryOptional, Binary, BinaryBlock, Environment, getFixedValue } from './macro-types.ts';
 
 import {
   character,
@@ -108,7 +84,7 @@ export const createTranslator = <Block>({
   const macro_head = backslash.move(macro_name);
 
   const fixed_macro = macro_head.assume(x => x in fixed)
-    .map(s => fixed[s]);
+    .map(s => getFixedValue(fixed, s));
 
   const unary_ordinary_macro = macro_head.assume(x => x in unary)
     .follow(value)
@@ -183,7 +159,7 @@ export const createTranslator = <Block>({
 
   // block
   const block_infix = token(x => '+-*/<>~'.includes(x))
-    .or(macro_head.assume(x => fixedInfixes.includes(x)).map(x => fixed[x]))
+    .or(macro_head.assume(x => fixedInfixes.includes(x)).map(x => getFixedValue(fixed, x)))
     .map(s => createBlock(` ${s} `));
 
   const block_value = loose(
