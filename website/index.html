@@ -76,16 +76,23 @@
     const { autocompletion, snippetCompletion } = CM["@codemirror/autocomplete"]
 
     const { javascript } = CM["@codemirror/lang-javascript"]
-    
+
     const ofLetters = xs => xs.filter(x => /^[A-Za-z]+$/.test(x));
 
     const fixeds = Object.keys(UniTeX.fixed);
     const unaries = Object.keys(UniTeX.unary);
     const binaries = Object.keys(UniTeX.binary);
 
+    const getFixedDetail = (x) => {
+      const detail = UniTeX.fixed[x];
+      return (typeof detail === 'object' && 'category' in detail)
+        ? `${detail.value} [${detail.category}]`
+        : detail;
+    }
+
     const supplyKeywordOptions = function () {
       const fixed = ofLetters(fixeds)
-        .map(x => ({ label: `\\${x}`, type: 'keyword', detail: UniTeX.fixed[x] }));
+        .map(x => ({ label: `\\${x}`, type: 'keyword', detail: getFixedDetail(x) }));
       const unary = ofLetters(unaries)
         .map(x => snippetCompletion(`\\${x}{\${}}`, { label: `\\${x}{}`, type: 'keyword', detail: UniTeX.unary[x]('a') }));
       const binary = ofLetters(binaries)
@@ -153,8 +160,8 @@
       doc: '',
       extensions: [
         basicSetup,
-        theme, 
-        javascript(), 
+        theme,
+        javascript(),
       ],
       parent: document.querySelector('#console'),
     })
