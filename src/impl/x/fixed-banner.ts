@@ -7,6 +7,7 @@ const FixedBanner: Fixed = {
   Lean: { category: 'UniTeX', value: 'L∃∀N' },
   BibTeX: { category: 'UniTeX', value: 'BIBTᴇX' },
   bTeX: { category: 'UniTeX', value: '🍌TᴇX' },
+  typst: { category: 'UniTeX', value: '𝑡𝑦𝑝𝑠𝑡' },
 };
 
 export default FixedBanner;
