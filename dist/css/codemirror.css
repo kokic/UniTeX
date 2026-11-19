@@ -1,0 +1,46 @@
+.editor {
+  border: 1px solid transparent;
+}
+
+.editor:focus-within {
+  border-color: var(--accent);
+}
+
+.editor .cm-editor {
+  height: 100%;
+  font-size: 0.9rem;
+}
+
+.editor .cm-scroller {
+  overflow: auto;
+  font-family: var(--mono);
+  line-height: 1.65;
+}
+
+.editor .cm-content {
+  padding-block: 1rem;
+}
+
+.editor .cm-line {
+  padding-inline: 0.7rem;
+}
+
+.editor .cm-gutters {
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+}
+
+.editor :is(.cm-activeLine, .cm-activeLineGutter) {
+  background: #f5edf1;
+}
+
+.editor .cm-editor.cm-focused {
+  outline: none;
+}
+
+@media (max-width: 45rem) {
+  .editor .cm-editor {
+    font-size: 1rem;
+  }
+}
