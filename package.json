@@ -1,33 +1,9 @@
 {
   "name": "unitex",
-  "version": "1.0.0",
-  "description": "A transpiler that converts TeX into Unicode (as possible).",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kokic/UniTeX.git"
-  },
-  "type": "module",
-  "keywords": [
-    "tex",
-    "latex",
-    "unicode",
-    "transpiler"
-  ],
-  "author": "kokic",
-  "license": "MIT",
   "private": true,
-  "bugs": {
-    "url": "https://github.com/kokic/UniTeX/issues"
-  },
-  "homepage": "https://github.com/kokic/UniTeX#readme",
-  "exports": "./unitex.ts",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
+  "type": "module",
   "scripts": {
-    "build": "bun build unitex.ts --outfile=website/dist/unitex.js", 
-    "serve": "npm run build && cd website && npx http-server", 
-    "test": "bun test-runner.js"
+    "build": "moon build --target js --release && cp _build/js/release/build/UniTeX.js dist/unitex.js",
+    "dev": "npm run build && moonx cli/serve --host 127.0.0.1 --port 8080 dist"
   }
 }

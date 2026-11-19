@@ -1,0 +1,23 @@
+import {
+  "kokic/cmark",
+  "kokic/cmark/html" @cmark_html,
+  "kokic/katex-parser" @katex,
+  "kokic/katex-parser/html" @katex_html,
+  "kokic/katex-parser/mathml",
+  "kokic/katex-parser/typst",
+  "kokic/katex-parser/unicode",
+}
+
+options(
+  link: {
+    "js": {
+      "exports": [
+        "commands_json:commandsJson",
+        "render_markdown:renderMarkdown",
+        "render_unicode_markdown:renderUnicodeMarkdown",
+        "render_typst_markdown:renderTypstMarkdown",
+      ],
+      "format": "esm",
+    },
+  },
+)

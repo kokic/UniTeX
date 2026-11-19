@@ -1,6 +1,8 @@
-package-lock.json
-
+.DS_Store
+_build/
+/dist/unitex.js
+target/
+.mooncakes/
+.moonagent/
 .local/
-node_modules/
-dist/
-website/dist/unitex.js
+*.mbti
