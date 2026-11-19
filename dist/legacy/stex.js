@@ -73,9 +73,9 @@ function createStexMode(startInMath) {
       state.tokenize = tokenizeText
       return 'keyword'
     }
-    if (stream.match(/^\\[a-zA-Z@]+/)) return 'tag'
+    if (stream.match(/^\\(?:[a-zA-Z@]+|[$&%#{}_,;!\/])/)) return 'macroName'
     if (stream.match(/^[a-zA-Z]+/)) return 'variableName.special'
-    if (stream.match(/^\\[$&%#{}_,;!\/]/) || stream.match(/^[\^_&]/)) return 'tag'
+    if (stream.match(/^[\^_&]/)) return 'operator'
     if (stream.match(/^[+\-<>|=,\/@!*:;'"`~#?]/)) return null
     if (stream.match(/^(\d+\.\d*|\d*\.\d+|\d+)/)) return 'number'
 
@@ -103,10 +103,11 @@ function createStexMode(startInMath) {
     return tokenizeText(stream, state)
   }
 
+  const initialTokenizer = startInMath ? tokenizeMath : tokenizeText
   return {
     name: 'stex',
     startState() {
-      return { commands: [], tokenize: startInMath ? tokenizeMath : tokenizeText }
+      return { commands: [], tokenize: initialTokenizer }
     },
     copyState(state) {
       // Copy the stack, but keep the active command frames shared.
@@ -117,7 +118,7 @@ function createStexMode(startInMath) {
     },
     blankLine(state) {
       state.commands.length = 0
-      state.tokenize = tokenizeText
+      state.tokenize = initialTokenizer
     },
     languageData: {
       commentTokens: { line: '%' },
@@ -125,5 +126,5 @@ function createStexMode(startInMath) {
   }
 }
 
-window.stex = createStexMode(false)
-window.stexMath = createStexMode(true)
+export const stex = createStexMode(false)
+export const stexMath = createStexMode(true)

@@ -65,6 +65,7 @@
 
   <script type="module">
     import { commandsJson, renderMarkdown, renderTypstMarkdown, renderUnicodeMarkdown } from './unitex.js'
+    import { markdownMath } from './markdown-math.js'
 
     const { basicSetup } = CM['codemirror']
     const { EditorView, placeholder } = CM['@codemirror/view']
@@ -151,7 +152,7 @@ $x^2 + y^2 = 1$
       parent: document.getElementById('source'),
       extensions: [
         basicSetup,
-        markdown(),
+        markdown({ extensions: markdownMath }),
         placeholder('edit or paste'),
         EditorView.contentAttributes.of({ 'aria-label': 'Markdown' }),
         EditorView.lineWrapping,
