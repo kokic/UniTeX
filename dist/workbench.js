@@ -6,14 +6,14 @@ const { EditorView, placeholder } = CM['@codemirror/view']
 const { autocompletion, snippetCompletion } = CM['@codemirror/autocomplete']
 const { markdown } = CM['@codemirror/lang-markdown']
 
-const sample = `# Unit circle
+const sample = String.raw`# Euler’s pentagonal number theorem
 
-$x^2 + y^2 = 1$
+The reciprocal of the partition generating function is sparse: its nonzero coefficients occur at the generalized pentagonal numbers $\gdef\pent#1{\frac{#1(3#1-1)}{2}}\pent{k}$ for $k\in\mathbb{Z}$.
 
-| Angle | Point  |
-| :---- | :----- |
-| 0°    | (1, 0) |
-| 90°   | (0, 1) |`
+$$
+\prod_{m=1}^{\infty}(1-q^m)
+= \sum_{k\in\mathbb{Z}}(-1)^k q^{\pent{k}}
+$$`
 
 const mathCompletions = JSON.parse(commandsJson()).flatMap(({ name, templates, unicode, group }) => {
   const option = { label: name, type: 'keyword', detail: [unicode, group].filter(Boolean).join(' ') }

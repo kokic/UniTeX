@@ -32,7 +32,8 @@
 }
 
 .editor :is(.cm-activeLine, .cm-activeLineGutter) {
-  background: #f5edf1;
+  /* CodeMirror draws the selection behind the active line. */
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .editor .cm-editor.cm-focused {
