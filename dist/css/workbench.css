@@ -1,7 +1,7 @@
 @font-face {
-  font-family: JuliaMono;
-  src: local("JuliaMono-Regular"),
-       url("https://cdn.jsdelivr.net/gh/cormullion/juliamono@v0.63.2/webfonts/JuliaMono-Regular.woff2") format("woff2");
+  font-family: "DejaVu Sans Mono";
+  src: local("DejaVu Sans Mono"),
+       url("https://cdn.jsdelivr.net/npm/dejavu-fonts-ttf@2.37.3/ttf/DejaVuSansMono.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -157,7 +157,7 @@
 
 .plain-output {
   margin: 0;
-  font: 400 0.95rem/1.1 JuliaMono, var(--mono);
+  font: 400 0.95rem/1.1 "DejaVu Sans Mono", var(--mono);
 }
 
 .typst-output {
