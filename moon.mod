@@ -1,6 +1,6 @@
 name = "kokic/UniTeX"
 
-version = "2.0.1"
+version = "2.0.2"
 
 import {
   "kokic/katex-parser@0.7.4",

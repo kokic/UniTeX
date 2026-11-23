@@ -142,11 +142,8 @@ fn UnicodeMarkdown::math(
   tex : String,
   display : Bool,
 ) -> String {
-  if parse_math(tex, display, self.macro_store) is Some(nodes) {
-    @unicode.render(nodes)
-  } else {
-    let delimiter = if display { "$$" } else { "$" }
-    "\{delimiter}\{tex}\{delimiter}"
+  @unicode.render(parse_math(tex, display, self.macro_store)) catch {
+    _ => delimited_tex(tex, display)
   }
 }
 

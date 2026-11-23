@@ -252,9 +252,8 @@ fn TypstMarkdown::math(
   tex : String,
   display : Bool,
 ) -> String {
-  let delimiter = if display { "$$" } else { "$" }
-  guard parse_math(tex, display, self.macro_store) is Some(nodes) else {
-    return typst_raw("\{delimiter}\{tex}\{delimiter}", block=display)
+  let nodes = parse_math(tex, display, self.macro_store) catch {
+    _ => return typst_raw(delimited_tex(tex, display), block=display)
   }
   let math = @typst.render(nodes)
   guard !math.is_empty() else { return "" }
