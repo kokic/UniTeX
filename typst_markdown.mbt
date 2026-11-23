@@ -40,9 +40,19 @@ fn TypstMarkdown::body(
       text.write_string(s)
       continue
     }
+    let comment = match event {
+      InlineHtml(s) => split_html_comment(s[:]).map(parts => parts.0)
+      _ => None
+    }
     if !text.is_empty() {
-      flow.inline.write_string(typst_markup(text.to_string()))
+      flow.inline.write_string(
+        typst_markup(text.to_string(), before_comment=comment is Some(_)),
+      )
       text.reset()
+    }
+    if comment is Some(body) {
+      flow.inline.write_string(typst_comment(body))
+      continue
     }
     match event {
       End(_) => break
@@ -89,7 +99,7 @@ fn TypstMarkdown::body(
               typst_raw(self.literal_body(), block=true, lang=lang.to_string()),
             )
           }
-          HtmlBlock => flow.block(typst_raw(self.literal_body(), block=true))
+          HtmlBlock => flow.block(typst_html_block(self.literal_body()))
           FootnoteDefinition(_) => self.skip_footnote_definition()
           _ => flow.block(self.body())
         }
@@ -152,6 +162,7 @@ fn TypstMarkdown::literal_body(self : TypstMarkdown) -> String {
         guard depth > 0 else { break }
         depth -= 1
       }
+      InlineHtml(s) if split_html_comment(s[:]) is Some(_) => ()
       Text(s) | Code(s) | Html(s) | InlineHtml(s) => text.write_string(s)
       InlineMath(tex) | DisplayMath(tex) => text.write_string(tex)
       SoftBreak | HardBreak => text.write_char('\n')
@@ -282,7 +293,55 @@ fn typst_raw(
 }
 
 ///|
-fn typst_markup(text : String) -> String {
+fn split_html_comment(source : StringView) -> (StringView, StringView)? {
+  guard source.has_prefix("<!--") &&
+    source.split_once("-->") is Some((head, tail)) else {
+    return None
+  }
+  // cmark accepts empty comments whose opening and closing markers overlap.
+  Some((head.strip_prefix("<!--").unwrap_or(""), tail))
+}
+
+///|
+fn typst_html_block(source : String) -> String {
+  let out = StringBuilder()
+  let mut rest = source[:]
+  while split_html_comment(rest.trim_start()) is Some((body, tail)) {
+    out.write_string(typst_comment(body))
+    rest = tail
+  }
+  if out.is_empty() {
+    return typst_raw(source, block=true)
+  }
+  if !rest.trim().is_empty() {
+    out.write_char('\n')
+    out.write_string(typst_raw(rest.to_owned(), block=true))
+  }
+  out.to_string()
+}
+
+///|
+fn typst_comment(body : StringView) -> String {
+  let out = StringBuilder()
+  out.write_string("/*")
+  let mut prev = ' '
+  for ch in body {
+    // Typst block comments nest; HTML comment text cannot introduce delimiters.
+    if (prev == '/' && ch == '*') || (prev == '*' && ch == '/') {
+      out.write_char(' ')
+    }
+    out.write_char(ch)
+    prev = ch
+  }
+  if prev == '/' {
+    out.write_char(' ')
+  }
+  out.write_string("*/")
+  out.to_string()
+}
+
+///|
+fn typst_markup(text : String, before_comment~ : Bool = false) -> String {
   let out = StringBuilder()
   let chars = text.iter().to_array()
   let mut line_start = true
@@ -291,7 +350,10 @@ fn typst_markup(text : String) -> String {
     let next = chars.get(i + 1).unwrap_or('\n')
     let escape = match c {
       '\\' | '#' | '[' | ']' | '$' | '*' | '_' | '<' | '@' | '`' | '~' => true
-      '/' => next is ('/' | '*') || (line_start && next.is_whitespace())
+      '/' =>
+        next is ('/' | '*') ||
+        (line_start && next.is_whitespace()) ||
+        (before_comment && i == chars.length() - 1)
       '=' => line_start
       '+' => line_start && next.is_whitespace()
       '-' =>
